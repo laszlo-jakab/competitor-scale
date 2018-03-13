@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Competitor Scale and Mutual Fund Behavior</title>
+  <meta name="description" content="Competitor Scale and Mutual Fund Behavior">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Competitor Scale and Mutual Fund Behavior" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Competitor Scale and Mutual Fund Behavior" />
+  
+  
+  
+
+<meta name="author" content="Laszlo Jakab">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="sec-litReview.html">
+<link rel="next" href="sec-Data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="sec-litReview.html"><a href="sec-litReview.html"><i class="fa fa-check"></i><b>2</b> Literature Review</a></li>
+<li class="chapter" data-level="3" data-path="sec-model.html"><a href="sec-model.html"><i class="fa fa-check"></i><b>3</b> Theoretical Motivation</a><ul>
+<li class="chapter" data-level="3.1" data-path="sec-model.html"><a href="sec-model.html#symmetric-information"><i class="fa fa-check"></i><b>3.1</b> Symmetric Information</a></li>
+<li class="chapter" data-level="3.2" data-path="sec-model.html"><a href="sec-model.html#better-informed-managers"><i class="fa fa-check"></i><b>3.2</b> Better Informed Managers</a></li>
+<li class="chapter" data-level="3.3" data-path="sec-model.html"><a href="sec-model.html#similar-hypotheses-based-on-an-alternative-approach"><i class="fa fa-check"></i><b>3.3</b> Similar Hypotheses Based on an Alternative Approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sec-Data.html"><a href="sec-Data.html"><i class="fa fa-check"></i><b>4</b> Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="sec-Data.html"><a href="sec-Data.html#fund-selection"><i class="fa fa-check"></i><b>4.1</b> Fund Selection</a></li>
+<li class="chapter" data-level="4.2" data-path="sec-Data.html"><a href="sec-Data.html#sec:portfolioWeights"><i class="fa fa-check"></i><b>4.2</b> Portfolio Weights</a></li>
+<li class="chapter" data-level="4.3" data-path="sec-Data.html"><a href="sec-Data.html#sec:CompetitorSize"><i class="fa fa-check"></i><b>4.3</b> <span class="math inline">\(CompetitorSize\)</span> Variable</a></li>
+<li class="chapter" data-level="4.4" data-path="sec-Data.html"><a href="sec-Data.html#portfolio-liquidity-variables"><i class="fa fa-check"></i><b>4.4</b> Portfolio Liquidity Variables</a></li>
+<li class="chapter" data-level="4.5" data-path="sec-Data.html"><a href="sec-Data.html#sec:sumStats"><i class="fa fa-check"></i><b>4.5</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.6" data-path="sec-Data.html"><a href="sec-Data.html#correlations"><i class="fa fa-check"></i><b>4.6</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="sec-portfolio.html"><a href="sec-portfolio.html"><i class="fa fa-check"></i><b>5</b> Competition and Capital Allocation</a><ul>
+<li class="chapter" data-level="5.1" data-path="sec-portfolio.html"><a href="sec-portfolio.html#decreasing-returns-to-competitor-scale"><i class="fa fa-check"></i><b>5.1</b> Decreasing Returns to Competitor Scale</a></li>
+<li class="chapter" data-level="5.2" data-path="sec-portfolio.html"><a href="sec-portfolio.html#empirical-strategy"><i class="fa fa-check"></i><b>5.2</b> Empirical Strategy</a></li>
+<li class="chapter" data-level="5.3" data-path="sec-portfolio.html"><a href="sec-portfolio.html#results"><i class="fa fa-check"></i><b>5.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sec-scandal.html"><a href="sec-scandal.html"><i class="fa fa-check"></i><b>6</b> Evidence From the 2003 Mutual Fund Scandal</a><ul>
+<li class="chapter" data-level="6.1" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:scandalID"><i class="fa fa-check"></i><b>6.1</b> Before and After Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:linkFlows"><i class="fa fa-check"></i><b>6.2</b> Linking <span class="math inline">\(CompetitorSize\)</span> Directly to Abnormal Flows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sec-conclusion.html"><a href="sec-conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="summary-statistics.html"><a href="summary-statistics.html"><i class="fa fa-check"></i><b>A</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="A.1" data-path="summary-statistics.html"><a href="summary-statistics.html#tables"><i class="fa fa-check"></i><b>A.1</b> Tables</a></li>
+<li class="chapter" data-level="A.2" data-path="summary-statistics.html"><a href="summary-statistics.html#figures"><i class="fa fa-check"></i><b>A.2</b> Figures</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html"><i class="fa fa-check"></i><b>B</b> Competitor Size and Fund Performance</a><ul>
+<li class="chapter" data-level="B.1" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:benchmark"><i class="fa fa-check"></i><b>B.1</b> Benchmarking Returns</a></li>
+<li class="chapter" data-level="B.2" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#regression-setup"><i class="fa fa-check"></i><b>B.2</b> Regression Setup</a></li>
+<li class="chapter" data-level="B.3" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#results-1"><i class="fa fa-check"></i><b>B.3</b> Results</a></li>
+<li class="chapter" data-level="B.4" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:heterogeneity"><i class="fa fa-check"></i><b>B.4</b> The Role of Portfolio Liquidity</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="additional-results-capital-allocation.html"><a href="additional-results-capital-allocation.html"><i class="fa fa-check"></i><b>C</b> Additional Results: Capital Allocation</a></li>
+<li class="chapter" data-level="D" data-path="additional-results-mutual-fund-scandal.html"><a href="additional-results-mutual-fund-scandal.html"><i class="fa fa-check"></i><b>D</b> Additional Results: Mutual Fund Scandal</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Competitor Scale and Mutual Fund Behavior</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec:model" class="section level1">
+<h1><span class="header-section-number">3</span> Theoretical Motivation</h1>
+<p>In neoclassical models of capital allocation, firms trade off the benefit of allocating additional capital to their core competence with increasing marginal costs due to decreasing returns to scale. Firms optimally diversify across segments in which they have varying degrees of skill until marginal costs and benefits are equalized. I motivate my study by considering the impact of time-varying investment opportunities (due to competition, for instance) in two such theories of mutual fund behavior, <span class="citation">Berk and Green (<a href="references.html#ref-bg04">2004</a>)</span>, and <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst17L">2017</a><a href="references.html#ref-pst17L">b</a>)</span>.</p>
+<p>Consider fund <span class="math inline">\(i\)</span> managing <span class="math inline">\(q_{i,t}\)</span> assets in <span class="citation">Berk and Green (<a href="references.html#ref-bg04">2004</a>)</span>. The fund posts a fixed expense ratio <span class="math inline">\(f\)</span>,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and splits assets between active and passive management according to <span class="math inline">\(q_{i,t}=A_{i,t}+P_{i,t}\)</span>. While active management allows the fund to take advantage of positive NPV investment opportunities in its area of core competence, it also subjects the fund to quadratic trading costs. I parametrize costs as <span class="math inline">\(C(A_{i,t})=\frac{c_t}{M_t}A_{i,t}^2\)</span>, where <span class="math inline">\(A_{i,t}\)</span> is the amount actively managed, <span class="math inline">\(M_t\)</span> the size of the market, and <span class="math inline">\(c_t\)</span> a constant representing period by period trading costs. Normalizing trading costs by <span class="math inline">\(M_t\)</span> implies that price impact per dollar of investment is lower when total market capitalization is higher. With the normalization, the model’s predictions are in terms of <span class="math inline">\(FundSize_{i,t}=q_{i,t}/M_t\)</span>, instead of the dollar value of assets under management.</p>
+<p>Let <span class="math inline">\(\mu_{i,t}=E(R_{t+1}\mid R_1,\ldots,R_t)\)</span> be the fund’s expected skill, inferred from publicly available information. In addition, suppose that the returns to skill depend on time-varying external factors <span class="math inline">\(x_{i,t}\)</span>, such that expected effective skill is <span class="math inline">\(\mu_{i,t}g(x_{i,t})\)</span>.
+%For convenience, I will later parametrize the function as the product of baseline skill and competitor size <span class="math inline">\(\mu_i(X_{i,t})=\mu_i CompetitorSize^{-\gamma}\)</span>.
+The fund’s net alpha becomes
+<span class="math display">\[\begin{equation}
+\frac{A_{i,t}}{q_{i,t}}\mu_{i,t}g(x_{i,t})-\frac{c_t A_{i,t}^2}{q_{i,t}M_t}-f. 
+\end{equation}\]</span>
+I focus on competitor size as the external constraint of interest. However, <span class="math inline">\(x_{i,t}\)</span> could be any time-varying external factor affecting the fund’s investment opportunities.</p>
+<p>Following equation (26) in <span class="citation">Berk and Green (<a href="references.html#ref-bg04">2004</a>)</span>, the fund’s profit maximizing choice for the amount of assets to keep under active management, conditional on overall size and market conditions, is <span class="math inline">\(A_{i,t}^\ast(\mu_{i,t}g(x_{i,t}))=\frac{\mu_{i,t}g(x_{i,t}) M_t}{2c_t}\)</span>. This implies that the fraction of assets under active management is governed by the first-order condition:
+<span class="math display" id="eq:FOC">\[\begin{equation}
+\frac{A_{i,t}^\ast}{q_{i,t}}=\frac{\mu_{i,t}g(x_{i,t})}{2c_t(q_{i,t}/M_t)}.
+\tag{3.1}
+\end{equation}\]</span>
+Conditional on its size, the fund optimally responds to deterioration in the NPV of investment opportunities by scaling back active management.</p>
+<div id="symmetric-information" class="section level2">
+<h2><span class="header-section-number">3.1</span> Symmetric Information</h2>
+<p>In perfect capital markets investors are symmetrically informed of the fund’s time varying investment opportunities, and the capital allocated to the fund increases with the square of <span class="math inline">\(\mu_{i,t}g(x_{i,t})\)</span>. The market clearing zero net alpha condition implies fund size of:
+<span class="math display" id="eq:zeroAlpha">\[\begin{equation}
+\frac{q_{i,t}^\ast}{M_t}=\frac{(\mu_{i,t}g(x_{i,t}))^2}{4c_t f}.
+\tag{3.2}
+\end{equation}\]</span>
+Combining equation <a href="sec-model.html#eq:FOC">(3.1)</a> and <a href="sec-model.html#eq:zeroAlpha">(3.2)</a>, the equilibrium fraction of assets under active management is:
+<span class="math display" id="eq:capMkt">\[\begin{equation}
+\frac{A_{i,t}^\ast}{q_{i,t}^\ast}=\frac{2f}{\mu_{i,t}g(x_{i,t})}.
+\tag{3.3}
+\end{equation}\]</span>
+In perfect capital markets with symmetrically informed fund managers and outside investors, the share of assets under active management is decreasing in the profitability of investment opportunities <span class="math inline">\(\mu_{i,t}g(x_{i,t})\)</span>, conditional on fund expense ratio.</p>
+<p>Testing the two above predictions separately would require modeling the evolution of <span class="math inline">\(\mu_{i,t}\)</span>. However, we can combine the equilibrium conditions to eliminate fund skill and take logs to obtain
+<span class="math display" id="eq:csEq">\[\begin{equation}
+2\ln(A_{i,t}^\ast/q^\ast_{i,t})=\ln(f) - \ln(c_t) - \ln(q^\ast_{i,t}/M_t).
+\tag{3.4}
+\end{equation}\]</span>
+This leads to the first hypothesis.</p>
+<p>Hypothesis 1: <strong>Symmetric Information</strong></p>
+<p><em>If managers and investors share the same beliefs about the fund’s investment opportunities, the share of assets under active management is fully determined by fund size and expense ratio. Business conditions such as competition play no role in determining capital allocation beyond their effect on fund size.</em></p>
+</div>
+<div id="better-informed-managers" class="section level2">
+<h2><span class="header-section-number">3.2</span> Better Informed Managers</h2>
+<p>Suppose that managers observe <span class="math inline">\(x_{i,t}\)</span>, but investors do not. Investors allocate funds as if <span class="math inline">\(g(x_{i,t})=1\)</span>,
+<span class="math display">\[\begin{equation}
+\frac{A_{i,t}^\ast}{q_{i,t}^\ast}=\frac{2f}{\mu_{i,t}}.
+\end{equation}\]</span>
+The equilibrium relation between the share under active management, fund size, and expense ratio now contains an additional term
+<span class="math display" id="eq:csEQa">\[\begin{equation}
+2\ln(A_{i,t}^\ast/q^\ast_{i,t})=\ln(f) - \ln(c_t) - \ln(q^\ast_{i,t}/M_t) + 2\ln(g(x_{i,t}))
+\tag{3.5}
+\end{equation}\]</span>
+This gives an alternative hypothesis.</p>
+<p>Hypothesis 2: <em>Asymmetric Information</em></p>
+<p><em>If managers have superior information about the fund’s time-varying investment opportunities relative to outside investors, the share of assets under active management will be positively related to variation in the profitability of opportunities. Business conditions such as competition play an additional role in determining capital allocation beyond their effect on fund size.</em></p>
+<p>Note that under asymmetric information, net alpha is equal to <span class="math inline">\(f_{i,t}(g(x_{i,t})^2-1)\)</span>. If managers are better informed of investment opportunities than outside investors, we would expect fund to make more when they take more active positions. In the cross-section, conditional on size, we would expect more active funds to perform better, potentially rationalizing findings that variables such as active share or industry concentration predict returns <span class="citation">(Cremers and Petajisto <a href="references.html#ref-cp09">2009</a>; Kacperczyk, Sialm, and Zheng <a href="references.html#ref-ksz05">2005</a>)</span>.</p>
+</div>
+<div id="similar-hypotheses-based-on-an-alternative-approach" class="section level2">
+<h2><span class="header-section-number">3.3</span> Similar Hypotheses Based on an Alternative Approach</h2>
+<p>I develop hypotheses 1 and 2 based on <span class="citation">Berk and Green (<a href="references.html#ref-bg04">2004</a>)</span> and its particular assumptions, including fixed expense ratios and a particular cost structure. A different approach based on <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst17L">2017</a><a href="references.html#ref-pst17L">b</a>)</span> yields similar implications without assuming fixed expense ratios, and with the additional feature of multi-dimensional, micro-founded trading costs.</p>
+<p><span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst17L">2017</a><a href="references.html#ref-pst17L">b</a>)</span> derive from first principles that larger funds that trade more and hold less liquid portfolios incur higher trading costs.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Specifically, trading costs are quadratic in <span class="math inline">\(TL^{-1/2}\)</span>, the ratio of turnover <span class="math inline">\(T\)</span> to the (square root of) portfolio liquidity <span class="math inline">\(L\)</span>. In their model, funds trade off the costs and benefits of higher turnover and lower portfolio liquidity. The assumption is that funds can exploit a greater number of opportunities by trading more; conversely, they can increase alpha by focusing on their best ideas by holding less liquid portfolios. The fund’s first-order condition, given fund size and trading opportunities, is
+<span class="math display">\[\begin{equation}
+(T_{i,t}L_{i,t}^{-\frac{1}{2}})^\ast = \frac{\mu_{i,t}g(x_{i,t})}{2c_t(q_{i,t}/M_t)}.
+\label{eq:PSTfoc}
+\end{equation}\]</span>
+Under symmetric information, the market clearing zero net alpha condition implies the same fund size <span class="math inline">\(\frac{q_{i,t}^\ast}{M_t}=\frac{(\mu_{i,t}g(x_{i,t}))^2}{4c_t f_{i,t}}\)</span> as before. In perfect capital markets with symmetrically informed outside investors, equilibrium turnover-liquidity ratio is negatively related to profit opportunities:
+<span class="math display">\[\begin{equation}
+(T_{i,t}L_{i,t}^{-\frac{1}{2}})^\ast=\frac{2f_{i,t}}{\mu_{i,t}g(x_{i,t})}.
+\label{eq:PSTcapMkt}
+\end{equation}\]</span>
+With symmetric information, we have the equilibrium relation
+<span class="math display">\[\begin{equation}
+2\ln(TL^{-1/2})^\ast=\ln(f_{i,t}) - \ln(c_t) - \ln(q^\ast_{i,t}/M_t).
+\label{eq:csEqTL}
+\end{equation}\]</span>
+With asymmetric information, the information wedge influences internal capital allocation beyond its effect on fund size
+<span class="math display">\[\begin{equation}
+2\ln(TL^{-1/2})^\ast=\ln(f_{i,t}) - \ln(c_t) - \ln(q^\ast_{i,t}/M_t)+2\ln(g(x_{i,t})).
+\label{eq:csEqaTL}
+\end{equation}\]</span></p>
+<p>The approach based on the  model reproduces hypotheses 1 and 2, with turnover to portfolio liquidity ratio <span class="math inline">\(TL^{-1/2}\)</span> taking the place of share of assets under active management. Ultimately, both the share of actively managed assets and the turnover to portfolio liquidity ratio measure the extent to which fund managers engage in active pursuit of profitable investment opportunities. An advantage of this formulation of the model is that portfolio liquidity is a multidimensional concept. Portfolio liquidity can be decomposed into a product of stock liquidity (market capitalization of holdings) and diversification, the latter of which can be further decomposed as a product of coverage (number of holdings relative to number of tradeable stocks) and balance (a measure of portfolio concentration). This framework allows the researcher to study each dimension, potentially allowing for a richer characterization of fund behavior.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>Following Berk and Green, I assume that the fixed expense ratio <span class="math inline">\(f\)</span> satisfies <span class="math inline">\(f&lt;f^\ast\)</span>, where <span class="math inline">\(f^\ast\)</span> is the expense ratio corresponding to profit maximizing fund size <span class="math inline">\(q^\ast\)</span>.<a href="sec-model.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>The key assumptions are that funds (expect to) turn over their portfolios proportionately, and incur trading costs for each stock that increase in the size of the trade relative to the stock’s market capitalization.<a href="sec-model.html#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sec-litReview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-Data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-model.Rmd",
+"text": "Edit"
+},
+"download": ["_main.pdf", "_main.epub"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed",
+"edit": null,
+"download": null,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

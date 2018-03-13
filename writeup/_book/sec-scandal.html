@@ -1,0 +1,3356 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Competitor Scale and Mutual Fund Behavior</title>
+  <meta name="description" content="Competitor Scale and Mutual Fund Behavior">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Competitor Scale and Mutual Fund Behavior" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Competitor Scale and Mutual Fund Behavior" />
+  
+  
+  
+
+<meta name="author" content="Laszlo Jakab">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="sec-portfolio.html">
+<link rel="next" href="sec-conclusion.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="sec-litReview.html"><a href="sec-litReview.html"><i class="fa fa-check"></i><b>2</b> Literature Review</a></li>
+<li class="chapter" data-level="3" data-path="sec-model.html"><a href="sec-model.html"><i class="fa fa-check"></i><b>3</b> Theoretical Motivation</a><ul>
+<li class="chapter" data-level="3.1" data-path="sec-model.html"><a href="sec-model.html#symmetric-information"><i class="fa fa-check"></i><b>3.1</b> Symmetric Information</a></li>
+<li class="chapter" data-level="3.2" data-path="sec-model.html"><a href="sec-model.html#better-informed-managers"><i class="fa fa-check"></i><b>3.2</b> Better Informed Managers</a></li>
+<li class="chapter" data-level="3.3" data-path="sec-model.html"><a href="sec-model.html#similar-hypotheses-based-on-an-alternative-approach"><i class="fa fa-check"></i><b>3.3</b> Similar Hypotheses Based on an Alternative Approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sec-Data.html"><a href="sec-Data.html"><i class="fa fa-check"></i><b>4</b> Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="sec-Data.html"><a href="sec-Data.html#fund-selection"><i class="fa fa-check"></i><b>4.1</b> Fund Selection</a></li>
+<li class="chapter" data-level="4.2" data-path="sec-Data.html"><a href="sec-Data.html#sec:portfolioWeights"><i class="fa fa-check"></i><b>4.2</b> Portfolio Weights</a></li>
+<li class="chapter" data-level="4.3" data-path="sec-Data.html"><a href="sec-Data.html#sec:CompetitorSize"><i class="fa fa-check"></i><b>4.3</b> <span class="math inline">\(CompetitorSize\)</span> Variable</a></li>
+<li class="chapter" data-level="4.4" data-path="sec-Data.html"><a href="sec-Data.html#portfolio-liquidity-variables"><i class="fa fa-check"></i><b>4.4</b> Portfolio Liquidity Variables</a></li>
+<li class="chapter" data-level="4.5" data-path="sec-Data.html"><a href="sec-Data.html#sec:sumStats"><i class="fa fa-check"></i><b>4.5</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.6" data-path="sec-Data.html"><a href="sec-Data.html#correlations"><i class="fa fa-check"></i><b>4.6</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="sec-portfolio.html"><a href="sec-portfolio.html"><i class="fa fa-check"></i><b>5</b> Competition and Capital Allocation</a><ul>
+<li class="chapter" data-level="5.1" data-path="sec-portfolio.html"><a href="sec-portfolio.html#decreasing-returns-to-competitor-scale"><i class="fa fa-check"></i><b>5.1</b> Decreasing Returns to Competitor Scale</a></li>
+<li class="chapter" data-level="5.2" data-path="sec-portfolio.html"><a href="sec-portfolio.html#empirical-strategy"><i class="fa fa-check"></i><b>5.2</b> Empirical Strategy</a></li>
+<li class="chapter" data-level="5.3" data-path="sec-portfolio.html"><a href="sec-portfolio.html#results"><i class="fa fa-check"></i><b>5.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sec-scandal.html"><a href="sec-scandal.html"><i class="fa fa-check"></i><b>6</b> Evidence From the 2003 Mutual Fund Scandal</a><ul>
+<li class="chapter" data-level="6.1" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:scandalID"><i class="fa fa-check"></i><b>6.1</b> Before and After Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:linkFlows"><i class="fa fa-check"></i><b>6.2</b> Linking <span class="math inline">\(CompetitorSize\)</span> Directly to Abnormal Flows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sec-conclusion.html"><a href="sec-conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="summary-statistics.html"><a href="summary-statistics.html"><i class="fa fa-check"></i><b>A</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="A.1" data-path="summary-statistics.html"><a href="summary-statistics.html#tables"><i class="fa fa-check"></i><b>A.1</b> Tables</a></li>
+<li class="chapter" data-level="A.2" data-path="summary-statistics.html"><a href="summary-statistics.html#figures"><i class="fa fa-check"></i><b>A.2</b> Figures</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html"><i class="fa fa-check"></i><b>B</b> Competitor Size and Fund Performance</a><ul>
+<li class="chapter" data-level="B.1" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:benchmark"><i class="fa fa-check"></i><b>B.1</b> Benchmarking Returns</a></li>
+<li class="chapter" data-level="B.2" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#regression-setup"><i class="fa fa-check"></i><b>B.2</b> Regression Setup</a></li>
+<li class="chapter" data-level="B.3" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#results-1"><i class="fa fa-check"></i><b>B.3</b> Results</a></li>
+<li class="chapter" data-level="B.4" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:heterogeneity"><i class="fa fa-check"></i><b>B.4</b> The Role of Portfolio Liquidity</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="additional-results-capital-allocation.html"><a href="additional-results-capital-allocation.html"><i class="fa fa-check"></i><b>C</b> Additional Results: Capital Allocation</a></li>
+<li class="chapter" data-level="D" data-path="additional-results-mutual-fund-scandal.html"><a href="additional-results-mutual-fund-scandal.html"><i class="fa fa-check"></i><b>D</b> Additional Results: Mutual Fund Scandal</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Competitor Scale and Mutual Fund Behavior</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec:scandal" class="section level1">
+<h1><span class="header-section-number">6</span> Evidence From the 2003 Mutual Fund Scandal</h1>
+<p>In September 2003, the New York Attorney General’s office launched investigations into several high-profile mutual fund families for illegal trading practices. Families were charged with allowing favored clients to trade fund shares at stale prices at the expense of ordinary shareholders <span class="citation">(Houge and Wellman <a href="references.html#ref-hw05">2005</a>; Zitzewitz <a href="references.html#ref-zitzewitz06">2006</a>)</span>. By the end of October 2004, official investigations had been announced against a total of twenty-five mutual fund families.</p>
+<p><span class="citation">Houge and Wellman (<a href="references.html#ref-hw05">2005</a>)</span> and <span class="citation">McCabe (<a href="references.html#ref-mccabe08">2008</a>)</span> argue that investors penalized tainted funds with large outflows. This is borne out in my data. Figure <a href="sec-scandal.html#fig:scandalFlows">6.1</a> plots mean net flows by scandal involvement.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<div class="figure"><span id="fig:scandalFlows"></span>
+<img src="06-scandal_files/figure-html/scandalFlows-1.png" alt="Net flows and relative size of funds involved in the scandal. I categorize funds according to Table 1 in @hw05. The left panel plots mean monthly net flows, defined according to @st98, by scandal involvement. The vertical line corresponds to August 2003, the month before the announcement of the first investigations. The right panel shows the total net assets of funds coming under investigation in a given month, relative to the total size of funds in my sample." width="2400" />
+<p class="caption">
+Figure 6.1: Net flows and relative size of funds involved in the scandal. I categorize funds according to Table 1 in <span class="citation">Houge and Wellman (<a href="references.html#ref-hw05">2005</a>)</span>. The left panel plots mean monthly net flows, defined according to <span class="citation">Sirri and Tufano (<a href="references.html#ref-st98">1998</a>)</span>, by scandal involvement. The vertical line corresponds to August 2003, the month before the announcement of the first investigations. The right panel shows the total net assets of funds coming under investigation in a given month, relative to the total size of funds in my sample.
+</p>
+</div>
+<p>The two series track each other closely in the two years prior to the scandal, and diverge abruptly in September 2003. The wedge between the two groups persists until the end of 2006, coincident with the final settlements negotiated with the Securities and Exchange Commission <span class="citation">(Zitzewitz <a href="references.html#ref-zitzewitz09">2009</a>)</span>.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
+<p>I conclude that the scandal caused a significant reallocation of resources away from tainted funds. Unless flows are perfectly offsetting, this shift will cause a relative reduction in the competitor size of the most similar funds. Under decreasing returns to competitor scale, we would expect the investment opportunities of these funds to improve in relative terms, leading them to differentially expand active management and earn higher returns.</p>
+<p>I test these hypotheses by comparing untainted funds with differential pre-scandal similarity to prospective scandal funds. I discard tainted funds as the internal upheaval following the scandal likely had a direct impact on their performance and investment behavior.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> I take two approaches. The first is a straightforward difference-in-differences-style comparison of fund outcomes before and after the scandal as a function of their pre-scandal exposure to tainted funds. The second approach links fund outcomes directly to variation in competitor size attributable to abnormal flows among tainted funds. I first present the analysis on fund capital allocation, followed up by the analysis of fund performance.</p>
+<div id="sec:scandalID" class="section level2">
+<h2><span class="header-section-number">6.1</span> Before and After Analysis</h2>
+<p>I relate fund-by-fund differences in pre-scandal <span class="math inline">\([2003m8-W\)</span>, <span class="math inline">\(2003m8]\)</span> and post-scandal <span class="math inline">\([2004m11\)</span>, $2004m11+W] $ outcomes to pre-scandal exposure to competition from tainted funds. I consider <span class="math inline">\(W\in\{1,2\}\)</span> year windows. For a fund to be included in the estimation sample, it must have available holdings information for August 2003, and I must observe it both in the pre- and the post-scandal period.</p>
+<p>I measure pre-scandal exposure as the proportion of competitor size attributable to prospective tainted funds as of August 2003. Let <span class="math inline">\(\Phi\)</span> denote the set of funds that belong to families later investigated, and define
+<span class="math display">\[\begin{equation}
+ScandalExposure_i = \frac{\sum_{j\in \Phi} \psi_{i,j,2003m8} FundSize_{j,2003m8}}{\sum_{j\neq i}\psi_{i,j,2003m8} FundSize_{j,2003m8}}.
+\end{equation}\]</span>
+On average, <span class="math inline">\(22\)</span>% of untainted funds’ competitor size is due to tainted fund families. Exposure ranges from 7% to over 40%, with upper quartile 25% and lower quartile 19%.</p>
+<p>To present interpretable summary statistics, I sort funds into high and low exposure groups depending on whether their <span class="math inline">\(ScandalExposure\)</span> is above or below the cross-sectional median. Table~ gives a snapshot taken in August 2003. High exposure funds are slightly smaller, have higher turnover to portfolio liquidity ratios, expense ratios, <span class="math inline">\(CompetitorSize\)</span>, and worse performance. Fund age is almost identical across the two groups, limiting the plausibility of life cycle effects as an explanation for differences in outcome paths.</p>
+<p>Figure <a href="sec-scandal.html#fig:exposureDID">6.2</a> summarizes the identifying variation in the data. I plot the groupwise cross-sectional mean of within-fund deviations for competitor size, log active share, and log turnover to portfolio liquidity ratio. The differential impact of the scandal across groups is identified by the difference in the pre- and post-scandal period wedges between the series. The <span class="math inline">\(CompetitorSize\)</span> of the low exposure group overall trends upward, despite a small dip in the middle of the scandal period. The <span class="math inline">\(CompetitorSize\)</span> of high exposure funds drops more substantively during the scandal, and remains flat for almost a year after the end of the scandal period. The historical accident of scandal-related outflows at involved funds appear to have insulated their closest competitors from contemporaneous increases in the aggregate size of the industry.</p>
+<div class="figure"><span id="fig:exposureDID"></span>
+<img src="06-scandal_files/figure-html/exposureDID-1.png" alt="Untainted fund outcomes by exposure to competition from scandal funds. Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $\ln(CompetitorSize)$, $\ln(AS)$, and $\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across exposure groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across the two groups. Vertical lines correspond to August 2003, the month before the announcement of the first investigations, and October 2004, the month of the last investigations according to Table 1 of @hw05." width="2700" />
+<p class="caption">
+Figure 6.2: Untainted fund outcomes by exposure to competition from scandal funds. Funds are sorted into high and low exposure groups depending on whether their <span class="math inline">\(ScandalExposure\)</span> is above or below the cross-sectional median. The <span class="math inline">\(\ln(CompetitorSize)\)</span>, <span class="math inline">\(\ln(AS)\)</span>, and <span class="math inline">\(\ln(TL^{-1/2})\)</span> panels plot cross-sectional means of the variables’ deviations from their respective within fund means across exposure groups. The <span class="math inline">\(R^{FF3}\)</span> panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across the two groups. Vertical lines correspond to August 2003, the month before the announcement of the first investigations, and October 2004, the month of the last investigations according to Table 1 of <span class="citation">Houge and Wellman (<a href="references.html#ref-hw05">2005</a>)</span>.
+</p>
+</div>
+<p>The turnover to portfolio liquidity ratio of the low exposure group exhibits a steady decline until late 2005, despite a momentary increase during the scandal. The high exposure group shows parallel trends until the beginning of the scandal period. Consistent with improved investment opportunities during the scandal, high exposure funds substantially decreased portfolio liquidity and increased turnover during 2004. The gap in within-fund turnover to portfolio liquidity ratios only begins to close at the end of 2006 as abnormal flows at scandal funds vanish. Active share of low exposure funds is essentially flat during this period, whereas active share of high exposure funds show steady increases during and after the scandal.</p>
+<p>Given the volatility of returns, for easier comparison of fund performance I plot the difference between high and low exposure group cross-sectional means of within-fund three factor adjusted returns. High exposure funds relatively underperform low exposure funds in the pre-scandal period, are essentially even during the scandal, and enjoy a string of relative outperformance in the year after the end of the scandal period. The differential relative before and after performance of the two groups is consistent with decreasing returns to competitor scale.</p>
+<p>To formally test for differential differences in before and after outcomes as a function of ex ante exposure to competition from prospective scandal funds, I perform regressions of the form
+<span class="math display" id="eq:didReg">\[\begin{equation}
+y_{i,t} = \alpha_i + \alpha_t + \gamma \left( \mathbb{I}_t \times ScandalExposure_i \right) + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t},
+\tag{6.1}
+\end{equation}\]</span>
+where <span class="math inline">\(\mathbf{X}_{i,t}\)</span> includes log fund size and expense ratio, as dictated by theory. In the regression, exposure is a continuous variable.
+I double cluster standard errors by fund and portfolio group <span class="math inline">\(\times\)</span> time. I normalize <span class="math inline">\(ScandalExposure\)</span> by its interquartile range (<span class="math inline">\(\approx 6\)</span>%).</p>
+<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:scandalSpillover">Table 6.1: </span>Capital Allocation and the Scandal: Before and After Analysis
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dep. Var.:
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(C.S.)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(AS)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(TL^{-1/2})\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(L)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(S)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(D)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(C)\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\ln(B)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="22">
+<td colspan="9" style="text-align: center;">
+<strong>1 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\mathbb{I}\times ScanEx\)</span>
+</td>
+<td style="text-align:center;">
+-0.034*
+</td>
+<td style="text-align:center;">
+0.029***
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+-0.100***
+</td>
+<td style="text-align:center;">
+-0.105***
+</td>
+<td style="text-align:center;">
+-0.039*
+</td>
+<td style="text-align:center;">
+-0.032**
+</td>
+<td style="text-align:left;">
+-0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+(0.031)
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:left;">
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+0.149***
+</td>
+<td style="text-align:center;">
+-0.018***
+</td>
+<td style="text-align:center;">
+-0.205***
+</td>
+<td style="text-align:center;">
+0.184***
+</td>
+<td style="text-align:center;">
+0.088***
+</td>
+<td style="text-align:center;">
+0.148***
+</td>
+<td style="text-align:center;">
+0.074***
+</td>
+<td style="text-align:left;">
+0.084***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.017)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.013)
+</td>
+<td style="text-align:center;">
+(0.021)
+</td>
+<td style="text-align:center;">
+(0.016)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(f)\)</span>
+</td>
+<td style="text-align:center;">
+-0.097
+</td>
+<td style="text-align:center;">
+0.004
+</td>
+<td style="text-align:center;">
+0.113
+</td>
+<td style="text-align:center;">
+-0.073
+</td>
+<td style="text-align:center;">
+-0.169**
+</td>
+<td style="text-align:center;">
+0.040
+</td>
+<td style="text-align:center;">
+0.105
+</td>
+<td style="text-align:left;">
+-0.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.073)
+</td>
+<td style="text-align:center;">
+(0.027)
+</td>
+<td style="text-align:center;">
+(0.117)
+</td>
+<td style="text-align:center;">
+(0.108)
+</td>
+<td style="text-align:center;">
+(0.076)
+</td>
+<td style="text-align:center;">
+(0.091)
+</td>
+<td style="text-align:center;">
+(0.072)
+</td>
+<td style="text-align:left;">
+(0.071)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(T)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.063***
+</td>
+<td style="text-align:center;">
+-0.065***
+</td>
+<td style="text-align:center;">
+-0.025
+</td>
+<td style="text-align:center;">
+0.023
+</td>
+<td style="text-align:left;">
+-0.049***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(D)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.216***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(S)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.425***
+</td>
+<td style="text-align:center;">
+-0.218***
+</td>
+<td style="text-align:left;">
+-0.236***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.036)
+</td>
+<td style="text-align:center;">
+(0.033)
+</td>
+<td style="text-align:left;">
+(0.039)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(B)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.056**
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(C)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+-0.077**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+(0.034)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Time
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+13,666
+</td>
+<td style="text-align:center;">
+11,773
+</td>
+<td style="text-align:center;">
+46,660
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:left;">
+13,291
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.895
+</td>
+<td style="text-align:center;">
+0.878
+</td>
+<td style="text-align:center;">
+0.860
+</td>
+<td style="text-align:center;">
+0.943
+</td>
+<td style="text-align:center;">
+0.980
+</td>
+<td style="text-align:center;">
+0.914
+</td>
+<td style="text-align:center;">
+0.914
+</td>
+<td style="text-align:left;">
+0.848
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.065
+</td>
+<td style="text-align:center;">
+0.027
+</td>
+<td style="text-align:center;">
+0.043
+</td>
+<td style="text-align:center;">
+0.083
+</td>
+<td style="text-align:center;">
+0.154
+</td>
+<td style="text-align:center;">
+0.114
+</td>
+<td style="text-align:center;">
+0.071
+</td>
+<td style="text-align:left;">
+0.063
+</td>
+</tr>
+<tr grouplength="22">
+<td colspan="9" style="text-align: center;">
+<strong>2 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\mathbb{I}\times ScanEx\)</span>
+</td>
+<td style="text-align:center;">
+-0.034*
+</td>
+<td style="text-align:center;">
+0.029***
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+-0.100***
+</td>
+<td style="text-align:center;">
+-0.105***
+</td>
+<td style="text-align:center;">
+-0.039*
+</td>
+<td style="text-align:center;">
+-0.032**
+</td>
+<td style="text-align:left;">
+-0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+(0.031)
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:left;">
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+0.149***
+</td>
+<td style="text-align:center;">
+-0.018***
+</td>
+<td style="text-align:center;">
+-0.205***
+</td>
+<td style="text-align:center;">
+0.184***
+</td>
+<td style="text-align:center;">
+0.088***
+</td>
+<td style="text-align:center;">
+0.148***
+</td>
+<td style="text-align:center;">
+0.074***
+</td>
+<td style="text-align:left;">
+0.084***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.017)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.013)
+</td>
+<td style="text-align:center;">
+(0.021)
+</td>
+<td style="text-align:center;">
+(0.016)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(f)\)</span>
+</td>
+<td style="text-align:center;">
+-0.097
+</td>
+<td style="text-align:center;">
+0.004
+</td>
+<td style="text-align:center;">
+0.113
+</td>
+<td style="text-align:center;">
+-0.073
+</td>
+<td style="text-align:center;">
+-0.169**
+</td>
+<td style="text-align:center;">
+0.040
+</td>
+<td style="text-align:center;">
+0.105
+</td>
+<td style="text-align:left;">
+-0.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.073)
+</td>
+<td style="text-align:center;">
+(0.027)
+</td>
+<td style="text-align:center;">
+(0.117)
+</td>
+<td style="text-align:center;">
+(0.108)
+</td>
+<td style="text-align:center;">
+(0.076)
+</td>
+<td style="text-align:center;">
+(0.091)
+</td>
+<td style="text-align:center;">
+(0.072)
+</td>
+<td style="text-align:left;">
+(0.071)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(T)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.063***
+</td>
+<td style="text-align:center;">
+-0.065***
+</td>
+<td style="text-align:center;">
+-0.025
+</td>
+<td style="text-align:center;">
+0.023
+</td>
+<td style="text-align:left;">
+-0.049***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(D)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.216***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(S)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.425***
+</td>
+<td style="text-align:center;">
+-0.218***
+</td>
+<td style="text-align:left;">
+-0.236***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.036)
+</td>
+<td style="text-align:center;">
+(0.033)
+</td>
+<td style="text-align:left;">
+(0.039)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(B)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.056**
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.025)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(C)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+-0.077**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+(0.034)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Time
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+13,666
+</td>
+<td style="text-align:center;">
+11,773
+</td>
+<td style="text-align:center;">
+46,660
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:center;">
+13,291
+</td>
+<td style="text-align:left;">
+13,291
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.895
+</td>
+<td style="text-align:center;">
+0.878
+</td>
+<td style="text-align:center;">
+0.860
+</td>
+<td style="text-align:center;">
+0.943
+</td>
+<td style="text-align:center;">
+0.980
+</td>
+<td style="text-align:center;">
+0.914
+</td>
+<td style="text-align:center;">
+0.914
+</td>
+<td style="text-align:left;">
+0.848
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.065
+</td>
+<td style="text-align:center;">
+0.027
+</td>
+<td style="text-align:center;">
+0.043
+</td>
+<td style="text-align:center;">
+0.083
+</td>
+<td style="text-align:center;">
+0.154
+</td>
+<td style="text-align:center;">
+0.114
+</td>
+<td style="text-align:center;">
+0.071
+</td>
+<td style="text-align:left;">
+0.063
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Dependent variables are identified in the column headers. <span class="math inline">\(\ln(C.S.)\)</span> is an abbreviation for <span class="math inline">\(\ln(CompetitorSize)\)</span>. For regressions with <span class="math inline">\(\ln(TL^{-1/2})\)</span> as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period <span class="math inline">\(\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \}\)</span>, where <span class="math inline">\(W\)</span> corresponds to the number of years specified. <span class="math inline">\(ScandalExposure\)</span> (abbreviated to <span class="math inline">\(ScanEx\)</span>) is the fraction of untainted funds’ <span class="math inline">\(CompetitorSize\)</span> due to portfolio similarity with future scandal funds in August 2003 (see Section <a href="sec-scandal.html#sec:scandalID">6.1</a> for details). I normalize <span class="math inline">\(ScandalExposure\)</span> by its interquartile range. <span class="math inline">\(\mathbb{I}\)</span> is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group <span class="math inline">\(\times\)</span> quarter, and reported in parentheses. Asterisks denote statistical significance: <span class="math inline">\(\ast\ast\ast\)</span> p$&lt;$0.01, <span class="math inline">\(\ast\ast\)</span> p$&lt;$0.05, <span class="math inline">\(\ast\)</span> p$&lt;$0.1.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Table <a href="sec-scandal.html#tab:scandalSpillover">6.1</a> presents results. The one (two) year window estimate implies a <span class="math inline">\(6.7\)</span>% (<span class="math inline">\(3.5\)</span>%) post-scandal reduction in <span class="math inline">\(CompetitorSize\)</span> for untainted funds at the 75<span class="math inline">\(^{\text{th}}\)</span> percentile of <span class="math inline">\(ScandalExposure\)</span> relative to untainted funds at the 25<span class="math inline">\(^{\text{th}}\)</span> percentile of <span class="math inline">\(ScandalExposure\)</span>. The same difference in <span class="math inline">\(ScandalExposure\)</span> is associated with a <span class="math inline">\(2.4\)</span>% (<span class="math inline">\(2.6\)</span>%) relative increase in active share, and a <span class="math inline">\(6.3\)</span>% (<span class="math inline">\(4.4\)</span>%) increase in the turnover to portfolio liquidity ratio. The coefficients also imply a relative decline in portfolio liquidity and its components for high exposure funds. These findings are consistent with high exposure funds increasing activeness in response to softened competition.</p>
+<p>The main concern with identification based on comparing pre- and post-event periods across groups is that the measured effect might be the manifestation of favorable trends across the groups in the pre-period. I test for differential trends in the pre-period as a function of <span class="math inline">\(ScandalExposure\)</span> by estimating the regression
+<span class="math display">\[\begin{equation}
+y_{i,t} = \alpha_i + \alpha_t + \gamma \left(t \times ScandalExposure_i\right) + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t},
+\end{equation}\]</span>
+where <span class="math inline">\(t\)</span> is a linear time trend and <span class="math inline">\(\mathbf{X}_{i,t}\)</span> includes the usual controls. I estimate this regression on pre-period observations. Differential pre-trends by <span class="math inline">\(ScandalExposure\)</span> would be a concern if the coefficient on the trend interaction was statistically significant and of the same sign as the corresponding interaction coefficient in Table <a href="sec-scandal.html#tab:scandalSpillover">6.1</a>. Results from these specifications fail to reject the null hypothesis of no differential trends in the pre-period (Table~).</p>
+</div>
+<div id="sec:linkFlows" class="section level2">
+<h2><span class="header-section-number">6.2</span> Linking <span class="math inline">\(CompetitorSize\)</span> Directly to Abnormal Flows</h2>
+<p>The analysis above does not explicitly model fund outcomes as a function of scandal flows. In this section, I explore a more sophisticated approach. I first estimate outflows at tainted funds attributable to the scandal. In turn, I relate untainted fund outcomes to variation in competitor size explained by abnormal tainted competitor outflows.</p>
+<p>I use a linear model to decompose variation in fund flows between the effects of the scandal and baseline variation. I pool tainted and untainted funds in the two year window surrounding the scandal period, consisting of observations from September 2001 to October 2006. Consider scandal funds as being from the same cohort <span class="math inline">\(d\)</span> if news of investigation into their trading practices broke in month <span class="math inline">\(d\)</span>. Denote the cohort of fund <span class="math inline">\(j\)</span> as <span class="math inline">\(j^{(d)}\)</span>. Let <span class="math inline">\(\mathbb{I}_{t\geq j^{(d)}}\)</span> be an indicator for post investigation months for fund <span class="math inline">\(j\)</span>, and define <span class="math inline">\(\mathbb{I}_{d,t}\)</span> as cohort <span class="math inline">\(\times\)</span> time dummy variables. I regress flows on the full set of post-investigation cohort <span class="math inline">\(\times\)</span> time indicators, controlling for fund and time fixed effects:
+<span class="math display" id="eq:cohortReg">\[\begin{equation}
+flow_{j,t}=\alpha_j+\alpha_t +\beta_{j^{(d)},t} \left( \mathbb{I}_{t\geq j^{(d)}}\mathbb{I}_{j^{(d)},t} \right) + \varepsilon_{j,t}.
+\tag{6.2}
+\end{equation}\]</span>
+I interpret the betas as the path of abnormal flows attributable to the scandal for each cohort. I cumulate abnormal flows at each post-scandal date as
+<span class="math display">\[\begin{equation}
+\hat{f}_{j,t} = \prod_{\tau\geq j^{(d)}}^t \left(1+\hat{\beta}_{j^{(d)},t}\right) - 1.
+\end{equation}\]</span>
+I construct <span class="math inline">\(ScandalOutFlow\)</span> for untainted fund <span class="math inline">\(i\)</span> as the similarity- and size-weighted cumulative abnormal negative net flow among tainted funds <span class="math inline">\(j\in\Phi\)</span>:
+<span class="math display" id="eq:scandalOutFlow">\[\begin{equation}
+ScandalOutFlow_{i,t}= -\sum_{j\in \Phi} \psi_{i,j,2003m8} \left(\hat{f}_{j,t} FundSize_{j,2003m8} \right).
+\tag{6.3}
+\end{equation}\]</span></p>
+<p>Figure <a href="sec-scandal.html#fig:scandalOutFlow">6.3</a> plots time series characteristics of abnormal flows and <span class="math inline">\(ScandalOutFlow\)</span>. Abnormal flows are most negative in the immediate aftermath of the announcement of the first investigations, and gradually converge to zero near the end of 2006. This pattern maps into almost linearly increasing cumulative outflows in the first two years after the scandal, reflected in the observed pattern in <span class="math inline">\(ScandaOutFlow\)</span>. Importantly for identifying differential spillover effects of the scandal, total predicted outflows at competing tainted funds vary substantially in the cross-section.</p>
+<div class="figure"><span id="fig:scandalOutFlow"></span>
+<img src="06-scandal_files/figure-html/scandalOutFlow-1.png" alt="Abnormal flows and $ScandalOutFlow$. The left panel shows the cross-sectional mean coefficient on post-scandal cohort $\times$ time fixed effects from Equation \@ref(eq:cohortReg). The right panel shows the time series of cross-sectional percentiles of $ScandalOutFlow$ across untainted funds, calculated according to Equation \@ref(eq:scandalOutFlow)." width="2700" />
+<p class="caption">
+Figure 6.3: Abnormal flows and <span class="math inline">\(ScandalOutFlow\)</span>. The left panel shows the cross-sectional mean coefficient on post-scandal cohort <span class="math inline">\(\times\)</span> time fixed effects from Equation <a href="sec-scandal.html#eq:cohortReg">(6.2)</a>. The right panel shows the time series of cross-sectional percentiles of <span class="math inline">\(ScandalOutFlow\)</span> across untainted funds, calculated according to Equation <a href="sec-scandal.html#eq:scandalOutFlow">(6.3)</a>.
+</p>
+</div>
+<p>I link tainted funds’ flows directly to untainted fund outcomes through the reduced form regressions
+<span class="math display">\[\begin{equation}
+    y_{i,t}=\alpha_i+\alpha_t+\gamma ScandalOutFlow_{i,t} + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t},
+\end{equation}\]</span>
+where <span class="math inline">\(\mathbf{X}_{i,t}\)</span> includes log size and expense ratio.
+Table <a href="sec-scandal.html#tab:scandalSpilloverIV">6.2</a> presents results. The coefficient on <span class="math inline">\(ScandalOutFlow\)</span> represents the expected difference in outcomes between funds across the variable’s interquartile range. Moving from the 25<span class="math inline">\(^{\text{th}}\)</span> to the 75<span class="math inline">\(^{\text{th}}\)</span> percentile of abnormal scandal-affected competitor outflow is associated with an approximately <span class="math inline">\(18\)</span>% relative decline in competitor size. Consistent with the difference-in-differences-style analysis, the results indicate that funds whose competitors were particularly affected by scandal-related outflows expanded active management relative to funds with less affected competitors, increasing active share, turnover to portfolio liquidity ratios, and decreasing portfolio liquidity.</p>
+<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:scandalSpilloverIV">Table 6.2: </span>Capital Allocation and the Scandal: Using Abnormal Flows
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dep. Var.:
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(C.S.)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(AS)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(TL^{-1/2})\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(L)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(S)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(D)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\ln(C)\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(\ln(B)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="22">
+<td colspan="9" style="text-align: center;">
+<strong>1 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(ScandalOutFlow\)</span>
+</td>
+<td style="text-align:center;">
+-0.181***
+</td>
+<td style="text-align:center;">
+0.059***
+</td>
+<td style="text-align:center;">
+0.114***
+</td>
+<td style="text-align:center;">
+-0.221***
+</td>
+<td style="text-align:center;">
+-0.120***
+</td>
+<td style="text-align:center;">
+-0.181***
+</td>
+<td style="text-align:center;">
+-0.076***
+</td>
+<td style="text-align:left;">
+-0.127***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.016)
+</td>
+<td style="text-align:center;">
+(0.007)
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+(0.023)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:center;">
+(0.021)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:left;">
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+0.092***
+</td>
+<td style="text-align:center;">
+-0.010*
+</td>
+<td style="text-align:center;">
+-0.149***
+</td>
+<td style="text-align:center;">
+0.143***
+</td>
+<td style="text-align:center;">
+0.080***
+</td>
+<td style="text-align:center;">
+0.116***
+</td>
+<td style="text-align:center;">
+0.075***
+</td>
+<td style="text-align:left;">
+0.056***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.017)
+</td>
+<td style="text-align:center;">
+(0.005)
+</td>
+<td style="text-align:center;">
+(0.027)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.013)
+</td>
+<td style="text-align:center;">
+(0.021)
+</td>
+<td style="text-align:center;">
+(0.016)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(f)\)</span>
+</td>
+<td style="text-align:center;">
+-0.066
+</td>
+<td style="text-align:center;">
+-0.009
+</td>
+<td style="text-align:center;">
+0.036
+</td>
+<td style="text-align:center;">
+-0.027
+</td>
+<td style="text-align:center;">
+-0.062
+</td>
+<td style="text-align:center;">
+0.009
+</td>
+<td style="text-align:center;">
+0.078
+</td>
+<td style="text-align:left;">
+-0.064
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.070)
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+(0.111)
+</td>
+<td style="text-align:center;">
+(0.089)
+</td>
+<td style="text-align:center;">
+(0.062)
+</td>
+<td style="text-align:center;">
+(0.083)
+</td>
+<td style="text-align:center;">
+(0.062)
+</td>
+<td style="text-align:left;">
+(0.060)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(T)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.057***
+</td>
+<td style="text-align:center;">
+-0.045***
+</td>
+<td style="text-align:center;">
+-0.038**
+</td>
+<td style="text-align:center;">
+0.011
+</td>
+<td style="text-align:left;">
+-0.052***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.011)
+</td>
+<td style="text-align:center;">
+(0.018)
+</td>
+<td style="text-align:center;">
+(0.011)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(D)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.267***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(S)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.522***
+</td>
+<td style="text-align:center;">
+-0.269***
+</td>
+<td style="text-align:left;">
+-0.318***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.045)
+</td>
+<td style="text-align:center;">
+(0.035)
+</td>
+<td style="text-align:left;">
+(0.047)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(B)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.097***
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.029)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(C)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+-0.155***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+(0.043)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Time
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+12,095
+</td>
+<td style="text-align:center;">
+10,334
+</td>
+<td style="text-align:center;">
+39,784
+</td>
+<td style="text-align:center;">
+11,689
+</td>
+<td style="text-align:center;">
+11,689
+</td>
+<td style="text-align:center;">
+11,689
+</td>
+<td style="text-align:center;">
+11,689
+</td>
+<td style="text-align:left;">
+11,689
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.935
+</td>
+<td style="text-align:center;">
+0.933
+</td>
+<td style="text-align:center;">
+0.904
+</td>
+<td style="text-align:center;">
+0.967
+</td>
+<td style="text-align:center;">
+0.988
+</td>
+<td style="text-align:center;">
+0.949
+</td>
+<td style="text-align:center;">
+0.950
+</td>
+<td style="text-align:left;">
+0.901
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.088
+</td>
+<td style="text-align:center;">
+0.073
+</td>
+<td style="text-align:center;">
+0.027
+</td>
+<td style="text-align:center;">
+0.107
+</td>
+<td style="text-align:center;">
+0.172
+</td>
+<td style="text-align:center;">
+0.174
+</td>
+<td style="text-align:center;">
+0.107
+</td>
+<td style="text-align:left;">
+0.103
+</td>
+</tr>
+<tr grouplength="22">
+<td colspan="9" style="text-align: center;">
+<strong>2 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(ScandalOutFlow\)</span>
+</td>
+<td style="text-align:center;">
+-0.168***
+</td>
+<td style="text-align:center;">
+0.061***
+</td>
+<td style="text-align:center;">
+0.110***
+</td>
+<td style="text-align:center;">
+-0.209***
+</td>
+<td style="text-align:center;">
+-0.125***
+</td>
+<td style="text-align:center;">
+-0.162***
+</td>
+<td style="text-align:center;">
+-0.075***
+</td>
+<td style="text-align:left;">
+-0.104***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:center;">
+(0.007)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:left;">
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+0.113***
+</td>
+<td style="text-align:center;">
+-0.012**
+</td>
+<td style="text-align:center;">
+-0.182***
+</td>
+<td style="text-align:center;">
+0.156***
+</td>
+<td style="text-align:center;">
+0.083***
+</td>
+<td style="text-align:center;">
+0.128***
+</td>
+<td style="text-align:center;">
+0.072***
+</td>
+<td style="text-align:left;">
+0.070***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:center;">
+(0.005)
+</td>
+<td style="text-align:center;">
+(0.023)
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.012)
+</td>
+<td style="text-align:center;">
+(0.018)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:left;">
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(f)\)</span>
+</td>
+<td style="text-align:center;">
+-0.132**
+</td>
+<td style="text-align:center;">
+0.011
+</td>
+<td style="text-align:center;">
+0.135
+</td>
+<td style="text-align:center;">
+-0.110
+</td>
+<td style="text-align:center;">
+-0.169**
+</td>
+<td style="text-align:center;">
+-0.016
+</td>
+<td style="text-align:center;">
+0.076
+</td>
+<td style="text-align:left;">
+-0.090
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.059)
+</td>
+<td style="text-align:center;">
+(0.023)
+</td>
+<td style="text-align:center;">
+(0.098)
+</td>
+<td style="text-align:center;">
+(0.096)
+</td>
+<td style="text-align:center;">
+(0.070)
+</td>
+<td style="text-align:center;">
+(0.080)
+</td>
+<td style="text-align:center;">
+(0.061)
+</td>
+<td style="text-align:left;">
+(0.063)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(T)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.049**
+</td>
+<td style="text-align:center;">
+-0.049***
+</td>
+<td style="text-align:center;">
+-0.024
+</td>
+<td style="text-align:center;">
+0.017
+</td>
+<td style="text-align:left;">
+-0.043***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.011)
+</td>
+<td style="text-align:center;">
+(0.018)
+</td>
+<td style="text-align:center;">
+(0.012)
+</td>
+<td style="text-align:left;">
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(D)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.259***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(S)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.506***
+</td>
+<td style="text-align:center;">
+-0.254***
+</td>
+<td style="text-align:left;">
+-0.305***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.035)
+</td>
+<td style="text-align:center;">
+(0.031)
+</td>
+<td style="text-align:left;">
+(0.038)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(B)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.088***
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.023)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(C)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+-0.127***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+(0.032)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Time
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+18,904
+</td>
+<td style="text-align:center;">
+16,211
+</td>
+<td style="text-align:center;">
+63,055
+</td>
+<td style="text-align:center;">
+18,309
+</td>
+<td style="text-align:center;">
+18,309
+</td>
+<td style="text-align:center;">
+18,309
+</td>
+<td style="text-align:center;">
+18,309
+</td>
+<td style="text-align:left;">
+18,309
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.907
+</td>
+<td style="text-align:center;">
+0.898
+</td>
+<td style="text-align:center;">
+0.869
+</td>
+<td style="text-align:center;">
+0.951
+</td>
+<td style="text-align:center;">
+0.982
+</td>
+<td style="text-align:center;">
+0.924
+</td>
+<td style="text-align:center;">
+0.922
+</td>
+<td style="text-align:left;">
+0.860
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+0.086
+</td>
+<td style="text-align:center;">
+0.046
+</td>
+<td style="text-align:center;">
+0.117
+</td>
+<td style="text-align:center;">
+0.181
+</td>
+<td style="text-align:center;">
+0.164
+</td>
+<td style="text-align:center;">
+0.095
+</td>
+<td style="text-align:left;">
+0.096
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Dependent variables are identified in the column headers. For regressions with <span class="math inline">\(\ln\left(TL^{-\frac{1}{2}}\right)\)</span> as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes untainted funds during <span class="math inline">\(\{[2003m9-W, 2004m10+W] \}\)</span>, where <span class="math inline">\(W\)</span> corresponds to the number of years specified at the bottom of each panel. <span class="math inline">\(ScandalOutFlow\)</span> is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. <span class="math inline">\(ScandalOutFlow\)</span> is normalized by its interquartile range. See Section <a href="sec-scandal.html#sec:linkFlows">6.2</a> for details on the variable’s construction. <span class="math inline">\(\ln(C.S.)\)</span> is an abbreviation for <span class="math inline">\(\ln(CompetitorSize)\)</span>. Standard errors are double clustered by fund and portfolio group <span class="math inline">\(\times\)</span> quarter, and reported in parentheses. Asterisks denote statistical significance: <span class="math inline">\(\ast\ast\ast\)</span> p$&lt;$0.01, <span class="math inline">\(\ast\ast\)</span> p$&lt;$0.05, <span class="math inline">\(\ast\)</span> p$&lt;$0.1.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>In additional analyses I isolate the variation in <span class="math inline">\(CompetitorSize\)</span> attributable to abnormal flows at tainted competitors, and measure its impact on capital allocation. I perform two-stage least squares (2SLS) regressions, instrumenting for <span class="math inline">\(\ln(CompetitorSize)\)</span> by <span class="math inline">\(ScandalOutFlow\)</span> in the specification
+<span class="math display">\[\begin{equation}
+    y_{i,t}=\alpha_i+\alpha_t + \gamma \ln(CompetitorSize_{i,t}) + \mathbf{X}_{i,t}\Gamma+\varepsilon_{i,t},
+\end{equation}\]</span>
+where <span class="math inline">\(y_{i,t}\)</span> is log active share or log turnover-liquidity ratio, and <span class="math inline">\(\mathbf{X}\)</span> the usual controls. Table~ presents results. As expected based on the first column of Table <a href="sec-scandal.html#tab:scandalSpilloverIV">6.2</a>, the first stage F-statistics are high, and <span class="math inline">\(ScandalOutFlow\)</span> passes the relevance criterion. Consistent with earlier results, variation in competitor size attributable to <span class="math inline">\(ScandalOutFlow\)</span> is associated with decreased active management and increased portfolio liquidity.</p>
+
+<p>As an additional robustness check to ensure my results are not an artifact of common sector level shocks, I re-estimate the analysis using benchmark <span class="math inline">\(\times\)</span> time fixed effects. The results remain similar (Tables<sub>,</sub>,<sub>,</sub>).</p>
+
+<p>The analysis presented so far is consistent with competitors of scandal-tainted funds reacting to improved investment opportunities by increasing capital allocated to active strategies. According to this line of reasoning we would expect the same funds to experience relatively improved performance. To investigate, in Table <a href="sec-scandal.html#tab:scandalPerformance">6.3</a> I perform analyses similar to those presented above, but with risk adjusted gross returns as the outcome variable of interest. The results demonstrate that close competitors of tainted funds indeed saw an increase in relative performance following the scandal.</p>
+<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:scandalPerformance">Table 6.3: </span>Fund Performance and the Scandal
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+(1)
+</th>
+<th style="text-align:center;">
+(2)
+</th>
+<th style="text-align:center;">
+(3)
+</th>
+<th style="text-align:center;">
+(4)
+</th>
+<th style="text-align:center;">
+(5)
+</th>
+<th style="text-align:center;">
+(6)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="15">
+<td colspan="7" style="text-align: center;">
+<strong>1 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\mathbb{I}\times ScanEx\)</span>
+</td>
+<td style="text-align:center;">
+5.715***
+</td>
+<td style="text-align:center;">
+3.944***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(1.130)
+</td>
+<td style="text-align:center;">
+(0.770)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(ScandalOutFlow\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+1.687**
+</td>
+<td style="text-align:center;">
+2.237***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.829)
+</td>
+<td style="text-align:center;">
+(0.674)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(CompetitorSize)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-9.574**
+</td>
+<td style="text-align:center;">
+-12.269***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(4.667)
+</td>
+<td style="text-align:center;">
+(3.756)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+-3.131***
+</td>
+<td style="text-align:center;">
+-3.245***
+</td>
+<td style="text-align:center;">
+-4.712***
+</td>
+<td style="text-align:center;">
+-4.507***
+</td>
+<td style="text-align:center;">
+-3.815***
+</td>
+<td style="text-align:center;">
+-3.433***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.677)
+</td>
+<td style="text-align:center;">
+(0.578)
+</td>
+<td style="text-align:center;">
+(0.666)
+</td>
+<td style="text-align:center;">
+(0.534)
+</td>
+<td style="text-align:center;">
+(0.744)
+</td>
+<td style="text-align:center;">
+(0.581)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Month
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Benchmark <span class="math inline">\(\times\)</span> Month
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+24,909
+</td>
+<td style="text-align:center;">
+24,909
+</td>
+<td style="text-align:center;">
+41,333
+</td>
+<td style="text-align:center;">
+41,333
+</td>
+<td style="text-align:center;">
+41,333
+</td>
+<td style="text-align:center;">
+41,333
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.111
+</td>
+<td style="text-align:center;">
+0.201
+</td>
+<td style="text-align:center;">
+0.101
+</td>
+<td style="text-align:center;">
+0.196
+</td>
+<td style="text-align:center;">
+0.091
+</td>
+<td style="text-align:center;">
+0.179
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.019
+</td>
+<td style="text-align:center;">
+0.011
+</td>
+<td style="text-align:center;">
+0.008
+</td>
+<td style="text-align:center;">
+0.008
+</td>
+<td style="text-align:center;">
+-0.003
+</td>
+<td style="text-align:center;">
+-0.013
+</td>
+</tr>
+<tr grouplength="15">
+<td colspan="7" style="text-align: center;">
+<strong>2 year window</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\mathbb{I}\times ScanEx\)</span>
+</td>
+<td style="text-align:center;">
+2.509***
+</td>
+<td style="text-align:center;">
+1.716***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.861)
+</td>
+<td style="text-align:center;">
+(0.635)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(ScandalOutFlow\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.405
+</td>
+<td style="text-align:center;">
+0.843**
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.491)
+</td>
+<td style="text-align:center;">
+(0.361)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(CompetitorSize)\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-2.489
+</td>
+<td style="text-align:center;">
+-5.880**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(3.011)
+</td>
+<td style="text-align:center;">
+(2.535)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\ln(FundSize)\)</span>
+</td>
+<td style="text-align:center;">
+-3.714***
+</td>
+<td style="text-align:center;">
+-3.626***
+</td>
+<td style="text-align:center;">
+-4.169***
+</td>
+<td style="text-align:center;">
+-3.948***
+</td>
+<td style="text-align:center;">
+-3.877***
+</td>
+<td style="text-align:center;">
+-3.302***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.501)
+</td>
+<td style="text-align:center;">
+(0.338)
+</td>
+<td style="text-align:center;">
+(0.474)
+</td>
+<td style="text-align:center;">
+(0.317)
+</td>
+<td style="text-align:center;">
+(0.588)
+</td>
+<td style="text-align:center;">
+(0.402)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Month
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Benchmark <span class="math inline">\(\times\)</span> Month
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+48,230
+</td>
+<td style="text-align:center;">
+48,230
+</td>
+<td style="text-align:center;">
+65,463
+</td>
+<td style="text-align:center;">
+65,463
+</td>
+<td style="text-align:center;">
+65,463
+</td>
+<td style="text-align:center;">
+65,463
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.083
+</td>
+<td style="text-align:center;">
+0.189
+</td>
+<td style="text-align:center;">
+0.087
+</td>
+<td style="text-align:center;">
+0.192
+</td>
+<td style="text-align:center;">
+0.087
+</td>
+<td style="text-align:center;">
+0.188
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.011
+</td>
+<td style="text-align:center;">
+0.009
+</td>
+<td style="text-align:center;">
+0.009
+</td>
+<td style="text-align:center;">
+0.008
+</td>
+<td style="text-align:center;">
+0.008
+</td>
+<td style="text-align:center;">
+0.004
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> The dependent variable is Fama-French 3 factor adjusted gross returns, in annual percent units. Observations are monthly. The estimation sample includes only funds not tainted by the scandal. In columns (1)-(4) regressions are estimated by ordinary least squares. In columns (5)-(6), regressions are estimated by two stage least squares, instrumenting <span class="math inline">\(\ln(CompetitorSize)\)</span> with <span class="math inline">\(ScandalOutFlow\)</span>. In columns (1)-(2), the sample includes <span class="math inline">\(\{(2003m8-W, 2003m8], [2004m11,2004m11+W) \}\)</span>, where <span class="math inline">\(W\)</span> corresponds to the number of years specified. In columns (3)-(6), the sample is taken over the period <span class="math inline">\(\{[2003m9-W, 2004m10+W] \}\)</span>. <span class="math inline">\(ScandalExposure\)</span> (abbreviated to <span class="math inline">\(ScanEx\)</span>) is the fraction of untainted funds’ <span class="math inline">\(CompetitorSize\)</span> due to portfolio similarity with future scandal funds in August 2003 (see Section <a href="sec-scandal.html#sec:scandalID">6.1</a> for details). I normalize <span class="math inline">\(ScandalExposure\)</span> by its interquartile range. <span class="math inline">\(\mathbb{I}\)</span> is an indicator for the post scandal period. <span class="math inline">\(ScandalOutFlow\)</span> is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. <span class="math inline">\(ScandalOutFlow\)</span> is normalized by its interquartile range. See Section <a href="sec-scandal.html#sec:linkFlows">6.2</a> for details on the variable’s construction. Benchmarks are the indexes which yield the lowest active share, taken from <span class="citation">Petajisto (<a href="references.html#ref-petajisto13">2013</a>)</span>. Standard errors are double clustered by fund and portfolio group $ imes$ month in columns (1)-(4), and by fund and benchmark <span class="math inline">\(\times\)</span> month in columns (5)-(6). Standard errors are reported in parentheses. Asterisks denote statistical significance: <span class="math inline">\(\ast\ast\ast\)</span> p$&lt;$0.01, <span class="math inline">\(\ast\ast\)</span> p$&lt;$0.05, <span class="math inline">\(\ast\)</span> p$&lt;$0.1.
+</td>
+</tr>
+</tfoot>
+</table>
+
+<p>I have argued that observing a relation between investment opportunities and funds’ internal capital allocation after controlling for fund size is indicative of information asymmetry between managers and outside investors. Table~ provides further evidence of sluggish adjustment in external capital markets to fund investment opportunities. Specifically, I test for differential relative net flows among untainted funds by their pre-scandal exposure to competition from tainted funds. I find no evidence of increased relative net flows to closely competing funds in the year surrounding the scandal, suggesting that investors did not foresee improvements in prospective performance. There is slight evidence of differential investor flows over a two year window, which I interpret as consistent with investors chasing performance instead of anticipating it.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="17">
+<li id="fn17"><p>
+I follow Table 1 of <span class="citation">Houge and Wellman (<a href="references.html#ref-hw05">2005</a>)</span> for classifying fund families embroiled in the scandal. The following is the list of fund families tainted by the scandal by month of the news date of investigation.
+September 2003: Alliance Bernstein, Franklin Templeton, Gabelli, Janus, Nations, One Group, Putnam, Strong.
+October 2003: Alger, Federated.
+November 2003: Excelsior/US Trust, Fremont, Loomis Sayles, PBHG.
+December 2003: AIM/Invesco, MFS, Heartland.
+January 2004: Columbia, Scudder, Seligman.
+February 2004: PIMCO.
+March 2004: ING, RS.
+August 2004: Evergreen.
+October 2004: Sentinel.<br />
+I identify funds belonging to these families as of August 2003 in my sample based on the share class names in the CRSP mutual fund dataset. I classify 289 of the 1,462 funds in my sample in August 2003 with existing holdings and gross returns as members of future tainted families.
+Table~ presents a snapshot of summary statistics as of August 2003 by future scandal involvement. Scandal funds are slightly older, larger, and have higher turnover to portfolio liquidity and expense ratios.<a href="sec-scandal.html#fnref17" class="footnote-back">↩</a></p></li>
+<li id="fn18"><p>The difference is statistically significant. I estimate a regression using a two year pre- and post-scandal window of observations of the form
+<span class="math display">\[
+flow_{i,t}=\alpha_i + \alpha_t + \gamma Post_{i,t} +\varepsilon_{i,t},
+\]</span>
+where <span class="math inline">\(Post_{i,t}\)</span> is an indicator for post news date for scandal funds. I find <span class="math inline">\(\gamma=-9.16\)</span>% per year, with t-statistic of <span class="math inline">\(4.6\)</span>.<a href="sec-scandal.html#fnref18" class="footnote-back">↩</a></p></li>
+<li id="fn19"><p>In the aftermath of the investigations, several executives stepped down, and a number of portfolio managers were fired. Perhaps the highest profile casualty of the scandal was Richard S. Strong, founder of Strong Capital Management, who resigned in December 2003. Strong would go on to pay $60 million in settlements and be barred from the industry. Strong Capital itself was acquired by Wells Fargo in 2004.<a href="sec-scandal.html#fnref19" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sec-portfolio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-scandal.Rmd",
+"text": "Edit"
+},
+"download": ["_main.pdf", "_main.epub"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed",
+"edit": null,
+"download": null,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

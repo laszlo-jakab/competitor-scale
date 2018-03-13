@@ -1,0 +1,44 @@
+---
+title: "Documentation for <br/>
+  *Competitor Scale and Mutual Fund Behavior*"
+author: "Laszlo Jakab"
+date: "February 23, 2018"
+output: html_document
+---
+
+This is the documentation for the paper, *Competitor Scale and Mutual Fund Behavior*. For further questions, contact the [author](laszlo.jakab@chicagobooth.edu). Built under `R 3.4.3 (Kite-Eating Tree)`.
+
+### Folder Structure
+- `data`: folder for housing data.
+   - `raw` raw data, as downloaded from WRDS or other sources.
+   - `clean` cleaned data.
+- `docs`: documentation.
+- `fig`: figures, tables.
+- `R`: contains code for reproducing the results.
+- `writeup`: final product.
+
+### Code Structure
+
+1. Download data from the web.
+    - `Pull_WRDS_Data.R`: download data directly from WRDS using `R`'s interface.
+    - `Other_Web_Data.R`: download data from other sources on the web, such as active share from Antti Petajisto, index-based factors, Baker-Wurgler sentiment, etc.
+2. Clean data.
+    - Thomson share holding data:
+      + extract first vintage from `S12Type1` table.
+      + add in `wficn`.
+      + keep only funds with appropriate `ioc`.
+    - CRSP mutual fund data:
+      + consolidate dates
+      + add together `mret`, `mtna`, `exp_ratio`
+      + clean timing of `turn_ratio`
+      + add in `wficn`
+    - Restrict sample to actively managed domestic equity
+3. Benchmark returns
+    - CAPM, 3-factor, 4-factor, [rolling windows, index-based benchmarks TO DO]
+4. Calculate portfolio weights
+5. Calculate CompetitorSize
+
+
+
+
+

@@ -1,0 +1,20 @@
+new_session: yes
+
+rmd_files: [
+  "index.rmd",
+  
+  "01-intro.Rmd",
+  "02-literature.Rmd",
+  "03-model.Rmd",
+  "04-data.Rmd",
+  "05-behavior.Rmd",
+  "06-scandal.Rmd",
+  "07-conclusion.Rmd",
+  
+  "references.Rmd",
+  
+  "appendix-summary.Rmd",
+  "appendix-performance.Rmd",
+  "appendix-behavior.Rmd",
+  "appendix-scandal.Rmd"
+]

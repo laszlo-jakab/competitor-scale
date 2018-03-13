@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Competitor Scale and Mutual Fund Behavior</title>
+  <meta name="description" content="Competitor Scale and Mutual Fund Behavior">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Competitor Scale and Mutual Fund Behavior" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Competitor Scale and Mutual Fund Behavior" />
+  
+  
+  
+
+<meta name="author" content="Laszlo Jakab">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="summary-statistics.html">
+<link rel="next" href="additional-results-capital-allocation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="sec-litReview.html"><a href="sec-litReview.html"><i class="fa fa-check"></i><b>2</b> Literature Review</a></li>
+<li class="chapter" data-level="3" data-path="sec-model.html"><a href="sec-model.html"><i class="fa fa-check"></i><b>3</b> Theoretical Motivation</a><ul>
+<li class="chapter" data-level="3.1" data-path="sec-model.html"><a href="sec-model.html#symmetric-information"><i class="fa fa-check"></i><b>3.1</b> Symmetric Information</a></li>
+<li class="chapter" data-level="3.2" data-path="sec-model.html"><a href="sec-model.html#better-informed-managers"><i class="fa fa-check"></i><b>3.2</b> Better Informed Managers</a></li>
+<li class="chapter" data-level="3.3" data-path="sec-model.html"><a href="sec-model.html#similar-hypotheses-based-on-an-alternative-approach"><i class="fa fa-check"></i><b>3.3</b> Similar Hypotheses Based on an Alternative Approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sec-Data.html"><a href="sec-Data.html"><i class="fa fa-check"></i><b>4</b> Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="sec-Data.html"><a href="sec-Data.html#fund-selection"><i class="fa fa-check"></i><b>4.1</b> Fund Selection</a></li>
+<li class="chapter" data-level="4.2" data-path="sec-Data.html"><a href="sec-Data.html#sec:portfolioWeights"><i class="fa fa-check"></i><b>4.2</b> Portfolio Weights</a></li>
+<li class="chapter" data-level="4.3" data-path="sec-Data.html"><a href="sec-Data.html#sec:CompetitorSize"><i class="fa fa-check"></i><b>4.3</b> <span class="math inline">\(CompetitorSize\)</span> Variable</a></li>
+<li class="chapter" data-level="4.4" data-path="sec-Data.html"><a href="sec-Data.html#portfolio-liquidity-variables"><i class="fa fa-check"></i><b>4.4</b> Portfolio Liquidity Variables</a></li>
+<li class="chapter" data-level="4.5" data-path="sec-Data.html"><a href="sec-Data.html#sec:sumStats"><i class="fa fa-check"></i><b>4.5</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.6" data-path="sec-Data.html"><a href="sec-Data.html#correlations"><i class="fa fa-check"></i><b>4.6</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="sec-portfolio.html"><a href="sec-portfolio.html"><i class="fa fa-check"></i><b>5</b> Competition and Capital Allocation</a><ul>
+<li class="chapter" data-level="5.1" data-path="sec-portfolio.html"><a href="sec-portfolio.html#decreasing-returns-to-competitor-scale"><i class="fa fa-check"></i><b>5.1</b> Decreasing Returns to Competitor Scale</a></li>
+<li class="chapter" data-level="5.2" data-path="sec-portfolio.html"><a href="sec-portfolio.html#empirical-strategy"><i class="fa fa-check"></i><b>5.2</b> Empirical Strategy</a></li>
+<li class="chapter" data-level="5.3" data-path="sec-portfolio.html"><a href="sec-portfolio.html#results"><i class="fa fa-check"></i><b>5.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sec-scandal.html"><a href="sec-scandal.html"><i class="fa fa-check"></i><b>6</b> Evidence From the 2003 Mutual Fund Scandal</a><ul>
+<li class="chapter" data-level="6.1" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:scandalID"><i class="fa fa-check"></i><b>6.1</b> Before and After Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-scandal.html"><a href="sec-scandal.html#sec:linkFlows"><i class="fa fa-check"></i><b>6.2</b> Linking <span class="math inline">\(CompetitorSize\)</span> Directly to Abnormal Flows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sec-conclusion.html"><a href="sec-conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="summary-statistics.html"><a href="summary-statistics.html"><i class="fa fa-check"></i><b>A</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="A.1" data-path="summary-statistics.html"><a href="summary-statistics.html#tables"><i class="fa fa-check"></i><b>A.1</b> Tables</a></li>
+<li class="chapter" data-level="A.2" data-path="summary-statistics.html"><a href="summary-statistics.html#figures"><i class="fa fa-check"></i><b>A.2</b> Figures</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html"><i class="fa fa-check"></i><b>B</b> Competitor Size and Fund Performance</a><ul>
+<li class="chapter" data-level="B.1" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:benchmark"><i class="fa fa-check"></i><b>B.1</b> Benchmarking Returns</a></li>
+<li class="chapter" data-level="B.2" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#regression-setup"><i class="fa fa-check"></i><b>B.2</b> Regression Setup</a></li>
+<li class="chapter" data-level="B.3" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#results-1"><i class="fa fa-check"></i><b>B.3</b> Results</a></li>
+<li class="chapter" data-level="B.4" data-path="sec-CSandPerformance.html"><a href="sec-CSandPerformance.html#sec:heterogeneity"><i class="fa fa-check"></i><b>B.4</b> The Role of Portfolio Liquidity</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="additional-results-capital-allocation.html"><a href="additional-results-capital-allocation.html"><i class="fa fa-check"></i><b>C</b> Additional Results: Capital Allocation</a></li>
+<li class="chapter" data-level="D" data-path="additional-results-mutual-fund-scandal.html"><a href="additional-results-mutual-fund-scandal.html"><i class="fa fa-check"></i><b>D</b> Additional Results: Mutual Fund Scandal</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Competitor Scale and Mutual Fund Behavior</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec:CSandPerformance" class="section level1">
+<h1><span class="header-section-number">B</span> Competitor Size and Fund Performance</h1>
+<div id="sec:benchmark" class="section level2">
+<h2><span class="header-section-number">B.1</span> Benchmarking Returns</h2>
+<p>Ideally, I would like to benchmark mutual fund returns by factors that are both near costlessly tradeable for funds, and span dimensions of risk that are of concern to investors. In the absence of such an ideal benchmark, I employ the conventional option of benchmarking returns with Fama-French factors. Define three factor benchmark adjusted gross returns as
+<span class="math display">\[\begin{equation}
+R^{FF3}_{i,t} = R_{i,t} - \left[ \hat{\beta}^{RMRF}_i RMRF_t + \hat{\beta}^{SMB}_i SMB_t + \hat{\beta}^{HML}_i HML_t \right],
+\end{equation}\]</span>
+where <span class="math inline">\(R_{i,t}\)</span> is the gross return of fund <span class="math inline">\(i\)</span> at month <span class="math inline">\(t\)</span> in excess of the risk free rate, expressed in percentages. <span class="math inline">\(RMRF\)</span>, <span class="math inline">\(SMB\)</span>, and <span class="math inline">\(HML\)</span> are the usual market, size, and value factors. The beta hats are the sample estimates of each fund’s exposure to the respective factors, estimated by fund level regressions of the form
+<span class="math display">\[\begin{equation}
+R_{i,t} = \alpha_i + \beta^{RMRF}_i RMRF_t + \beta^{SMB}_i SMB_t + \beta^{HML}_i HML_t + \varepsilon_{i,t}.
+\end{equation}\]</span>
+Therefore, <span class="math inline">\(R^{FF3}_{i,t} = \hat{\alpha}_i + \hat{\varepsilon}_{i,t}\)</span>, i.e. each period’s benchmark adjusted returns are equal to the sum of the fund’s estimated gross alpha and the given month’s residual from the Fama-French time series regressions.</p>
+<p>Benchmarking with a factor model has some shortcomings and advantages.
+The long-short SMB and HML portfolios are not tradeable for mutual funds. <span class="citation">Berk and Binsbergen (<a href="references.html#ref-bvb15">2015</a>)</span> argue that at each point in time the performance of active funds ought to be measured against the returns of the lowest cost passive funds readily available to retail investors. This is an eminently sensible suggestion for studying funds’ value added for retail investors, but not an obviously superior method for testing whether fund alpha is decreasing in competitor scale. <span class="citation">Cremers, Petajisto, and Zitzewitz (<a href="references.html#ref-cpz12">2012</a>)</span> note that Fama-French benchmarks imply nonzero alphas for a number of mainstream passive benchmarks. My results are robust to following their suggestion of benchmarking with index-based factors. Unlike self-designated benchmarks, Fama-French factors are not gameable by funds. They are also widely available.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> Unlike characteristic based benchmarks, factor based benchmarks are not subject to errors in holdings data, are available monthly, and account for the unobserved actions of funds. Lastly, regardless of whether size and value correspond to risk, Fama-French factors capture a large fraction of variance in cross-sectional returns.</p>
+</div>
+<div id="regression-setup" class="section level2">
+<h2><span class="header-section-number">B.2</span> Regression Setup</h2>
+<p>I implement within-fund regression specifications of the following form to test for decreasing returns to competitor scale:
+<span class="math display" id="eq:regSpec">\[\begin{equation}
+R^{FF3}_{i,t+1} = \alpha_i + \gamma CompetitorSize_{i,t} + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t+1},
+\tag{B.1}
+\end{equation}\]</span>
+where <span class="math inline">\(\alpha_i\)</span> are firm fixed effects, and <span class="math inline">\(\mathbf{X}_{i,t}\)</span> is a vector of controls including <span class="math inline">\(IndustrySize\)</span> and year-month fixed effects.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> The coefficient of interest is <span class="math inline">\(\gamma\)</span>. To make the economic magnitude of the coefficient easier to interpret, I annualize returns and divide <span class="math inline">\(CompetitorSize\)</span> and <span class="math inline">\(IndustrySize\)</span> by their respective standard deviations before performing the regressions. I re-scale <span class="math inline">\(FundSize\)</span> by the difference between the 50<span class="math inline">\(^\text{th}\)</span> and 10<span class="math inline">\(^\text{th}\)</span> percentiles of its distribution.</p>
+<p>I include fund fixed effects throughout to take into account the possibility that baseline fund skill and average competitor size are related in the cross-section, i.e. <span class="math inline">\(\text{Cov}(\alpha_i, \overline{CompetitorSize}_i)\neq 0\)</span>. We would expect talented managers to be endogenously allocated where they are most capable of taking advantage of investment opportunities. Bolstering this view, <span class="citation">Berk, Binsbergen, and Liu (<a href="references.html#ref-bbl17">2017</a>)</span> show that fund families funnel capital toward skilled managers. A mechanical concern is that in the cross-section <span class="math inline">\(CompetitorSize\)</span> tends to be higher for funds in large cap sectors. Since more liquid market segments can absorb a larger amount of active investment, not all cross-sectional variation of <span class="math inline">\(CompetitorSize\)</span> reflects variation in the effective inter-fund competition for investment opportunities. Controlling for fund fixed effects is a parsimonious way of controlling for such fixed differences in funds’ operating environment.</p>
+<p>For the specifications including fund fixed effects only, deviations of <span class="math inline">\(CompetitorSize\)</span> from its within-fund mean provide the variation identifying the coefficient of interest. For regressions including both fund and year-month fixed effects, the coefficient of interest is identified based on deviations of <span class="math inline">\(CompetitorSize\)</span> from its within-fund mean, relative to the average within-fund deviation at each date. Year-month fixed effects control nonparametrically for common time series variation in returns and industry competition, ruling out the possibility that the identified effect of competitor size is an artifact of other aggregate developments, such as shared time-varying exposure to competition from hedge funds. However, including overly fine cross-sectional dummy variables would risk soaking up the variation of interest.</p>
+<p>I include <span class="math inline">\(IndustrySize\)</span> to demonstrate that <span class="math inline">\(CompetitorSize\)</span> captures distinct variation in decreasing returns faced by funds. Controlling for <span class="math inline">\(FundSize\)</span> is relevant for separating industry-level decreasing returns to scale from fund-level decreasing returns to scale.<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a></p>
+<p>For constructing standard errors, each month I sort funds into ten mutually exclusive (but not necessarily equal sized) portfolio groups based on their most recently reported holdings.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> I double cluster standard errors by fund and year-month <span class="math inline">\(\times\)</span> portfolio group, to account for both within-fund and cross-sectional correlation in errors. In practice, I find that clustering by fund in regressions of returns is essentially irrelevant, as within-fund correlation in the error term is negligible. On the other hand, the cross-sectional correlation structure of regression errors is substantive. The number of portfolio groups is similar to the number of Morningstar sectors. Each month’s largest portfolio group cluster on average accounts for over a third of observations. Therefore, portfolio group <span class="math inline">\(\times\)</span> month clusters allow for extensive within month correlation of errors, without reducing the number of clusters unreasonably.</p>
+</div>
+<div id="results-1" class="section level2">
+<h2><span class="header-section-number">B.3</span> Results</h2>
+<p>Table <a href="sec-CSandPerformance.html#tab:mainResults">B.1</a> presents results from the equation <a href="sec-CSandPerformance.html#eq:regSpec">(B.1)</a> regression specifications. There is a consistently negative, statistically significant within fund relation between <span class="math inline">\(CompetitorSize\)</span> and fund performance. Coefficients range from -1.06 in the univariate within-fund regression to -0.78 in the specification featuring the full set of fund and year-month fixed effects and own size. While <span class="math inline">\(IndustrySize\)</span> is associated with a statistically significant -0.39 coefficient in the specification with no other controls (column (2)), adding <span class="math inline">\(CompetitorSize\)</span> to the specification (column (3)) subsumes its negative effect, with the coefficient on <span class="math inline">\(IndustrySize\)</span> dropping to an insignificant 0.10.
+Although coefficients associated with own fund size are consistently negative and statistically significant, they are known to be biased and should be interpreted with caution.<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
+<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:mainResults">Table B.1: </span>Decreasing Returns to Competitor Scale
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+(1)
+</th>
+<th style="text-align:center;">
+(2)
+</th>
+<th style="text-align:center;">
+(3)
+</th>
+<th style="text-align:center;">
+(4)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(CompetitorSize\)</span>
+</td>
+<td style="text-align:center;">
+-0.983***
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-1.059***
+</td>
+<td style="text-align:center;">
+-0.775***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.178)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.225)
+</td>
+<td style="text-align:center;">
+(0.142)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(IndustrySize\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.392**
+</td>
+<td style="text-align:center;">
+0.097
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.178)
+</td>
+<td style="text-align:center;">
+(0.224)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(FundSize\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.024***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\bullet\)</span> Month
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+No
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Observations
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.012
+</td>
+<td style="text-align:center;">
+0.012
+</td>
+<td style="text-align:center;">
+0.012
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> The regression sample contains actively managed domestic equity mutual funds from 1980 to 2016. The dependent variable is three-factor adjusted gross returns, in annualized percentages. Size variables are as defined in Section <a href="sec-Data.html#sec:CompetitorSize">4.3</a>. <span class="math inline">\(CompetitorSize\)</span> and <span class="math inline">\(IndustrySize\)</span> are normalized by their respective sample standard deviations. <span class="math inline">\(FundSize\)</span> is normalized by the difference between the 50th and 10th percentile of its distribution. Each fund is assigned to one of ten portfolio group clusters each month based on k-means clustering of most recent portfolio holdings. Standard errors are double clustered by fund and year-month <span class="math inline">\(\times\)</span> portfolio group, and reported in parentheses. Asterisks denote statistical significance: <span class="math inline">\(\ast\ast\ast\)</span> p$&lt;$0.01, <span class="math inline">\(\ast\ast\)</span> p$&lt;$0.05, <span class="math inline">\(\ast\)</span> p$&lt;$0.1.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Expense ratios provide an informative comparison for the magnitude of the <span class="math inline">\(CompetitorSize\)</span> coefficients. The mean expense ratio in my sample is 1.23% per year, with an interquartile range of 0.49%. A one standard deviation increase in <span class="math inline">\(CompetitorSize\)</span> is associated with a drop in performance on the order of two thirds the typical fund expense ratio. Decreasing returns to competitor scale are a meaningful impediment to sustainable profitable operations for funds.</p>
+</div>
+<div id="sec:heterogeneity" class="section level2">
+<h2><span class="header-section-number">B.4</span> The Role of Portfolio Liquidity</h2>
+<p>Economic reasoning dictates that decreasing returns to competitor scale operate through the price impact of competing funds. Therefore, we would expect decreasing returns to be more severe for funds relying on less liquid strategies. I test this by comparing the magnitude of decreasing returns across funds with different levels of average portfolio liquidity.
+Specifically, I run regressions of the form
+<span class="math display" id="eq:AvgLiqReg">\[\begin{align}
+\begin{split}
+R^{FF3}_{i,t+1} = \alpha_i + \alpha_t &amp;+ \gamma_1 CompetitorSize_{i,t} + \gamma_2 \left( CompetitorSize_{i,t} \times \overline{PortLiq}_{i} \right) \\ 
+&amp;+ \eta_1 FundSize_{i,t} + \eta_2 \left( FundSize_{i,t} \times \overline{PortLiq}_i \right) + \varepsilon_{i,t+1},
+\end{split}
+\tag{B.2}
+\end{align}\]</span>
+where <span class="math inline">\(\overline{Port.Liq}_i\)</span> is either the fund-level average portfolio liquidity measure proposed by <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst17L">2017</a><a href="references.html#ref-pst17L">b</a>)</span>, or any of its sub-components of stock liquidity (average relative market capitalization of holdings), coverage (number of stocks held relative to total stocks in the market), and balance (a measure of how closely portfolio weights track market weights of stocks in the portfolio). Diversification is the product of coverage and balance. I re-scale each variable so that a unit increase corresponds to the interquartile range of within-fund means. If decreasing returns to scale are rooted in liquidity constraints, we expect <span class="math inline">\(\gamma_2&gt;0\)</span>.</p>
+<p>Panel A of Table <a href="sec-CSandPerformance.html#tab:roleOfLiquidity">B.2</a> presents results from the regressions. All <span class="math inline">\(\gamma_2\)</span> coefficients are positive and three out of five are statistically significant. The economic magnitudes are large as well. Increasing average portfolio liquidity from the 25<sup>th</sup> to the 75<sup>th</sup> percentile of its distribution changes the impact of a one standard deviation increase in <span class="math inline">\(CompetitorSize\)</span> by 0.23bp in annualized returns. Decomposing portfolio liquidity into its components demonstrates that the majority of the effect is attributable to stock liquidity, with a lesser amount attributable to diversification, including coverage and balance.<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a></p>
+<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:roleOfLiquidity">Table B.2: </span>The Role of Portfolio Liquidity
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(X=\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(L\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(S\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(D\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(C\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(B\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="14">
+<td colspan="6" style="text-align: center;">
+<strong>Panel A: Fund Level Average Portfolio Liquidity</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(Comp.Size \times \bar{X}\)</span>
+</td>
+<td style="text-align:center;">
+0.232***
+</td>
+<td style="text-align:center;">
+0.324
+</td>
+<td style="text-align:center;">
+0.048***
+</td>
+<td style="text-align:center;">
+0.068***
+</td>
+<td style="text-align:center;">
+0.308
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.075)
+</td>
+<td style="text-align:center;">
+(0.279)
+</td>
+<td style="text-align:center;">
+(0.017)
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(0.191)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(FundSize \times \bar{X}\)</span>
+</td>
+<td style="text-align:center;">
+0.028***
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+0.006**
+</td>
+<td style="text-align:center;">
+0.004*
+</td>
+<td style="text-align:center;">
+0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.010)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.003)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(CompetitorSize\)</span>
+</td>
+<td style="text-align:center;">
+-1.189***
+</td>
+<td style="text-align:center;">
+-1.089***
+</td>
+<td style="text-align:center;">
+-0.869***
+</td>
+<td style="text-align:center;">
+-0.934***
+</td>
+<td style="text-align:center;">
+-1.287***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.207)
+</td>
+<td style="text-align:center;">
+(0.309)
+</td>
+<td style="text-align:center;">
+(0.152)
+</td>
+<td style="text-align:center;">
+(0.162)
+</td>
+<td style="text-align:center;">
+(0.359)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(FundSize\)</span>
+</td>
+<td style="text-align:center;">
+-0.075***
+</td>
+<td style="text-align:center;">
+-0.030
+</td>
+<td style="text-align:center;">
+-0.034***
+</td>
+<td style="text-align:center;">
+-0.036***
+</td>
+<td style="text-align:center;">
+-0.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.021)
+</td>
+<td style="text-align:center;">
+(0.022)
+</td>
+<td style="text-align:center;">
+(0.011)
+</td>
+<td style="text-align:center;">
+(0.013)
+</td>
+<td style="text-align:center;">
+(0.027)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Month
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr grouplength="16">
+<td colspan="6" style="text-align: center;">
+<strong>Panel B: Real Time Portfolio Liquidity</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(Comp.Size \times X\)</span>
+</td>
+<td style="text-align:center;">
+0.159***
+</td>
+<td style="text-align:center;">
+-0.240
+</td>
+<td style="text-align:center;">
+0.039**
+</td>
+<td style="text-align:center;">
+0.057***
+</td>
+<td style="text-align:center;">
+0.421***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.041)
+</td>
+<td style="text-align:center;">
+(0.246)
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(0.130)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(FundSize \times X\)</span>
+</td>
+<td style="text-align:center;">
+0.008**
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+<td style="text-align:center;">
+0.011***
+</td>
+<td style="text-align:center;">
+0.006**
+</td>
+<td style="text-align:center;">
+0.015**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.004)
+</td>
+<td style="text-align:center;">
+(0.008)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.003)
+</td>
+<td style="text-align:center;">
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(X\)</span>
+</td>
+<td style="text-align:center;">
+-0.737**
+</td>
+<td style="text-align:center;">
+-1.032*
+</td>
+<td style="text-align:center;">
+-0.046
+</td>
+<td style="text-align:center;">
+0.037
+</td>
+<td style="text-align:center;">
+-1.681***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.302)
+</td>
+<td style="text-align:center;">
+(0.566)
+</td>
+<td style="text-align:center;">
+(0.091)
+</td>
+<td style="text-align:center;">
+(0.067)
+</td>
+<td style="text-align:center;">
+(0.283)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(CompetitorSize\)</span>
+</td>
+<td style="text-align:center;">
+-0.887***
+</td>
+<td style="text-align:center;">
+-0.474*
+</td>
+<td style="text-align:center;">
+-0.905***
+</td>
+<td style="text-align:center;">
+-0.968***
+</td>
+<td style="text-align:center;">
+-1.102***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.204)
+</td>
+<td style="text-align:center;">
+(0.266)
+</td>
+<td style="text-align:center;">
+(0.157)
+</td>
+<td style="text-align:center;">
+(0.164)
+</td>
+<td style="text-align:center;">
+(0.287)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(FundSize\)</span>
+</td>
+<td style="text-align:center;">
+-0.050***
+</td>
+<td style="text-align:center;">
+-0.026**
+</td>
+<td style="text-align:center;">
+-0.052***
+</td>
+<td style="text-align:center;">
+-0.043***
+</td>
+<td style="text-align:center;">
+-0.048***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:center;">
+(0.014)
+</td>
+<td style="text-align:center;">
+(0.013)
+</td>
+<td style="text-align:center;">
+(0.010)
+</td>
+<td style="text-align:center;">
+(0.012)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Fixed Effects
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Fund
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(\bullet\)</span> Month
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+<td style="text-align:center;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Observations
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+<td style="text-align:center;">
+363,203
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span>
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<span class="math inline">\(R^2\)</span> (proj. model)
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> The dependent variable is three-factor adjusted gross returns, in annualized percentages. Size variables are normalized according to the Table <a href="sec-CSandPerformance.html#tab:mainResults">B.1</a> caption. <span class="math inline">\(L\)</span>, <span class="math inline">\(S\)</span>, <span class="math inline">\(D\)</span>, <span class="math inline">\(C\)</span>, <span class="math inline">\(B\)</span> are portfolio liquidity, stock liquidity, diversification, coverage, and balance, as defined in <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst17L">2017</a><a href="references.html#ref-pst17L">b</a>)</span>. <span class="math inline">\(\bar{L}\)</span>, <span class="math inline">\(\bar{S}\)</span>, <span class="math inline">\(\bar{D}\)</span>, <span class="math inline">\(\bar{C}\)</span>, <span class="math inline">\(\bar{B}\)</span> denote fund-level means. <span class="math inline">\(X\)</span> variables are normalized by interquartile range. Each fund is assigned to one of ten portfolio group clusters each month based on k-means clustering of most recent portfolio holdings. Standard errors are double clustered by fund and year-month <span class="math inline">\(\times\)</span> portfolio group, and reported in parentheses. Asterisks denote statistical significance: <span class="math inline">\(\ast\ast\ast\)</span> p$&lt;<span class="math inline">\(0.01, p\)</span>&lt;$0.05, <span class="math inline">\(\ast\)</span> p$&lt;$0.1.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>A related question is whether funds can actively ameliorate the pernicious effects of decreasing returns to (competitor) scale by choosing more liquid portfolios. I test this by replacing fund-level average measures of portfolio liquidity in equation <a href="sec-CSandPerformance.html#eq:AvgLiqReg">(B.2)</a> with real time values:
+<span class="math display">\[\begin{align}
+\begin{split}
+R^{FF3}_{i,t+1} = \alpha_i + \alpha_t &amp;+ \gamma_1 CompetitorSize_{i,t} + \gamma_2 \left( CompetitorSize_{i,t} \times PortLiq_{i,t} \right) \\ 
+&amp;+ \eta_1 FundSize_{i,t} + \eta_2 \left( FundSize_{i,t} \times PortLiq_{i,t} \right)  \\
+&amp;+\gamma_3 PortLiq_{i,t} + \varepsilon_{i,t+1}.
+\end{split}
+\end{align}\]</span>
+Panel B of Table <a href="sec-CSandPerformance.html#tab:roleOfLiquidity">B.2</a> presents results from the regressions. With the exception of stock liquidity, the interaction terms are all positive and statistically significant, suggesting that increased portfolio liquidity shelters the fund from decreasing returns to scale. Note that the main effect of portfolio liquidity is negative, suggesting that funds make more when they hold more concentrated portfolios. This is consistent with funds responding to time-varying investment opportunities by decreasing portfolio liquidity when expected returns are high.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>As argued by <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst15">2015</a>)</span>, Morningstar benchmarks share the feature of non-gameability, but are proprietary.<a href="sec-CSandPerformance.html#fnref20" class="footnote-back">↩</a></p></li>
+<li id="fn21"><p>Since <span class="math inline">\(IndustrySize\)</span> only varies in the time series, it is omitted in regressions featuring year-month fixed effects. Similarly, <span class="math inline">\(FundAge\)</span> is fully absorbed by the combination of fund and year-month fixed effects.<a href="sec-CSandPerformance.html#fnref21" class="footnote-back">↩</a></p></li>
+<li id="fn22"><p>Interpreting the coefficient on <span class="math inline">\(FundSize\)</span> is problematic in within-fund regressions of returns. To be unbiased, within-fund regressions require strict exogeneity of the regressors [<span class="citation">Chamberlain (<a href="references.html#ref-chamberlain82">1982</a>)</span>; stambaugh99], meaning <span class="math inline">\(\text{Cov}(x_{i,t},\varepsilon_{i,s})=0 \ \forall s\in\{1,2,\ldots,T_i\}\)</span>. Since past idiosyncratic high (low) returns mechanically increase (decrease) total net assets, we will typically have <span class="math inline">\(\text{Cov}(FundSize_{i,t},\varepsilon_{i,s})&gt;0\)</span> for <span class="math inline">\(s&lt;t\)</span>, and a downward bias in the estimated coefficient. In simulations, <span class="citation">Harvey and Liu (<a href="references.html#ref-hl17">2017</a>)</span> estimate the bias around 14%. <span class="citation">Pástor, Stambaugh, and Taylor (<a href="references.html#ref-pst15">2015</a>)</span> propose a recursive demeaning (RD) procedure for eliminating this bias. The point estimates they report with the RD procedure are similar to those from the fixed effects OLS regressions, but the standard errors increase almost twenty-fold. Given that estimating the magnitude of decreasing returns to own size is not the focus of this study and the unfavorable tradeoff between bias and variance, I choose to not implement the RD procedure.<a href="sec-CSandPerformance.html#fnref22" class="footnote-back">↩</a></p></li>
+<li id="fn23"><p>Funds are grouped using k-means cluster analysis of raw portfolio weights. Each month, this process constructs <span class="math inline">\(k=10\)</span> archetypal portfolios (serving as cluster centers). These model portfolios are constructed and then funds are assigned to them such that the sum of squared differences between the weights of fund portfolios and their assigned model portfolio is minimized.<a href="sec-CSandPerformance.html#fnref23" class="footnote-back">↩</a></p></li>
+<li id="fn24"><p>Consistent with <span class="citation">Harvey and Liu (<a href="references.html#ref-hl17">2017</a>)</span>, I find much larger estimates of decreasing returns to own size when using a log transform of <span class="math inline">\(FundSize\)</span>.<a href="sec-CSandPerformance.html#fnref24" class="footnote-back">↩</a></p></li>
+<li id="fn25"><p>In unreported results, I find a similar pattern of more severe decreasing returns for funds employing less liquid strategies using ad hoc measures of portfolio liquidity such as the portfolio-weighted average market weight of holdings, number of stocks held, share of largest five holdings, the Herfindahl-Hischman Index of portfolio weights, as well as own size and turnover.<a href="sec-CSandPerformance.html#fnref25" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="summary-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="additional-results-capital-allocation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/appendix-performance.Rmd",
+"text": "Edit"
+},
+"download": ["_main.pdf", "_main.epub"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed",
+"edit": null,
+"download": null,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
