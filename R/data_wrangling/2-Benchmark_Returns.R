@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Feb 25, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ RegCoefs <- function(dt, fm) {
 }
 
 
-# Fund Level Returns, FF factors ---------
+# Load Fund Level Returns, FF factors ------------------------------------------
 
 fund.ret   <- readRDS(file.path(data.dir, "fund_level_crsp.Rds"))
 ff.factors <- readRDS(file.path(raw.dir,  "ff_factors.Rds"))
@@ -41,7 +41,7 @@ fund.ret <- fund.ret[
     re.net = r.net - rf,
     re.gross = r.gross - rf)][
   # restrict to 1980-2016
-  1980 <= year(date) & year(date) <= 2016][
+  "Jan 1980" <= date & date <= "Jan 2017"][
   # require a year of net returns
   !is.na(r.net), if (.N >= 12) .SD, keyby = wficn]
 
@@ -82,15 +82,19 @@ ff4.betas.gross <- fund.ret[
 setnames(ff4.betas.gross, c("wficn", paste0(c("a", "b", "s", "h", "m"), ".ff4.gross")))
 
 # consolidate loadings
-loadings.net <- capm.betas.net[ff3.betas.net][ff4.betas.net]
-loadings.gross <- capm.betas.gross[ff3.betas.gross][ff4.betas.gross]
-loadings <- merge(loadings.net, loadings.gross, all = TRUE)
+loadings.net <- capm.betas.net[
+  ff3.betas.net, on = "wficn"][
+  ff4.betas.net, on = "wficn"]
+loadings.gross <- capm.betas.gross[
+  ff3.betas.gross, on = "wficn"][
+  ff4.betas.gross, on = "wficn"]
+loadings <- merge(loadings.net, loadings.gross, by = "wficn", all = TRUE)
 saveRDS(loadings, file.path(out.dir, "factor_loadings.Rds"))
 
 
 # Risk Adjusted Returns --------------------------------------------------------
 
-risk.adj.ret <- fund.ret[loadings][
+risk.adj.ret <- fund.ret[loadings, on = "wficn"][
   , `:=` (
     # CAPM
     ra.net.capm = re.net - b.capm.net*mktrf,
