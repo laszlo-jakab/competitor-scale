@@ -1,0 +1,35 @@
+\contentsline {chapter}{Abstract}{3}{chapter*.2}
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
+\contentsline {chapter}{\numberline {2}Literature Review}{7}{chapter.2}
+\contentsline {chapter}{\numberline {3}Theoretical Motivation}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Symmetric Information}{10}{section.3.1}
+\contentsline {section}{\numberline {3.2}Better Informed Managers}{10}{section.3.2}
+\contentsline {section}{\numberline {3.3}Similar Hypotheses Based on an Alternative Approach}{11}{section.3.3}
+\contentsline {chapter}{\numberline {4}Data}{12}{chapter.4}
+\contentsline {section}{\numberline {4.1}Fund Selection}{12}{section.4.1}
+\contentsline {section}{\numberline {4.2}Portfolio Weights}{13}{section.4.2}
+\contentsline {section}{\numberline {4.3}\(CompetitorSize\) Variable}{13}{section.4.3}
+\contentsline {section}{\numberline {4.4}Portfolio Liquidity Variables}{14}{section.4.4}
+\contentsline {section}{\numberline {4.5}Summary Statistics}{14}{section.4.5}
+\contentsline {section}{\numberline {4.6}Correlations}{15}{section.4.6}
+\contentsline {chapter}{\numberline {5}Competition and Capital Allocation}{16}{chapter.5}
+\contentsline {section}{\numberline {5.1}Decreasing Returns to Competitor Scale}{16}{section.5.1}
+\contentsline {section}{\numberline {5.2}Empirical Strategy}{16}{section.5.2}
+\contentsline {section}{\numberline {5.3}Results}{17}{section.5.3}
+\contentsline {chapter}{\numberline {6}Evidence From the 2003 Mutual Fund Scandal}{19}{chapter.6}
+\contentsline {section}{\numberline {6.1}Before and After Analysis}{20}{section.6.1}
+\contentsline {section}{\numberline {6.2}Linking \(CompetitorSize\) Directly to Abnormal Flows}{21}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Controlling for Sector Level Shocks}{23}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Fund Performance}{23}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Investor Flows}{23}{subsection.6.2.3}
+\contentsline {chapter}{\numberline {7}Conclusion}{27}{chapter.7}
+\contentsline {chapter}{\numberline {A}Summary Statistics}{28}{appendix.A}
+\contentsline {section}{\numberline {A.1}Tables}{28}{section.A.1}
+\contentsline {section}{\numberline {A.2}Figures}{28}{section.A.2}
+\contentsline {chapter}{\numberline {B}Competitor Size and Fund Performance}{30}{appendix.B}
+\contentsline {section}{\numberline {B.1}Benchmarking Returns}{30}{section.B.1}
+\contentsline {section}{\numberline {B.2}Regression Setup}{31}{section.B.2}
+\contentsline {section}{\numberline {B.3}Results}{32}{section.B.3}
+\contentsline {section}{\numberline {B.4}The Role of Portfolio Liquidity}{32}{section.B.4}
+\contentsline {section}{\numberline {B.5}Results Using Pre-2008 Data}{34}{section.B.5}
+\contentsline {chapter}{\numberline {C}Additional Results: Capital Allocation}{36}{appendix.C}

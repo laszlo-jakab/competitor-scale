@@ -1,6 +1,6 @@
 --- 
 title: "Competitor Scale and Mutual Fund Behavior"
-author: "Laszlo Jakab"
+author: "László Jakab"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: 
     bookdown::gitbook:
@@ -22,7 +22,8 @@ output:
                 family: serif
                 size: 2
 documentclass: book
-bibliography: [mf_references.bib]
+classoption: openany
+bibliography: [mf-references.bib]
 biblio-style: apalike
 link-citations: yes
 ---

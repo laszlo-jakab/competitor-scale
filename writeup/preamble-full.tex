@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+
+\usepackage{psfrag}
+\usepackage{multirow}
+%\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{lscape}
+\usepackage{helvet}
+\usepackage[labelfont={bf,small},labelsep=period]{caption}
+\captionsetup[table]{labelsep=newline,labelfont=bf,textfont=bf}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage[title]{appendix}
+\usepackage{natbib}
+\usepackage{jf}
+\usepackage{indentfirst} % Indent first sentence of a new section.
+\usepackage{hyperref}
+\usepackage{breakurl}
+%\usepackage[amsmath]{ntheorem}
+\usepackage{etoolbox}
+
+\graphicspath{{C:/Users/Laszlo/Dropbox/Research/MF_industry_size_figures/}}
+
+\makeatletter
+\def\input@path{{C:/Users/Laszlo/Dropbox/Research/MF_industry_size_figures/}}
+\makeatother
+
+\bibliographystyle{jf}
+
+
+\hypersetup{
+    colorlinks   = true,
+%    urlcolor	  = [rgb]{0,0.5,1},
+    urlcolor	  = blue,
+    citecolor    = blue,
+    linkcolor=blue
+	}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Z}{>{\raggedleft\arraybackslash}X}
+
+\newcommand{\pa}{\partial}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\ls}{\left[}
+\newcommand{\rs}{\right]}
+\newcommand{\E}{\mathbb{E}}
+
+\renewcommand{\abstractname}{\scshape Abstract}
+
+%\theoremseparator{:}
+%\newtheoremstyle{mytheoremstyle} % name
+%    {\topsep}                    % Space above
+%    {\topsep}                    % Space below
+%    {\itshape}                   % Body font
+%    {1em}                        % Indent amount
+%    {\bf}                   % Theorem head font
+%    {.}                          % Punctuation after theorem head
+%    {.5em}                       % Space after theorem head
+%    {\bf}  % Theorem head spec (can be left empty, meaning ‘normal’)
+\usepackage{thmtools}
+\declaretheoremstyle[
+	headfont=\bf,
+	headindent=0em,
+	notefont=\bf,
+	bodyfont=\it,
+	headpunct=:,
+	spaceabove=1em, 
+	spacebelow=.5em
+	]{mystyle}
+\declaretheorem[style=mystyle]{hypothesis}
+%\newtheorem{hypothesis}{\textbf{Hypothesis}}
+
+\declaretheorem[name=Empirical Test of Hypothesis,style=mystyle]{test}
+
+%\newenvironment{hyprime}[1]
+%  {\renewcommand{\thehypothesis}{Empirical Test of Hypothesis \ref{#1}}%
+%   \addtocounter{hypothesis}{-1}%
+%   \begin{hypothesis}}
+%  {\end{hypothesis}}
+
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+
+\makeatother

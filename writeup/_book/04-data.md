@@ -76,10 +76,14 @@ Table \@ref(tab:sumStats) reports summary statistics.
 Figure \@ref(fig:histograms) presents histograms of the distribution of $CompetitorSize$. The unconditional distribution is right skewed, as shown in the left panel. This is to be expected, as $CompetitorSize$ is a weighted sum of the highly skewed $FundSize$. The within-fund distribution is centered more tightly, but still includes substantive variation. 
 
 
-<div class="figure" style="text-align: center">
-<img src="04-data_files/figure-html/histograms-1.png" alt="Histograms of $CompetitorSize$. The left panel illustrates the variable's unconditional distribution. The right panel shows the distribution after demeaning fund-by-fund." width="1800" />
-<p class="caption">(\#fig:histograms)Histograms of $CompetitorSize$. The left panel illustrates the variable's unconditional distribution. The right panel shows the distribution after demeaning fund-by-fund.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{04-data_files/figure-latex/histograms-1} 
+
+}
+
+\caption{Histograms of $CompetitorSize$. The left panel illustrates the variable's unconditional distribution. The right panel shows the distribution after demeaning fund-by-fund.}(\#fig:histograms)
+\end{figure}
 
 
 The time series of the cross-sectional average competitor size and aggregate industry size are closely related (left panel of Figure \@ref(fig:industrySize)). 
@@ -91,7 +95,7 @@ The dynamics of fund similarity are substantively different from those of aggreg
 
 
 
-Panel A of Table \@ref(tab:correlations) presents unconditional pairwise correlations between variables, while Panel B presents within-fund pairwise correlations. $CompetitorSize$ is positively correlated with $IndustrySize$ both unconditionally ($\rho=$ 0.38) and at the fund level ($\rho=$ 0.60). The residual within-fund variation in $CompetitorSize$ with respect to $IndustrySize$ reflects heterogenous dynamics in competitor size across funds pursuing different investment strategies.^[This residual variation is useful for identification, as the time series correlation between $IndustrySize$ and a linear time trend is $\rho=$0.93, making industry level decreasing returns to scale hard to distinguish from simple trends in the data.]
+Panel A of Table \@ref(tab:correlations) presents unconditional pairwise correlations between variables, while Panel B presents within-fund pairwise correlations. $CompetitorSize$ is positively correlated with $IndustrySize$ both unconditionally ($\rho=$ 0.38) and at the fund level ($\rho=$ 0.60). The residual within-fund variation in $CompetitorSize$ with respect to $IndustrySize$ reflects heterogenous dynamics in competitor size across funds pursuing different investment strategies.^[This residual variation is useful for identification, as the time series correlation between $IndustrySize$ and a linear time trend is $\rho=$ 0.93, making industry level decreasing returns to scale hard to distinguish from simple trends in the data.]
 
-There is a small but negative correlation between $CompetitorSize$ and risk adjusted gross returns, both unconditionally ($\rho=$ -0.02) and within-fund ($\rho=$ -0.03). $CompetitorSize$ tends to increase over each fund's lifetime. The within-fund correlation between $CompetitorSize$ and $FundAge$ is $\rho=$ 0.51. The unconditional correlation is markedly lower ($\rho=$ 0.10), indicating that new funds begin their operations exploiting relatively lightly contested investment opportunities. $CompetitorSize$ is highly correlated with portfolio liquidity both unconditionally ($\rho=$ 0.75) and within-fund (0.63), evidence that more liquid market segments are capable of absorbing higher levels of active investment. Consistent with the joint determination of fund size, portfolio liquidity, turnover, and expense ratios in @pst17L, larger funds tend to be more liquid, trade less, and charge lower fees. 
+There is a small but negative correlation between $CompetitorSize$ and risk adjusted gross returns, both unconditionally ($\rho=$ -0.02) and within-fund ($\rho=$ -0.03). $CompetitorSize$ tends to increase over each fund's lifetime. The within-fund correlation between $CompetitorSize$ and $FundAge$ is $\rho=$ 0.51. The unconditional correlation is markedly lower ($\rho=$ 0.10), indicating that new funds begin their operations exploiting relatively lightly contested investment opportunities. $CompetitorSize$ is highly correlated with portfolio liquidity both unconditionally ($\rho=$ 0.75) and within-fund ($\rho=$ 0.63), evidence that more liquid market segments are capable of absorbing higher levels of active investment. Consistent with the joint determination of fund size, portfolio liquidity, turnover, and expense ratios in @pst17L, larger funds tend to be more liquid, trade less, and charge lower fees. 
 

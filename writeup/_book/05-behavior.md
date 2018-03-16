@@ -52,238 +52,40 @@ Table \@ref(tab:fundResponse) presents results from empirical tests evaluating h
 The results are consistent with managers reacting optimally to decreasing returns to own and competitor scale by scaling back active management. A one percent increase in competitor size is associated with a -0.05bp change in active share, and a -0.47bp change in the turnover to portfolio liquidity ratio. Increases in competitor scale are associated with statistically significant increases in each component of portfolio liquidity. A one percent increase in own size is associated with a -0.02bp change in active share, and a -0.18bp change in turnover to portfolio liquidity. 
 
 
-<table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:fundResponse)Capital Allocation and Competitor Size</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Dep. Var.: </th>
-   <th style="text-align:center;"> $\Delta\ln(AS)$ </th>
-   <th style="text-align:center;"> $\Delta\ln(TL^{-1/2})$ </th>
-   <th style="text-align:center;"> $\Delta\ln(L)$ </th>
-   <th style="text-align:center;"> $\Delta\ln(S)$ </th>
-   <th style="text-align:center;"> $\Delta\ln(D)$ </th>
-   <th style="text-align:center;"> $\Delta\ln(C)$ </th>
-   <th style="text-align:center;"> $\Delta\ln(B)$ </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> $\Delta CS$ </td>
-   <td style="text-align:center;"> -0.051*** </td>
-   <td style="text-align:center;"> -0.472*** </td>
-   <td style="text-align:center;"> 0.788*** </td>
-   <td style="text-align:center;"> 0.659*** </td>
-   <td style="text-align:center;"> 0.533*** </td>
-   <td style="text-align:center;"> 0.173*** </td>
-   <td style="text-align:center;"> 0.435*** </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.020) </td>
-   <td style="text-align:center;"> (0.064) </td>
-   <td style="text-align:center;"> (0.083) </td>
-   <td style="text-align:center;"> (0.088) </td>
-   <td style="text-align:center;"> (0.061) </td>
-   <td style="text-align:center;"> (0.035) </td>
-   <td style="text-align:center;"> (0.052) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(FundSize)$ </td>
-   <td style="text-align:center;"> -0.016*** </td>
-   <td style="text-align:center;"> -0.184*** </td>
-   <td style="text-align:center;"> 0.218*** </td>
-   <td style="text-align:center;"> 0.108*** </td>
-   <td style="text-align:center;"> 0.196*** </td>
-   <td style="text-align:center;"> 0.115*** </td>
-   <td style="text-align:center;"> 0.115*** </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.003) </td>
-   <td style="text-align:center;"> (0.016) </td>
-   <td style="text-align:center;"> (0.018) </td>
-   <td style="text-align:center;"> (0.013) </td>
-   <td style="text-align:center;"> (0.016) </td>
-   <td style="text-align:center;"> (0.012) </td>
-   <td style="text-align:center;"> (0.011) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(f)$ </td>
-   <td style="text-align:center;"> -0.018 </td>
-   <td style="text-align:center;"> 0.063 </td>
-   <td style="text-align:center;"> -0.009 </td>
-   <td style="text-align:center;"> -0.025 </td>
-   <td style="text-align:center;"> 0.005 </td>
-   <td style="text-align:center;"> 0.023 </td>
-   <td style="text-align:center;"> -0.015 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.014) </td>
-   <td style="text-align:center;"> (0.041) </td>
-   <td style="text-align:center;"> (0.032) </td>
-   <td style="text-align:center;"> (0.026) </td>
-   <td style="text-align:center;"> (0.031) </td>
-   <td style="text-align:center;"> (0.024) </td>
-   <td style="text-align:center;"> (0.026) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta \ln(T)$ </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.013* </td>
-   <td style="text-align:center;"> -0.006 </td>
-   <td style="text-align:center;"> -0.011* </td>
-   <td style="text-align:center;"> 0.001 </td>
-   <td style="text-align:center;"> -0.014*** </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.007) </td>
-   <td style="text-align:center;"> (0.005) </td>
-   <td style="text-align:center;"> (0.006) </td>
-   <td style="text-align:center;"> (0.004) </td>
-   <td style="text-align:center;"> (0.005) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(D)$ </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.340*** </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.018) </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(S)$ </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.570*** </td>
-   <td style="text-align:center;"> -0.194*** </td>
-   <td style="text-align:center;"> -0.458*** </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.017) </td>
-   <td style="text-align:center;"> (0.013) </td>
-   <td style="text-align:center;"> (0.021) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(B)$ </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.114*** </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.011) </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\Delta\ln(C)$ </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.229*** </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.021) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Fixed Effects </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\bullet$ Quarter </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Observations </td>
-   <td style="text-align:center;"> 34,984 </td>
-   <td style="text-align:center;"> 57,146 </td>
-   <td style="text-align:center;"> 57,146 </td>
-   <td style="text-align:center;"> 57,146 </td>
-   <td style="text-align:center;"> 57,146 </td>
-   <td style="text-align:center;"> 57,146 </td>
-   <td style="text-align:center;"> 57,146 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $R^2$ </td>
-   <td style="text-align:center;"> 0.025 </td>
-   <td style="text-align:center;"> 0.028 </td>
-   <td style="text-align:center;"> 0.059 </td>
-   <td style="text-align:center;"> 0.218 </td>
-   <td style="text-align:center;"> 0.224 </td>
-   <td style="text-align:center;"> 0.101 </td>
-   <td style="text-align:center;"> 0.180 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $R^2$ (proj. model) </td>
-   <td style="text-align:center;"> 0.005 </td>
-   <td style="text-align:center;"> 0.018 </td>
-   <td style="text-align:center;"> 0.045 </td>
-   <td style="text-align:center;"> 0.202 </td>
-   <td style="text-align:center;"> 0.209 </td>
-   <td style="text-align:center;"> 0.081 </td>
-   <td style="text-align:center;"> 0.171 </td>
-  </tr>
-</tbody>
-<tfoot>
-<tr><td style="padding: 0; border: 0;" colspan="100%"><strong>Note: </strong></td></tr>
-<tr><td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Observations are first differences at the fund $\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks [@cp09; petajisto13], covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in @pst17L. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\Delta CS_{i,t}=\ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t} \right) - \ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t-1}\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: $\ast\ast\ast$ p$&lt;$0.01, $\ast\ast$ p$&lt;$0.05, $\ast$ p$&lt;$0.1.</td></tr>
-</tfoot>
-</table>
+\begin{table}[ht]
+\centering
+\caption{Capital Allocation and Competitor Size} 
+\label{tab:fundResponse}
+\begingroup\scriptsize
+\begin{tabularx}{0.975\textwidth}{lYYYYYYY}
+  \multicolumn{8}{p{.975\textwidth}}{\scriptsize Observations are first differences at the fund $\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\Delta CS_{i,t}=\ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t} \right) - \ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t-1}\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.} \\ \addlinespace \toprule
+Dep. Var.: & $\Delta\ln(AS)$ & $\Delta\ln(TL^{-1/2})$ & $\Delta\ln(L)$ & $\Delta\ln(S)$ & $\Delta\ln(D)$ & $\Delta\ln(C)$ & $\Delta\ln(B)$ \\ 
+  \midrule
+$\Delta CS$ & -0.051*** & -0.472*** & 0.788*** & 0.659*** & 0.533*** & 0.173*** & 0.435*** \\ 
+   & (0.020) & (0.064) & (0.083) & (0.088) & (0.061) & (0.035) & (0.052) \\ 
+  $\Delta\ln(FundSize)$ & -0.016*** & -0.184*** & 0.218*** & 0.108*** & 0.196*** & 0.115*** & 0.115*** \\ 
+   & (0.003) & (0.016) & (0.018) & (0.013) & (0.016) & (0.012) & (0.011) \\ 
+  $\Delta\ln(f)$ & -0.018 & 0.063 & -0.009 & -0.025 & 0.005 & 0.023 & -0.015 \\ 
+   & (0.014) & (0.041) & (0.032) & (0.026) & (0.031) & (0.024) & (0.026) \\ 
+  $\Delta \ln(T)$ &  &  & -0.013* & -0.006 & -0.011* & 0.001 & -0.014*** \\ 
+   &  &  & (0.007) & (0.005) & (0.006) & (0.004) & (0.005) \\ 
+  $\Delta\ln(D)$ &  &  &  & -0.340*** &  &  &  \\ 
+   &  &  &  & (0.018) &  &  &  \\ 
+  $\Delta\ln(S)$ &  &  &  &  & -0.570*** & -0.194*** & -0.458*** \\ 
+   &  &  &  &  & (0.017) & (0.013) & (0.021) \\ 
+  $\Delta\ln(B)$ &  &  &  &  &  & -0.114*** &  \\ 
+   &  &  &  &  &  & (0.011) &  \\ 
+  $\Delta\ln(C)$ &  &  &  &  &  &  & -0.229*** \\ 
+   &  &  &  &  &  &  & (0.021) \\ 
+  Fixed Effects &  &  &  &  &  &  &  \\ 
+  $\bullet$ Quarter & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
+  Observations & 34,984 & 57,146 & 57,146 & 57,146 & 57,146 & 57,146 & 57,146 \\ 
+  $R^2$ & 0.025 & 0.028 & 0.059 & 0.218 & 0.224 & 0.101 & 0.180 \\ 
+  $R^2$ (proj. model) & 0.005 & 0.018 & 0.045 & 0.202 & 0.209 & 0.081 & 0.171 \\ 
+   \bottomrule
+\end{tabularx}
+\endgroup
+\end{table}
 
 @pst17L argue that unit trading costs might vary by fund segment, implying a model with segment $\times$ time fixed effects. To accommodate segment level variation in trading costs, I redo the analysis with benchmark $\times$ quarter fixed effects in Table \@(tab:fundResponseMXBim). The results remain similar. 
 
