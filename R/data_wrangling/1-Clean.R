@@ -413,7 +413,7 @@ ret.tna <- ret.tna[
   # year-month of caldt
   , date := as.yearmon(caldt)][
   # number of months between obs
-  , months.elapsed := round((date - shift(date))*12), by = crsp_fundno][
+  , months.elapsed := round((date - shift(date)) * 12), by = crsp_fundno][
   # keep only if number of months between obs is 1 or NA (first obs by fund)
   is.na(months.elapsed) | months.elapsed == 1][
   # lag tna
@@ -455,13 +455,13 @@ turn_ratio.dt <- ret.tna[
 
 # merge fund level variables
 ret.tna.fund <- merge(r.net.dt, r.gross.dt,
-                      by = c("wficn", "date"), all = TRUE)
+  by = c("wficn", "date"), all = TRUE)
 ret.tna.fund <- merge(ret.tna.fund, tna.dt,
-                      by = c("wficn", "date"), all = TRUE)
+  by = c("wficn", "date"), all = TRUE)
 ret.tna.fund <- merge(ret.tna.fund, exp_ratio.dt,
-                      by = c("wficn", "date"), all = TRUE)
+  by = c("wficn", "date"), all = TRUE)
 ret.tna.fund <- merge(ret.tna.fund, turn_ratio.dt,
-                      by = c("wficn", "date"), all = TRUE)
+  by = c("wficn", "date"), all = TRUE)
 
 
 # Tidy Fund Level Dataset ------------------------------------------------------
@@ -476,7 +476,7 @@ ret.tna.fund <- ret.tna.fund[
 
   # number of months between observations
   , .SD, key = c("wficn", "date")][
-  , months.elapsed := round((date - shift(date))*12), by = wficn][
+  , months.elapsed := round((date - shift(date)) * 12), by = wficn][
   # most recent fund size
   , `:=` (
     tna.lagged = shift(tna),
@@ -489,7 +489,7 @@ ret.tna.fund <- ret.tna.fund[
 
   # drop if lagged real tna is less than 15m
   is.na(tna.real2017.lagged) | tna.real2017.lagged >= 15][
-  # if lagged real tnamissing, drop if current real tna less than 15m
+  # if lagged real tna missing, drop if current real tna less than 15m
   !(is.na(tna.real2017.lagged) & tna.real2017 < 15)][
 
   # drop if fund-level expense ratio < .1% (signifies passive fund)
@@ -499,7 +499,7 @@ ret.tna.fund <- ret.tna.fund[
   tna > 0][
 
   # keep only if the fund is observed for at least a year
-  , if (.N>=12) .SD, by = wficn]
+  , if (.N >= 12) .SD, by = wficn]
 
 # calculate fund age
 ret.tna.fund <-
