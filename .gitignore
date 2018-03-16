@@ -1,9 +1,11 @@
 packrat/lib*/
 .Rproj.user
 /archive/
-/data/
-!scandal_wficns_2018-Mar-06.Rds
-/fig/*
-/tab/*
+data/*
+!data/scandal/*
+data/scandal/*
+!data/scandal/scandal_wficns_2018-Mar-06.Rds
+fig/*
+tab/*
 /writeup/debug
 Flow_Regs.R
