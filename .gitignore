@@ -8,4 +8,4 @@ data/scandal/*
 fig/*
 tab/*
 /writeup/debug
-
+.Rhistory
