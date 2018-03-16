@@ -8,17 +8,16 @@ pkgs <- c(
   "data.table",
   "zoo",
   "knitr",
-  "kableExtra",
   "ggplot2",
   "magrittr",
-  "gridExtra"
+  "gridExtra",
+  "xtable"
 )
 lapply(pkgs, library, character.only = TRUE)
 options(knitr.kable.NA = '')
 
-# output format
-#out.type <- knitr::opts_knit$get('rmarkdown.pandoc.to')
-options(knitr.table.format = "html")
+# quiet xtable
+options(xtable.comment = FALSE)
 
 # directories
 setwd("..")
@@ -61,13 +60,11 @@ Table~\ref{tab:snapShot200308} presents a snapshot of summary statistics as of A
 
 
 ```{r scandalFlows, echo = FALSE, dpi = 300, fig.width = 8, fig.height = 3, fig.cap = paste(scandal.fig$flows$title, scandal.fig$flows$caption)}
-
 # Plots of Flows ---------------------------------------------------------------
 grid.arrange(
   scandal.fig$flows$results$flows, 
   scandal.fig$flows$results$size, 
-  nrow = 1, widths = 2:1
-)
+  nrow = 1, widths = 2:1)
 # ------------------------------------------------------------------------------
 ```
 
@@ -98,13 +95,13 @@ Figure \@ref(fig:exposureDID) summarizes the identifying variation in the data. 
 
 
 ```{r exposureDID, echo = FALSE, dpi = 300, fig.width = 9, fig.height = 11, fig.cap = paste(scandal.fig$did$title, scandal.fig$did$caption)}
-
 # DiD Plots --------------------------------------------------------------------
-
 # arrange plots
 grid.arrange(
-  scandal.fig$did$results$ln.CS, scandal.fig$did$results$ln.AS, scandal.fig$did$results$ff3, scandal.fig$did$results$ln.TL, scandal.fig$did$results$ln.T, scandal.fig$did$results$ln.L, nrow = 3)
-
+  scandal.fig$did$results$ln.CS, scandal.fig$did$results$ln.AS, 
+  scandal.fig$did$results$ff3, scandal.fig$did$results$ln.TL, 
+  scandal.fig$did$results$ln.T, scandal.fig$did$results$ln.L, 
+  nrow = 3)
 # -------------------------------------------------------------------------------
 ```
 
@@ -124,29 +121,57 @@ Unreported binned scatter plots suggest reasonably linear relations between $Sca
 I double cluster standard errors by fund and portfolio group $\times$ time. I normalize $ScandalExposure$ by its interquartile range ($\approx 6$\%).
 
 
-```{r scandalSpillover, echo = FALSE, warning = FALSE, message = FALSE}
-# Display DiD Table ------------------------------------------------------------
-scandal.tab$did$results %>%
-  kable(type = "html",
-    caption = scandal.tab$did$title,
-    align = c("l", rep("c", 7)),
-    booktabs = TRUE,
-    col.names = c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-                  "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-                  "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$")) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover"),
-    position = "center",
-    font_size = 11) %>%
-  group_rows("1 year window",
-             1, dim(scandal.tab$did$sub.results$w1yr)[1], 
-             label_row_css = "text-align: center;") %>%
-  group_rows("2 year window",
-             dim(scandal.tab$did$sub.results$w1yr)[1]+1, 
-             dim(scandal.tab$did$results)[1], 
-             label_row_css = "text-align: center;") %>%
-  footnote(scandal.tab$did$caption)
+```{r , echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+# DiD Table --------------------------------------------------------------------
 
+# label columns
+setnames(scandal.tab$did$results, 
+  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
+    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
+    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+
+# add caption and panel headers
+rb <- nrow(scandal.tab$did$sub.results$w1yr)
+nc <- ncol(scandal.tab$did$results)
+add.to.row <- list(
+  pos = list(-1, 0, 0, rb, rb, rb), 
+  command = NULL)
+command <- c(
+  # -1
+  paste0(
+    "\\multicolumn{", nc, "}{p{.975\\textwidth}}{",
+	  scandal.tab$did$caption, "}\\\\\n\\addlinespace"),
+  # 0
+  "\\midrule \\\\\n",
+  # 0
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel A: 1 year window}}\\\\\n"),
+  # Panel B
+  "\\midrule \\\\\n",
+  # Panel B
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel B: 2 year window}} \\\\\n"),
+  # Panel B
+  "\\midrule "
+  )
+add.to.row$command <- command
+
+# print the table
+print(
+  xtable(scandal.tab$did$results,
+    align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
+    caption = scandal.tab$did$title,
+    label = "tab:scandalSpillover"
+    ),
+    sanitize.text.function = function(x){x},
+    booktabs = TRUE,
+    add.to.row = add.to.row,
+    size = "\\scriptsize",
+    tabular.environment = "tabularx",
+    width="0.975\\textwidth",
+    include.rownames = FALSE,
+    caption.placement = 'top'
+    )
 # -------------------------------------------------------------------------------------------
 ```
 
@@ -184,11 +209,11 @@ Figure \@ref(fig:scandalOutFlow) plots time series characteristics of abnormal f
 
 
 ```{r scandalOutFlow, echo = FALSE, dpi = 300, fig.width = 9, fig.height = 3, fig.cap = paste(scandal.fig$sof$title, scandal.fig$sof$caption)}
-
 # ScandalOutFlow Plots ---------------------------------------------------------
-
-grid.arrange(scandal.fig$sof$results$betas, scandal.fig$sof$results$pctiles, nrow = 1)
-
+grid.arrange(
+  scandal.fig$sof$results$betas, 
+  scandal.fig$sof$results$pctiles, 
+  nrow = 1)
 # ---------------------------------------------------------------------------
 ```
 
@@ -201,34 +226,60 @@ where $\mathbf{X}_{i,t}$ includes log size and expense ratio.
 Table \@ref(tab:scandalSpilloverIV) presents results. The coefficient on $ScandalOutFlow$ represents the expected difference in outcomes between funds across the variable's interquartile range. Moving from the 25$^{\text{th}}$ to the 75$^{\text{th}}$ percentile of abnormal scandal-affected competitor outflow is associated with an approximately $18$\% relative decline in competitor size. Consistent with the difference-in-differences-style analysis, the results indicate that funds whose competitors were particularly affected by scandal-related outflows expanded active management relative to funds with less affected competitors, increasing active share, turnover to portfolio liquidity ratios, and decreasing portfolio liquidity.
 
 
-```{r scandalSpilloverIV, echo = FALSE}
 
-# Display ScandalOutFlow Regressions ---------------------------------------
+```{r scandalSpilloverIV, echo = FALSE, results = 'asis', warning = FALSE, message = FALSE}
+# ScandalOutFlow Regressions ---------------------------------------
 
-scandal.tab$sof$results %>%
-  kable(type = "html",
+# label columns
+setnames(scandal.tab$sof$results, 
+  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
+    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
+    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+
+# add caption and panel headers
+rb <- nrow(scandal.tab$sof$sub.results$w1yr)
+nc <- ncol(scandal.tab$sof$results)
+add.to.row <- list(
+  pos = list(-1, 0, 0, rb, rb, rb), 
+  command = NULL)
+command <- c(
+  # -1
+  paste0(
+    "\\multicolumn{", nc, "}{p{.975\\textwidth}}{",
+	  scandal.tab$sof$caption, "}\\\\\n\\addlinespace"),
+  # 0
+  "\\midrule \\\\\n",
+  # 0
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel A: 1 year window}} \\\\\n"),
+  # Panel B
+  "\\midrule \\\\\n",
+  # Panel B
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel B: 2 year window}} \\\\\n"),
+  # Panel B
+  "\\midrule "
+  )
+add.to.row$command <- command
+
+# print the table
+print(
+  xtable(scandal.tab$sof$results,
+    align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
     caption = scandal.tab$sof$title,
-    align = c("l", rep("c", 7)),
+    label = "tab:scandalSpilloverIV"
+    ),
+    sanitize.text.function = function(x){x},
     booktabs = TRUE,
-    col.names = c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-                  "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-                  "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$")) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover"),
-    position = "center",
-    font_size = 11) %>%
-  group_rows("1 year window",
-             1, dim(scandal.tab$sof$sub.results$w1yr)[1], 
-             label_row_css = "text-align: center;") %>%
-  group_rows("2 year window",
-             dim(scandal.tab$sof$sub.results$w1yr)[1]+1, 
-             dim(scandal.tab$sof$results)[1], 
-             label_row_css = "text-align: center;") %>%
-  footnote(scandal.tab$sof$caption)
-
+    add.to.row = add.to.row,
+    size = "\\scriptsize",
+    tabular.environment = "tabularx",
+    width="0.975\\textwidth",
+    include.rownames = FALSE,
+    caption.placement = 'top'
+    )
 # ------------------------------------------------------------------------
 ```
-
 
 In additional analyses I isolate the variation in $CompetitorSize$ attributable to abnormal flows at tainted competitors, and measure its impact on capital allocation. I perform two-stage least squares (2SLS) regressions, instrumenting for $\ln(CompetitorSize)$ by $ScandalOutFlow$ in the specification
 \begin{equation}
@@ -239,7 +290,7 @@ where $y_{i,t}$ is log active share or log turnover-liquidity ratio, and $\mathb
 
 \subsection{Controlling for Sector Level Shocks}
 
-As an additional robustness check to ensure my results are not an artifact of common sector level shocks, I re-estimate the analysis using benchmark $\times$ time fixed effects. The results remain similar (Tables~\ref{tab:scandalSpilloverMXBim},~\ref{tab:scandalSpilloverPreTrendMXBim},~\ref{tab:scandalSpilloverIVMXBim},~\ref{tab:scandal2SLSmXbim}).
+As an additional robustness check to ensure my results are not an artifact of common sector level shocks, I re-estimate the analysis using benchmark $\times$ time fixed effects. The results remain similar (Tables \@ref(tab:scandalSpilloverMXBim), \@ref(tab:scandalSpilloverPreTrendMXBim), \@ref(tab:scandalSpilloverIVMXBim), \@ref(tab:scandal2SLSmXbim)).
 
 
 \subsection{Fund Performance}
@@ -247,32 +298,54 @@ As an additional robustness check to ensure my results are not an artifact of co
 The analysis presented so far is consistent with competitors of scandal-tainted funds reacting to improved investment opportunities by increasing capital allocated to active strategies. According to this line of reasoning we would expect the same funds to experience relatively improved performance. To investigate, in Table \@ref(tab:scandalPerformance) I perform analyses similar to those presented above, but with risk adjusted gross returns as the outcome variable of interest. The results demonstrate that close competitors of tainted funds indeed saw an increase in relative performance following the scandal. 
 
 
-```{r scandalPerformance, echo = FALSE}
+```{r scandalPerformance, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+# Performance Regression Tables ------------------------------------------------
 
-# Display Performance Regression Tables ---------------------------------------------
+# fix first row
+setnames(scandal.tab$perf$results, "V1", "")
 
-scandal.tab$perf$results %>%
-  kable(type = "html",
+# add caption and panel headers
+rb <- nrow(scandal.tab$perf$sub.results$w1yr)
+nc <- ncol(scandal.tab$perf$results)
+add.to.row <- list(
+  pos = list(-1, 0, 0, rb, rb, rb), 
+  command = NULL)
+command <- c(
+  # -1
+  paste0(
+    "\\multicolumn{", nc, "}{p{.975\\textwidth}}{",
+	  scandal.tab$perf$caption, "}\\\\\n \\addlinespace"),
+  # 0
+  "\\midrule \\\\\n",
+  # 0
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel A: 1 year window}} \\\\\n"),
+  # Panel B
+  "\\midrule \\\\\n",
+  # Panel B
+  paste0(
+    "\\multicolumn{", nc, "}{c}{\\textbf{Panel B: 2 year window}} \\\\\n"),
+  # Panel B
+  "\\midrule "
+  )
+add.to.row$command <- command
+
+# print the table
+print(
+  xtable(scandal.tab$perf$results,
+    align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
     caption = scandal.tab$perf$title,
-    align = c("l", rep("c", 7)),
+    label = "tab:scandalPerformance"
+    ),
+    sanitize.text.function = function(x){x},
     booktabs = TRUE,
-    col.names = c(
-      "", "\\left(1\\right)", "\\left(2\\right)", 
-      "\\left(3\\right)", "\\left(4\\right)", 
-      "\\left(5\\right)", "\\left(6\\right)")) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover"),
-    position = "center",
-    font_size = 11) %>%
-  group_rows("1 year window",
-             1, dim(scandal.tab$perf$sub.results$w1yr)[1], 
-             label_row_css = "text-align: center;") %>%
-  group_rows("2 year window",
-             dim(scandal.tab$perf$sub.results$w1yr)[1]+1, 
-             dim(scandal.tab$perf$results)[1], 
-             label_row_css = "text-align: center;") %>%
-  footnote(scandal.tab$perf$caption)
-
+    add.to.row = add.to.row,
+    size = "\\scriptsize",
+    tabular.environment = "tabularx",
+    width="0.975\\textwidth",
+    include.rownames = FALSE,
+    caption.placement = 'top'
+    )
 # -------------------------------------------------------------------------------
 ```
 

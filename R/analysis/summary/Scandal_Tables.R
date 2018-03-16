@@ -16,7 +16,7 @@ scandal.snapshot.dt <- scandal.dt[
   # calculate means
     N = .N,
     `$CompetitorSize \\times 10^2$` = mean(CS, na.rm = TRUE) * 10^2,
-    `TNA (100m $)` = mean(tna, na.rm = TRUE) / 100,
+    `TNA (100m \\$)` = mean(tna, na.rm = TRUE) / 100,
     `$R^{FF3}$` = mean(ra.gross.ff3, na.rm = TRUE),
     `Fund age` = mean(fund.age, na.rm = TRUE),
     `Expense ratio` = mean(f, na.rm = TRUE),
@@ -29,15 +29,13 @@ scandal.snapshot.dt <- scandal.dt[
 # reshape the table to convenient format
 scandal.snapshot.dt <- dcast(melt(
   scandal.snapshot.dt, id.vars = "scandal.fund"), variable ~ scandal.fund)
-scandal.snapshot.mat <- as.matrix(scandal.snapshot.dt[, 2:3])
-colnames(scandal.snapshot.mat) <- c("No", "Yes")
-rownames(scandal.snapshot.mat) <- scandal.snapshot.dt$variable
+setnames(scandal.snapshot.dt, c("Scandal involvement", "No", "Yes"))
 
 # label table
 scandal.snapshot = list(
-  results = scandal.snapshot.mat,
+  results = scandal.snapshot.dt,
   title = "Fund Characteristics as of August 2003 by Scandal Involvement",
-  caption = "Means of various characteristics as of August 2003, depending on whether the family the fund belongs to was later implicated in the late trading scandal. Returns are annualized, in percentages. Fund families are assigned to scandal involvement according to Table 1 of @hg05.")
+  caption = "Means of various characteristics as of August 2003, depending on whether the family the fund belongs to was later implicated in the late trading scandal. Returns are annualized, in percentages. Fund families are assigned to scandal involvement according to Table 1 of \\citet{hg05}.")
 
 
 # Snapshot of Untainted Funds, Aug 2003 ----------------------------------------
@@ -52,7 +50,7 @@ untainted.snapshot.dt <- scandal.dt[
   , .(
     N = .N,
     `$CompetitorSize \\times 10^2$` = mean(CS, na.rm = TRUE) * 10^2,
-    `TNA (100m $)` = mean(tna, na.rm = TRUE) / 100,
+    `TNA (100m \\$)` = mean(tna, na.rm = TRUE) / 100,
     `$R^{FF3}$` = mean(ra.gross.ff3, na.rm = TRUE),
     `Fund age` = mean(fund.age, na.rm = TRUE),
     `Expense ratio` = mean(f, na.rm = TRUE),

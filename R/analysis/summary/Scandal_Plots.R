@@ -142,33 +142,35 @@ scandal.flow.plots <- list(
 
 # Plot: DiD --------------------------------------------------------------------
 
+theme.type <- "bw"
+
 # log(CompetitorSize)
 p.ln.CS <- DidPlot(high.low.dt, "fln.CS",
   expression(ln(C.S)), expression(ln(CompetitorSize)),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # log(Active Share)
 p.ln.AS <- DidPlot(high.low.dt[month(date) %in% c(3, 6, 9, 12)], "fln.AS",
   expression(ln(AS)), expression(ln(AS)),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # 3-factor adjusted returns
 p.ff3 <- DidBarPlot(high.low.dret, "dra.gross.ff3",
   expression(R[high]^{FF3} - R[low]^{FF3}), expression(paste(R^{FF3})),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # log(TL)
 p.ln.TL <- DidPlot(high.low.dt[month(date) %in% c(3, 6, 9, 12)], "fln.TL",
   expression(ln(T/sqrt(L))), expression(ln(TL^-frac(1,2))),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # log(T)
 p.ln.T <- DidPlot(high.low.dt, "fln.T", expression(ln(T)), expression(ln(T)),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # log(L)
 p.ln.L <- DidPlot(high.low.dt, "fln.L", expression(ln(L)), expression(ln(L)),
-  theme.type = "classic")
+  theme.type = theme.type)
 
 # label plots
 did.plots <- list(

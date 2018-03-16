@@ -74,8 +74,7 @@ coef.lab.dt <- data.table(
     "dln.D", "dln.S", "dln.B", "dln.C"),
   new.name = c("$\\Delta CS$", "$\\Delta\\ln(FundSize)$", "$\\Delta\\ln(f)$",
     "$\\Delta \\ln(T)$", "$\\Delta\\ln(D)$", "$\\Delta\\ln(S)$",
-    "$\\Delta\\ln(B)$", "$\\Delta\\ln(C)$"),
-  position = 1:8)
+    "$\\Delta\\ln(B)$", "$\\Delta\\ln(C)$"))
 fe.list <- rbind(
   c("Fixed Effects", rep("", 7)),
   c("$\\bullet$ Quarter", rep("Yes", 7)))
@@ -86,7 +85,7 @@ rt.behavior <- RegTable(res.behavior,
 behavior.reg.base <- list(
   results = rt.behavior,
   title = "Capital Allocation and Competitor Size",
-  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks [@cp09; petajisto13], covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in @pst17L. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: $\\ast\\ast\\ast$ p$<$0.01, $\\ast\\ast$ p$<$0.05, $\\ast$ p$<$0.1.")
+  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Fund Behavior Regressions, Pre-2008 ---------------------------------------
@@ -103,14 +102,14 @@ rt.behavior.08 <- RegTable(res.behavior.08,
 behavior.reg.base.08 <- list(
   results = rt.behavior.08,
   title = "Capital Allocation and Competitor Size --- Pre-2008 Data",
-  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2007. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks [@cp09; petajisto13]. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in @pst17L. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: $\\ast\\ast\\ast$ p$<$0.01, $\\ast\\ast$ p$<$0.05, $\\ast$ p$<$0.1.")
+  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2007. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Benchmark X Date FE ----------------------------------------------------------
 
 # update specification
-fes.bd <- "benchmark.X.date"
-cls.bd <- "wficn + benchmark.X.date"
+fes.bd <- "benchmark.min.X.date"
+cls.bd <- "wficn + benchmark.min.X.date"
 models.behavior.bd <- paste(paste(paste(ys, xs, sep = " ~ "),
   ctrls, sep = " + "), fes.bd, ivs, cls.bd, sep = " | ")
 
@@ -121,7 +120,7 @@ res.behavior.bd <- lapply(models.behavior.bd,
 # format output table
 fe.list.bd <- rbind(
   c("Fixed Effects", rep("", 7)),
-  c("$\\bullet$ Benchmark \\times Quarter", rep("Yes", 7)))
+  c("$\\bullet$ Benchmark $\\times$ Quarter", rep("Yes", 7)))
 rt.behavior.bd <- RegTable(res.behavior.bd,
   fe.list = fe.list.bd, coef.lab.dt = coef.lab.dt)
 
@@ -129,7 +128,7 @@ rt.behavior.bd <- RegTable(res.behavior.bd,
 behavior.reg.bd <- list(
   results = rt.behavior.bd,
   title = "Capital Allocation and Competitor Size --- Benchmark $\\times$ Quarter FE",
-  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks [@cp09; petajisto13], covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in @pst17L. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: $\\ast\\ast\\ast$ p$<$0.01, $\\ast\\ast$ p$<$0.05, $\\ast$ p$<$0.1.")
+  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Benchmark X Date FE, Pre-2008 ---------------------------------------------------
@@ -146,13 +145,13 @@ rt.behavior.bd.08 <- RegTable(res.behavior.bd.08,
 behavior.reg.bd.08 <- list(
   results = rt.behavior.bd.08,
   title = "Capital Allocation and Competitor Size --- Benchmark $\\times$ Quarter FE, Pre-2008 Data",
-  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2008. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks [@cp09; petajisto13]. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in @pst17L. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: $\\ast\\ast\\ast$ p$<$0.01, $\\ast\\ast$ p$<$0.05, $\\ast$ p$<$0.1.")
+  caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2008. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: \\*** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Collect and Save ------------------------------------------------------
 
 behavior.tab <- list(
-  baseline    = behavior.reg.base, 
+  baseline    = behavior.reg.base,
   bd          = behavior.reg.bd,
   baseline.08 = behavior.reg.base.08,
   bd.08       = behavior.reg.bd.08)

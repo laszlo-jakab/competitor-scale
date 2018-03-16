@@ -71,7 +71,7 @@ ss.fund.month <- t(combined[, lapply(.SD, SumFn), .SDcols = var.list])
 # label variables according to latex conventions
 rownames(ss.fund.month) <- c(
     "$R^{FF3}$", "$R^{FF3}$ (net)", "Expense ratio", "$CompetitorSize$",
-    "$IndustrySize$", "$FundSize \\times 10^4$", "TNA (2017$100m)",
+    "$IndustrySize$", "$FundSize \\times 10^4$", "TNA (2017\\$100m)",
     "$FundAge$", "$AS$", "$\\ln(TL^{-1/2})$", "$T$", "$L\\times 10$",
     "$S$", "$D\\times 10$", "$C\\times 10$", "$B$")
 
@@ -90,7 +90,7 @@ summary.stats <- list(
   results = ss.both,
   sub.results = list(fund.level = ss.fund, fund.month.level = ss.fund.month),
   title = "Summary Statistics",
-  caption = "Alphas, returns, and expense ratios are expressed in annualized percentages. $L$, $S$, $D$, $C$, and $B$ are portfolio liquidity, stock liquidity, diversification, coverage, and balance, respectively, as defined in @pst17L, calculated with respect to the market portfolio of U.S. common equity. $CompetitorSize$ is the portfolio similarity weighted size of each fund's competitors, as defined in Section \\@ref(sec:CompetitorSize). $IndustrySize$ is the total net assets of the funds in the sample, divided by the total market capitalization of all U.S. common equity in CRSP. $FundAge$ is the number of years since the fund's inception. $FundSize$ is the TNA of each fund as a fraction of the total market capitalization of all U.S. common equity in CRSP. $AS$ is active share (relative to self declared benchmarks), as defined in @cp09, @petajisto13. $T$ is turnover ratio as defined by CRSP, winsorized at 1%.")
+  caption = "Alphas, returns, and expense ratios are expressed in annualized percentages. $L$, $S$, $D$, $C$, and $B$ are portfolio liquidity, stock liquidity, diversification, coverage, and balance, respectively, as defined in \\citet{pst17L}, calculated with respect to the market portfolio of U.S. common equity. $CompetitorSize$ is the portfolio similarity weighted size of each fund's competitors, as defined in Section~\\ref{sec:CompetitorSize}. $IndustrySize$ is the total net assets of the funds in the sample, divided by the total market capitalization of all U.S. common equity in CRSP. $FundAge$ is the number of years since the fund's inception. $FundSize$ is the TNA of each fund as a fraction of the total market capitalization of all U.S. common equity in CRSP. $AS$ is active share relative to self declared benchmarks \\citep{cp09, petajisto13}. $T$ is turnover ratio as defined by CRSP, winsorized at 1\\%.")
 
 
 # Correlation Tables -----------------------------------------------------------
@@ -117,7 +117,7 @@ cor.within[upper.tri(cor.within)] <- NA
 
 # pretty-up results
 cor.colnames <- c(
-  "$Comp.$ $Size$", "$R^{FF3}$", "Exp. ratio", "$FundSize$", "$Fund$ $Age$",
+  "$Comp.$ $Size$", "$R^{FF3}$", "Exp. ratio", "$Fund$ $Size$", "$Fund$ $Age$",
   "$AS$", "$T$", "$L$", "$\\ln(TL^{-1/2})$", "$Ind.$ $Size$")
 cor.rownames <- c(
   "$CompetitorSize$", "$R^{FF3}$", "Expense ratio", "$FundSize$", "$FundAge$",
@@ -126,7 +126,8 @@ colnames(cor.uncond) <- cor.colnames
 colnames(cor.within) <- cor.colnames
 rownames(cor.uncond) <- cor.rownames
 rownames(cor.within) <- cor.rownames
-cor.both <- rbind(cor.uncond, cor.within)
+cor.both <- data.table(rbind(cor.uncond, cor.within), keep.rownames = TRUE)
+setnames(cor.both, "rn", "")
 
 correlations <- list(
   results = cor.both,

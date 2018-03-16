@@ -13,8 +13,8 @@ rmd_files: [
   
   "references.Rmd",
   
-  "appendix-summary.Rmd",
-  "appendix-performance.Rmd",
-  "appendix-behavior.Rmd",
-  "appendix-scandal.Rmd"
+  "appendix-01-summary.Rmd",
+  "appendix-02-performance.Rmd",
+  "appendix-03-behavior.Rmd",
+  "appendix-04-scandal.Rmd"
 ]

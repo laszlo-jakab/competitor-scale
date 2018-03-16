@@ -8,7 +8,6 @@ pkgs <- c(
   "data.table",
   "zoo",
   "knitr",
-  "kableExtra",
   "ggplot2",
   "gridExtra"
 )
@@ -16,8 +15,14 @@ lapply(pkgs, library, character.only = TRUE)
 options(knitr.kable.NA = '')
 
 # output format
-#out.type <- knitr::opts_knit$get('rmarkdown.pandoc.to')
-options(knitr.table.format = "html")
+out.type <- opts_knit$get("rmarkdown.pandoc.to")
+if (out.type == "html") {
+  kable.type <- "html"
+}
+if (out.type == "pdf") {
+  kable.type <- "latex"
+}
+options(tikzDefaultEngine='xetex')
 
 setwd("..")
 
@@ -106,7 +111,7 @@ Table \@ref(tab:sumStats) reports summary statistics.
 Figure \@ref(fig:histograms) presents histograms of the distribution of $CompetitorSize$. The unconditional distribution is right skewed, as shown in the left panel. This is to be expected, as $CompetitorSize$ is a weighted sum of the highly skewed $FundSize$. The within-fund distribution is centered more tightly, but still includes substantive variation. 
 
 
-```{r histograms, echo = FALSE, fig.width = 6, fig.height = 3, dpi = 300, fig.align = 'center', fig.cap = paste(summary.figs$histograms$title, summary.figs$histograms$caption)}
+```{r histograms, echo = FALSE, fig.width = 6, fig.height = 2.5, dpi = 300, fig.align = 'center', fig.cap = paste(summary.figs$histograms$title, summary.figs$histograms$caption)}
 
 # Histograms -----------------------------------------------------------
 grid.arrange(summary.figs$histograms$results$unconditional,
@@ -129,7 +134,7 @@ cor.within <- summary.tabs$correlations$sub.results$within.fund
 ```
 
 
-Panel A of Table \@ref(tab:correlations) presents unconditional pairwise correlations between variables, while Panel B presents within-fund pairwise correlations. $CompetitorSize$ is positively correlated with $IndustrySize$ both unconditionally ($\rho=$ `r formatC(cor.uncond["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and at the fund level ($\rho=$ `r formatC(cor.within["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`). The residual within-fund variation in $CompetitorSize$ with respect to $IndustrySize$ reflects heterogenous dynamics in competitor size across funds pursuing different investment strategies.^[This residual variation is useful for identification, as the time series correlation between $IndustrySize$ and a linear time trend is $\rho=$`r formatC(cor(combined[ , mean(industry.size, na.rm = TRUE), by = date][, .(as.numeric(date), V1)])[1,2], digits = 2, format = "f")`, making industry level decreasing returns to scale hard to distinguish from simple trends in the data.]
+Panel A of Table \@ref(tab:correlations) presents unconditional pairwise correlations between variables, while Panel B presents within-fund pairwise correlations. $CompetitorSize$ is positively correlated with $IndustrySize$ both unconditionally ($\rho=$ `r formatC(cor.uncond["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and at the fund level ($\rho=$ `r formatC(cor.within["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`). The residual within-fund variation in $CompetitorSize$ with respect to $IndustrySize$ reflects heterogenous dynamics in competitor size across funds pursuing different investment strategies.^[This residual variation is useful for identification, as the time series correlation between $IndustrySize$ and a linear time trend is $\rho=$ `r formatC(cor(combined[ , mean(industry.size, na.rm = TRUE), by = date][, .(as.numeric(date), V1)])[1,2], digits = 2, format = "f")`, making industry level decreasing returns to scale hard to distinguish from simple trends in the data.]
 
-There is a small but negative correlation between $CompetitorSize$ and risk adjusted gross returns, both unconditionally ($\rho=$ `r formatC(cor.uncond["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund ($\rho=$ `r formatC(cor.within["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`). $CompetitorSize$ tends to increase over each fund's lifetime. The within-fund correlation between $CompetitorSize$ and $FundAge$ is $\rho=$ `r formatC(cor.within["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`. The unconditional correlation is markedly lower ($\rho=$ `r formatC(cor.uncond["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`), indicating that new funds begin their operations exploiting relatively lightly contested investment opportunities. $CompetitorSize$ is highly correlated with portfolio liquidity both unconditionally ($\rho=$ `r formatC(cor.uncond["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund (`r formatC(cor.within["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`), evidence that more liquid market segments are capable of absorbing higher levels of active investment. Consistent with the joint determination of fund size, portfolio liquidity, turnover, and expense ratios in @pst17L, larger funds tend to be more liquid, trade less, and charge lower fees. 
+There is a small but negative correlation between $CompetitorSize$ and risk adjusted gross returns, both unconditionally ($\rho=$ `r formatC(cor.uncond["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund ($\rho=$ `r formatC(cor.within["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`). $CompetitorSize$ tends to increase over each fund's lifetime. The within-fund correlation between $CompetitorSize$ and $FundAge$ is $\rho=$ `r formatC(cor.within["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`. The unconditional correlation is markedly lower ($\rho=$ `r formatC(cor.uncond["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`), indicating that new funds begin their operations exploiting relatively lightly contested investment opportunities. $CompetitorSize$ is highly correlated with portfolio liquidity both unconditionally ($\rho=$ `r formatC(cor.uncond["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund ($\rho=$ `r formatC(cor.within["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`), evidence that more liquid market segments are capable of absorbing higher levels of active investment. Consistent with the joint determination of fund size, portfolio liquidity, turnover, and expense ratios in @pst17L, larger funds tend to be more liquid, trade less, and charge lower fees. 
 
