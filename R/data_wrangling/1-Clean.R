@@ -19,9 +19,10 @@ as.Date.fast <- function(x) as.Date(fast_strptime(x, "%Y-%m-%d"))
 
 # list of files
 raw.files <- list.files(raw.dir, "\\.Rds$") # all raw files (a bit unneccessary)
-raw.files.excl <- c("crsp_dsedelist", "crsp_fund_summary", "crsp_msedelist",
-                    "bw_sentiment", "cpz_factors", "ff_factors", "petajisto_activeshare",
-                    "tfn_s12type3", "sy_anomalous11", "sy_factor", "sy_mispricing")
+raw.files.excl <- c(
+  "crsp_dsedelist", "crsp_fund_summary", "crsp_msedelist",
+  "bw_sentiment", "cpz_factors", "ff_factors", "petajisto_activeshare",
+  "tfn_s12type3", "sy_anomalous11", "sy_factor", "sy_mispricing")
 raw.files <- raw.files[!raw.files %in% paste0(raw.files.excl, ".Rds")]
 # read in all files
 for (f in raw.files) {
@@ -63,9 +64,9 @@ crsp.stocknames[
   # eliminate leading and trailing whitespace from string variables
   , (sn.charcols) :=
     lapply(.SD, function(x) gsub("^\\s+|\\s+$", "", x)), .SDcols = sn.charcols][
-      # standardize dates
-      , c("namedt", "nameenddt", "st_date", "end_date") := lapply(.SD, as.Date.fast),
-      .SDcols = c("namedt", "nameenddt", "st_date", "end_date")]
+  # standardize dates
+  , c("namedt", "nameenddt", "st_date", "end_date") := lapply(.SD, as.Date.fast),
+    .SDcols = c("namedt", "nameenddt", "st_date", "end_date")]
 # sort and save
 setkey(crsp.stocknames, permno, namedt, nameenddt)
 saveRDS(crsp.stocknames, file.path(clean.dir, "stocknames.Rds"))
@@ -77,8 +78,8 @@ saveRDS(crsp.stocknames, file.path(clean.dir, "stocknames.Rds"))
 cusip.permno <- crsp.stocknames[
   # replace missing ncusip with cusip
   ncusip == "", ncusip := cusip][
-    # keep only identifiers
-    , .(ncusip, permno)]
+  # keep only identifiers
+  , .(ncusip, permno)]
 # keep only unique cusip-permno pairs
 cusip.permno <- unique(cusip.permno)
 setnames(cusip.permno, "ncusip", "cusip")
@@ -125,7 +126,8 @@ msf <- msf[
     p = prc / cfacpr,
     tso = shrout * 1000 * cfacshr,
     w.mkt = (prc * shrout) / sum(prc * shrout),
-    w.mkt.adj = (prc * shrout * cfacpr / cfacpr) / sum(prc * shrout * cfacpr / cfacpr)
+    w.mkt.adj =
+      (prc * shrout * cfacpr / cfacpr) / sum(prc * shrout * cfacpr / cfacpr)
   ), by = date]
 
 # sort and save
@@ -135,11 +137,12 @@ saveRDS(msf, file.path(clean.dir, "msf_common_equity.Rds"))
 
 # Total Market Cap -------------------------------------------------------------
 
-total.mktcap <- msf[, .(
-  totcap = sum(prc * shrout * 1000),
-  totcap.adj = sum(prc * shrout * 1000 * cfacshr / cfacpr),
-  num.stocks = .N
-), keyby = date]
+total.mktcap <- msf[
+  , .(
+    totcap = sum(prc * shrout * 1000),
+    totcap.adj = sum(prc * shrout * 1000 * cfacshr / cfacpr),
+    num.stocks = .N)
+    , keyby = date]
 saveRDS(total.mktcap, file.path(clean.dir, "total_mktcap.Rds"))
 
 
@@ -219,9 +222,10 @@ saveRDS(fund.hdr, file.path(clean.dir, "fund_hdr.Rds"))
 
 # clean dates
 fund.style <- crsp.fund.style[
-  , c("begdt", "enddt") := lapply(.SD, as.Date.fast), .SDcols = c("begdt", "enddt")]
+  , c("begdt", "enddt") :=
+    lapply(.SD, as.Date.fast), .SDcols = c("begdt", "enddt")]
 # eliminate leading and trailing whitespace from string variables
-style.charcols <- names(fund.style)[sapply(fund.style, is.character)] # string variables
+style.charcols <- names(fund.style)[sapply(fund.style, is.character)]
 fund.style[
   , (style.charcols) := lapply(.SD, function(x) gsub("^\\s+|\\s+$", "", x))
   ,.SDcols = style.charcols]
@@ -232,7 +236,7 @@ saveRDS(fund.style, file.path(clean.dir, "fund_style.Rds"))
 # CRSP Fund Fees ---------------------------------------------------------------
 
 # copy data table
-fund.fees <- crsp.fund.fees
+fund.fees <- copy(crsp.fund.fees)
 # fix missing values (assign -99 to NA)
 fund.fees[fund.fees == -99] <- NA
 # zero expense ratios for active funds tend to indicate
@@ -268,7 +272,7 @@ turnover <- turnover[
   # turn_ratio valid for 12 months ending on fiscal_yearend when it is present.
   # otherwise, it applies for 12 months ending on begdt.
   , enddt := dplyr::if_else(!is.na(fiscal_yearend), fiscal_yearend, begdt)][
-  # average by effective end date (there are 475 duplicates by crsp_fundno X enddt)
+  # average by effective end date (475 duplicates by crsp_fundno X enddt)
   , .(turn_ratio = mean(turn_ratio)), by = .(crsp_fundno, enddt)][
   , .SD, key = c("crsp_fundno", "enddt")][
   # identify most recent enddt
@@ -334,7 +338,9 @@ setkey(mret, crsp_fundno, caldt)
 # keep returns only if they are for a single month
 # that is, drop if gap is not a single month between observations
 # AND no nav is available in the previous month.
-mret <- merge(mret, mnav[, .(crsp_fundno, caldt)], by = c("crsp_fundno", "caldt"), all = TRUE)[
+mret <- merge(
+  mret, mnav[, .(crsp_fundno, caldt)],
+    by = c("crsp_fundno", "caldt"), all = TRUE)[
   , date := as.yearmon(caldt)][
   , gap  := round((date - shift(date))*12), by = crsp_fundno][
   gap == 1 & !is.na(mret)][
@@ -356,7 +362,8 @@ min.date.in.data <- merge(merge(
   mtna[, .(min.caldt.mtna = min(caldt)), by = crsp_fundno], all = TRUE),
   mnav[, .(min.caldt.mnav = min(caldt)), by = crsp_fundno], all = TRUE)[
   # min caldt for which any data ret, tna, or nav exists
-  , min.caldt := pmin(min.caldt.mret, min.caldt.mtna, min.caldt.mnav, na.rm = TRUE)][
+  , min.caldt :=
+    pmin(min.caldt.mret, min.caldt.mtna, min.caldt.mnav, na.rm = TRUE)][
   # keep only fund id and earliest date with any data
   , .(crsp_fundno, min.caldt)]
 
@@ -408,16 +415,18 @@ ret.tna <- ret.tna[
   # compound fund last observed size using interim returns
   is.na(mtna), tna := tna * mret.cum]
 
-# lag tna
-ret.tna <- ret.tna[
-  # year-month of caldt
-  , date := as.yearmon(caldt)][
-  # number of months between obs
-  , months.elapsed := round((date - shift(date)) * 12), by = crsp_fundno][
-  # keep only if number of months between obs is 1 or NA (first obs by fund)
-  is.na(months.elapsed) | months.elapsed == 1][
-  # lag tna
-  , tna.lag := shift(tna), by = crsp_fundno][
+# lag tna by one month to be used as weights in fund-level aggregation
+ret.tna <- merge(
+  # year-month variable from master data
+  ret.tna[
+    , date := as.yearmon(caldt)],
+  # shift date in using, and merge back to master
+  copy(ret.tna)[
+    , date := date + 1/12][
+    , .(crsp_fundno, date, tna.lag = tna)
+    ]
+  # match on crsp_fundno and date, keeping all obs from master
+  , by = c("crsp_fundno", "date"), all.x = TRUE)[
   # fill lagged tna with actual value for the first non-missing observation
   !is.na(tna), first.obs := .I[1L], by = crsp_fundno][
   1:.N == first.obs, tna.lag := tna]
@@ -466,26 +475,23 @@ ret.tna.fund <- merge(ret.tna.fund, turn_ratio.dt,
 
 # Tidy Fund Level Dataset ------------------------------------------------------
 
+# total net assets in real dollars
 ret.tna.fund <- ret.tna.fund[
   # add in CPI (keep only matches; this deletes only from the CPI dataset)
   cpiaucs, on = "date", nomatch = 0][
   # total net assets in constant 2017 dollars
   , tna.real2017 := tna * cpiaucs[date == "Jun 2017", cpi] / cpi][
   # drop cpi
-  , cpi := NULL][
+  , cpi := NULL]
 
-  # number of months between observations
-  , .SD, key = c("wficn", "date")][
-  , months.elapsed := round((date - shift(date)) * 12), by = wficn][
-  # most recent fund size
-  , `:=` (
-    tna.lagged = shift(tna),
-    tna.real2017.lagged = shift(tna.real2017)
-    ), by = wficn][
-  # set to missing if most recent fund size contains stale information
-  months.elapsed > 1, c("tna.lagged", "tna.real2017.lagged") := NA][
-  # housekeeping
-  , months.elapsed := NULL][
+ret.tna.fund <- merge(
+  ret.tna.fund,
+  # lagged size: shift date by a month and merge back
+  copy(ret.tna.fund)[
+    , date := date + 1/12][
+    , .(wficn, date, tna.lagged = tna, tna.real2017.lagged = tna.real2017)]
+  # match on wficn and date, keep all from master
+  , by = c("wficn", "date"), all.x = TRUE)[
 
   # drop if lagged real tna is less than 15m
   is.na(tna.real2017.lagged) | tna.real2017.lagged >= 15][
@@ -504,7 +510,7 @@ ret.tna.fund <- ret.tna.fund[
 # calculate fund age
 ret.tna.fund <-
   # add in fund inception date
-  merge(ret.tna.fund, fund.inception, all.x = TRUE)[
+  merge(ret.tna.fund, fund.inception, by = "wficn", all.x = TRUE)[
     , `:=` (
       # number of years since inception
       fund.age = date - as.yearmon(fund.inception),
