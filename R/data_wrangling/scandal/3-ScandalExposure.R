@@ -3,39 +3,32 @@
 
 # Setup ------------------------------------------------------------------------
 
-# directories
-pw.dir      <- "data/portfolio"
-data.dir    <- "data/clean"
-sample.dir  <- "data/funds_included"
-scandal.dir <- "data/scandal"
-fn.dir      <- "R/functions"
-
 # source functions
-source(file.path(fn.dir, "CosSim_Fn.R"))
-source(file.path(fn.dir, "CompSize_Fn.R"))
+source("R/functions/CosSim_Fn.R")
+source("R/functions/CompSize_Fn.R")
 
 
 # Load Data --------------------------------------------------------------------
 
 # scandal categorization
-scandal.wficns <- readRDS(file.path(scandal.dir, "scandal_wficns_2018-Mar-06.Rds"))[
+scandal.wficns <- readRDS("data/scandal/scandal_wficns_2018-Mar-06.Rds")[
   , .(wficn, scandal.fund)]
 
 # list of included funds
-funds.in.sample <- readRDS(file.path(sample.dir, "funds_in_sample.Rds"))
+funds.in.sample <- readRDS("data/funds_included/funds_in_sample.Rds")
 
 # portfolio weights
-pw <- readRDS(file.path(pw.dir, "portfolio_weights.Rds"))[
+pw <- readRDS("data/portfolio/portfolio_weights.Rds")[
   date == "Aug 2003"][
   , c("date", "w") := NULL]
 
 # fund tna
-fund.tna <- readRDS(file.path(data.dir, "fund_level_crsp.Rds"))[
+fund.tna <- readRDS("data/clean/fund_level_crsp.Rds")[
   date == "Aug 2003"][
   , .(wficn, tna)]
 
 # total market cap of CRSP universe
-total.mktcap <- readRDS(file.path(data.dir, "total_mktcap.Rds"))[
+total.mktcap <- readRDS("data/clean/total_mktcap.Rds")[
   date == "Aug 2003"][
   , totcap]
 
@@ -104,4 +97,4 @@ scandal.exposure <- scandal.exposure[
   , scandal.fund := NULL]
 # sort and save
 setkey(scandal.exposure, wficn)
-saveRDS(scandal.exposure, file.path(out.dir, "scandal_exposure.Rds"))
+saveRDS(scandal.exposure, "data/scandal/scandal_exposure.Rds")

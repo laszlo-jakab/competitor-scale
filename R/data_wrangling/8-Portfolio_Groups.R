@@ -78,8 +78,8 @@ cfun <- function(a,b) mapply(rbind, a, b, SIMPLIFY = FALSE)
 
 #setup parallel backend to use all but one of the cores
 n.cores <- detectCores()
-#cl <- makeCluster(n.cores - 1)
-cl <- makeCluster(n.cores)
+cl <- makeCluster(n.cores - 1)
+#cl <- makeCluster(n.cores)
 # register the cluster
 registerDoParallel(cl)
 # perform the calculations month-by-month

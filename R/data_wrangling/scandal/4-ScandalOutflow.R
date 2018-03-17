@@ -24,13 +24,13 @@ source(file.path(fn.dir, "CompSize_Fn.R"))
 # Load Data ------------------------------------------------------------
 
 # combined dataset
-combined <- readRDS(file.path(combined.dir, "combined.Rds"))
+combined <- readRDS("data/combined/combined.Rds")
 
 # scandal categorization and news date
-scandal.wficns <- readRDS(file.path(scandal.dir, "scandal_wficns_2018-Mar-06.Rds"))
+scandal.wficns <- readRDS("data/scandal/scandal_wficns_2018-Mar-06.Rds")
 
 # portfolio weights
-pw <- readRDS(file.path(pw.dir, "portfolio_weights.Rds"))[
+pw <- readRDS("data/portfolio/portfolio_weights.Rds")[
   date == "Aug 2003"][
   , c("w", "date") := NULL]
 
@@ -193,4 +193,4 @@ setcolorder(scandal.outflow.dt, c("wficn", "date", "scandal.outflow"))
 
 # sort and save
 setkey(scandal.outflow.dt, wficn, date)
-saveRDS(scandal.outflow.dt, file.path(scandal.dir, "scandal_outflow.Rds"))
+saveRDS(scandal.outflow.dt, "data/scandal/scandal_outflow.Rds")

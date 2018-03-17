@@ -6,7 +6,7 @@
 
 I develop empirical tests of hypotheses 1 and 2, using competitor scale as the external constraint on the profitability of investment opportunities. This choice is motivated by both the extant literature and novel evidence from my sample. @pst15 give time series evidence that funds suffer from decreasing returns to aggregate industry scale. In recent work, @hkp17 provide cross-sectional evidence of decreasing profitability due to inter-fund competition. I explore a cross between the two approaches, by running within-fund tests of decreasing returns to competitor scale. Appendix \@ref(sec:CSandPerformance) provides the details of my investigation. The following is a brief summary of the results.
 
-- A one standard deviation increase in competitor size is associated with a 78bp decrease in annual Fama-French three factor adjusted returns.
+- A one standard deviation increase in competitor size is associated with a 76bp decrease in annual Fama-French three factor adjusted returns.
 - Competitor size subsumes the negative effect of aggregate industry size in a head to head horse race.
 - The negative impact of competitor size is smaller for funds which on average hold more liquid portfolios. This is consistent with liquidity constraints as the channel for decreasing returns to competitor scale. 
 - The negative impact of competitor size is smaller when funds tilt toward more liquid portfolios. These results suggest that increased portfolio liquidity shelters funds from the pernicious effects of decreasing returns to scale.
@@ -61,13 +61,13 @@ The results are consistent with managers reacting optimally to decreasing return
   \multicolumn{8}{p{.975\textwidth}}{\scriptsize Observations are first differences at the fund $\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\Delta CS_{i,t}=\ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t} \right) - \ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t-1}\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.} \\ \addlinespace \toprule
 Dep. Var.: & $\Delta\ln(AS)$ & $\Delta\ln(TL^{-1/2})$ & $\Delta\ln(L)$ & $\Delta\ln(S)$ & $\Delta\ln(D)$ & $\Delta\ln(C)$ & $\Delta\ln(B)$ \\ 
   \midrule
-$\Delta CS$ & -0.051*** & -0.472*** & 0.788*** & 0.659*** & 0.533*** & 0.173*** & 0.435*** \\ 
-   & (0.020) & (0.064) & (0.083) & (0.088) & (0.061) & (0.035) & (0.052) \\ 
+$\Delta CS$ & -0.051** & -0.472*** & 0.788*** & 0.659*** & 0.533*** & 0.173*** & 0.435*** \\ 
+   & (0.022) & (0.059) & (0.082) & (0.086) & (0.060) & (0.034) & (0.053) \\ 
   $\Delta\ln(FundSize)$ & -0.016*** & -0.184*** & 0.218*** & 0.108*** & 0.196*** & 0.115*** & 0.115*** \\ 
-   & (0.003) & (0.016) & (0.018) & (0.013) & (0.016) & (0.012) & (0.011) \\ 
+   & (0.003) & (0.016) & (0.017) & (0.013) & (0.015) & (0.011) & (0.011) \\ 
   $\Delta\ln(f)$ & -0.018 & 0.063 & -0.009 & -0.025 & 0.005 & 0.023 & -0.015 \\ 
-   & (0.014) & (0.041) & (0.032) & (0.026) & (0.031) & (0.024) & (0.026) \\ 
-  $\Delta \ln(T)$ &  &  & -0.013* & -0.006 & -0.011* & 0.001 & -0.014*** \\ 
+   & (0.014) & (0.042) & (0.032) & (0.027) & (0.031) & (0.024) & (0.026) \\ 
+  $\Delta \ln(T)$ &  &  & -0.013* & -0.006 & -0.011* & 0.001 & -0.014** \\ 
    &  &  & (0.007) & (0.005) & (0.006) & (0.004) & (0.005) \\ 
   $\Delta\ln(D)$ &  &  &  & -0.340*** &  &  &  \\ 
    &  &  &  & (0.018) &  &  &  \\ 

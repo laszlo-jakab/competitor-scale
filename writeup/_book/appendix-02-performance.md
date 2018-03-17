@@ -40,7 +40,7 @@ For constructing standard errors, each month I sort funds into ten mutually excl
 
 ## Results
 
-Table \@ref(tab:mainResults) presents results from the equation \@ref(eq:regSpec) regression specifications. There is a consistently negative, statistically significant within fund relation between $CompetitorSize$ and fund performance. Coefficients range from -1.06 in the univariate within-fund regression to -0.78 in the specification featuring the full set of fund and year-month fixed effects and own size. While $IndustrySize$ is associated with a statistically significant -0.39 coefficient in the specification with no other controls (column (2)), adding $CompetitorSize$ to the specification (column (3)) subsumes its negative effect, with the coefficient on $IndustrySize$ dropping to an insignificant 0.10. 
+Table \@ref(tab:mainResults) presents results from the equation \@ref(eq:regSpec) regression specifications. There is a consistently negative, statistically significant within fund relation between $CompetitorSize$ and fund performance. Coefficients range from -1.04 in the univariate within-fund regression to -0.76 in the specification featuring the full set of fund and year-month fixed effects and own size. While $IndustrySize$ is associated with a statistically significant -0.40 coefficient in the specification with no other controls (column (2)), adding $CompetitorSize$ to the specification (column (3)) subsumes its negative effect, with the coefficient on $IndustrySize$ dropping to an insignificant 0.08. 
 Although coefficients associated with own fund size are consistently negative and statistically significant, they are known to be biased and should be interpreted with caution.^[Consistent with @hl17, I find much larger estimates of decreasing returns to own size when using a log transform of $FundSize$.]
 
 
@@ -54,16 +54,16 @@ Although coefficients associated with own fund size are consistently negative an
  \addlinespace \toprule
  & (1) & (2) & (3) & (4) \\ 
   \midrule
-$CompetitorSize$ & -0.983*** &  & -1.059*** & -0.775*** \\ 
-   & (0.178) &  & (0.225) & (0.142) \\ 
-  $IndustrySize$ &  & -0.392** & 0.097 &  \\ 
-   &  & (0.178) & (0.224) &  \\ 
+$CompetitorSize$ & -0.974*** &  & -1.037*** & -0.765*** \\ 
+   & (0.178) &  & (0.223) & (0.143) \\ 
+  $IndustrySize$ &  & -0.398** & 0.080 &  \\ 
+   &  & (0.177) & (0.221) &  \\ 
   $FundSize$ &  &  &  & -0.024*** \\ 
    &  &  &  & (0.009) \\ 
   Fixed Effects &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Month & No & No & No & Yes \\ 
-  Observations & 363,203 & 363,203 & 363,203 & 363,203 \\ 
+  Observations & 364,200 & 364,200 & 364,200 & 364,200 \\ 
   $R^2$ & 0.012 & 0.012 & 0.012 & 0.102 \\ 
   $R^2$ (proj. model) & 0.001 & 0.000 & 0.001 & 0.001 \\ 
    \bottomrule
@@ -105,38 +105,38 @@ Panel A of Table \@ref(tab:roleOfLiquidity) presents results from the regression
  \multicolumn{6}{c}{\textbf{Panel A: Fund Level Average Portfolio Liquidity}}\\
  \midrule  $\bar{X}=$ & $\bar{L}$ & $\bar{S}$ & $\bar{D}$ & $\bar{C}$ & $\bar{B}$ \\
  \midrule
-$Comp.Size \times \bar{X}$ & 0.232*** & 0.324 & 0.048*** & 0.068*** & 0.308 \\ 
-   & (0.075) & (0.279) & (0.017) & (0.020) & (0.191) \\ 
-  $FundSize \times \bar{X}$ & 0.028*** & 0.010 & 0.006** & 0.004* & 0.005 \\ 
+$Comp.Size \times \bar{X}$ & 0.231*** & 0.318 & 0.048*** & 0.069*** & 0.306 \\ 
+   & (0.075) & (0.284) & (0.017) & (0.020) & (0.191) \\ 
+  $FundSize \times \bar{X}$ & 0.028*** & 0.011 & 0.006** & 0.004* & 0.005 \\ 
    & (0.010) & (0.022) & (0.003) & (0.002) & (0.015) \\ 
-  $CompetitorSize$ & -1.189*** & -1.089*** & -0.869*** & -0.934*** & -1.287*** \\ 
-   & (0.207) & (0.309) & (0.152) & (0.162) & (0.359) \\ 
+  $CompetitorSize$ & -1.178*** & -1.073*** & -0.859*** & -0.925*** & -1.272*** \\ 
+   & (0.206) & (0.316) & (0.152) & (0.161) & (0.355) \\ 
   $FundSize$ & -0.075*** & -0.030 & -0.034*** & -0.036*** & -0.032 \\ 
    & (0.021) & (0.022) & (0.011) & (0.013) & (0.027) \\ 
   Fixed Effects &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Month & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 363,203 & 363,203 & 363,203 & 363,203 & 363,203 \\ 
+  Observations & 364,200 & 364,200 & 364,200 & 364,200 & 364,200 \\ 
   $R^2$ & 0.103 & 0.102 & 0.102 & 0.102 & 0.102 \\ 
   $R^2$ (proj. model) & 0.001 & 0.001 & 0.001 & 0.001 & 0.001 \\ 
    \midrule \\
  \multicolumn{6}{c}{\textbf{Panel B: Real Time Portfolio Liquidity}} \\
  \midrule  $X=$ & $L$ & $S$ & $D$ & $C$ & $B$ \\
- \midrule $Comp.Size \times X$ & 0.159*** & -0.240 & 0.039** & 0.057*** & 0.421*** \\ 
-   & (0.041) & (0.246) & (0.019) & (0.020) & (0.130) \\ 
+ \midrule $Comp.Size \times X$ & 0.160*** & -0.242 & 0.040** & 0.059*** & 0.419*** \\ 
+   & (0.041) & (0.245) & (0.019) & (0.020) & (0.125) \\ 
   $FundSize \times X$ & 0.008** & 0.002 & 0.011*** & 0.006** & 0.015** \\ 
    & (0.004) & (0.008) & (0.002) & (0.003) & (0.007) \\ 
-  $X$ & -0.737** & -1.032* & -0.046 & 0.037 & -1.681*** \\ 
-   & (0.302) & (0.566) & (0.091) & (0.067) & (0.283) \\ 
-  $CompetitorSize$ & -0.887*** & -0.474* & -0.905*** & -0.968*** & -1.102*** \\ 
-   & (0.204) & (0.266) & (0.157) & (0.164) & (0.287) \\ 
-  $FundSize$ & -0.050*** & -0.026** & -0.052*** & -0.043*** & -0.048*** \\ 
-   & (0.014) & (0.013) & (0.010) & (0.012) & (0.015) \\ 
+  $X$ & -0.745*** & -1.021* & -0.054 & 0.027 & -1.682*** \\ 
+   & (0.289) & (0.560) & (0.092) & (0.066) & (0.283) \\ 
+  $CompetitorSize$ & -0.873*** & -0.462* & -0.893*** & -0.958*** & -1.088*** \\ 
+   & (0.204) & (0.270) & (0.157) & (0.164) & (0.283) \\ 
+  $FundSize$ & -0.050*** & -0.025** & -0.052*** & -0.043*** & -0.048*** \\ 
+   & (0.014) & (0.013) & (0.010) & (0.011) & (0.015) \\ 
   Fixed Effects &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Month & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 363,203 & 363,203 & 363,203 & 363,203 & 363,203 \\ 
-  $R^2$ & 0.103 & 0.103 & 0.102 & 0.103 & 0.103 \\ 
+  Observations & 364,200 & 364,200 & 364,200 & 364,200 & 364,200 \\ 
+  $R^2$ & 0.103 & 0.103 & 0.103 & 0.103 & 0.103 \\ 
   $R^2$ (proj. model) & 0.001 & 0.001 & 0.001 & 0.001 & 0.001 \\ 
    \bottomrule
 \end{tabularx}
@@ -166,10 +166,10 @@ Panel B of Table \@ref(tab:roleOfLiquidity) presents results from the regression
  \addlinespace \toprule
  & (1) & (2) & (3) & (4) \\ 
   \midrule
-$CompetitorSize$ & -1.024*** &  & -1.270*** & -0.865*** \\ 
-   & (0.221) &  & (0.320) & (0.205) \\ 
-  $IndustrySize$ &  & -0.315* & 0.271 &  \\ 
-   &  & (0.185) & (0.261) &  \\ 
+$CompetitorSize$ & -1.023*** &  & -1.269*** & -0.864*** \\ 
+   & (0.225) &  & (0.319) & (0.207) \\ 
+  $IndustrySize$ &  & -0.314* & 0.271 &  \\ 
+   &  & (0.180) & (0.251) &  \\ 
   $FundSize$ &  &  &  & -0.036*** \\ 
    &  &  &  & (0.012) \\ 
   Fixed Effects &  &  &  &  \\ 
@@ -197,13 +197,13 @@ $CompetitorSize$ & -1.024*** &  & -1.270*** & -0.865*** \\
  \multicolumn{6}{c}{\textbf{Panel A: Fund Level Average Portfolio Liquidity}}\\
  \midrule  $\bar{X}=$ & $\bar{L}$ & $\bar{S}$ & $\bar{D}$ & $\bar{C}$ & $\bar{B}$ \\
  \midrule
-$Comp.Size \times \bar{X}$ & 0.256** & 0.184 & 0.037* & 0.065** & 0.491* \\ 
-   & (0.123) & (0.372) & (0.021) & (0.031) & (0.262) \\ 
+$Comp.Size \times \bar{X}$ & 0.256** & 0.181 & 0.037* & 0.065** & 0.493* \\ 
+   & (0.123) & (0.382) & (0.021) & (0.031) & (0.264) \\ 
   $FundSize \times \bar{X}$ & 0.030** & 0.026 & 0.011 & 0.003 & 0.006 \\ 
    & (0.014) & (0.031) & (0.010) & (0.005) & (0.025) \\ 
-  $CompetitorSize$ & -1.310*** & -1.049** & -0.901*** & -0.976*** & -1.636*** \\ 
-   & (0.314) & (0.461) & (0.215) & (0.230) & (0.492) \\ 
-  $FundSize$ & -0.093*** & -0.053* & -0.054** & -0.045** & -0.045 \\ 
+  $CompetitorSize$ & -1.309*** & -1.046** & -0.901*** & -0.976*** & -1.638*** \\ 
+   & (0.316) & (0.479) & (0.216) & (0.231) & (0.486) \\ 
+  $FundSize$ & -0.093*** & -0.053* & -0.055** & -0.045** & -0.045 \\ 
    & (0.029) & (0.031) & (0.021) & (0.021) & (0.043) \\ 
   Fixed Effects &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes \\ 
@@ -214,14 +214,14 @@ $Comp.Size \times \bar{X}$ & 0.256** & 0.184 & 0.037* & 0.065** & 0.491* \\
    \midrule \\
  \multicolumn{6}{c}{\textbf{Panel B: Real Time Portfolio Liquidity}} \\
  \midrule  $X=$ & $L$ & $S$ & $D$ & $C$ & $B$ \\
- \midrule $Comp.Size \times X$ & 0.169*** & -0.263 & 0.075** & 0.078 & 0.487*** \\ 
-   & (0.061) & (0.320) & (0.035) & (0.048) & (0.173) \\ 
+ \midrule $Comp.Size \times X$ & 0.170*** & -0.263 & 0.075** & 0.078 & 0.487*** \\ 
+   & (0.060) & (0.322) & (0.035) & (0.047) & (0.169) \\ 
   $FundSize \times X$ & 0.006 & 0.008 & 0.014** & 0.004 & 0.011 \\ 
    & (0.005) & (0.009) & (0.006) & (0.004) & (0.007) \\ 
-  $X$ & -0.801** & -0.673 & -0.431*** & -0.031 & -2.138*** \\ 
-   & (0.397) & (0.653) & (0.163) & (0.139) & (0.373) \\ 
-  $CompetitorSize$ & -0.930*** & -0.469 & -0.883*** & -1.028*** & -1.144*** \\ 
-   & (0.293) & (0.413) & (0.224) & (0.241) & (0.386) \\ 
+  $X$ & -0.803** & -0.673 & -0.431*** & -0.031 & -2.139*** \\ 
+   & (0.378) & (0.652) & (0.165) & (0.138) & (0.380) \\ 
+  $CompetitorSize$ & -0.929*** & -0.468 & -0.882*** & -1.027*** & -1.143*** \\ 
+   & (0.298) & (0.424) & (0.226) & (0.241) & (0.386) \\ 
   $FundSize$ & -0.054*** & -0.043*** & -0.065*** & -0.046*** & -0.052*** \\ 
    & (0.016) & (0.016) & (0.015) & (0.014) & (0.017) \\ 
   Fixed Effects &  &  &  &  &  \\ 

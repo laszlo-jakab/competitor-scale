@@ -10,7 +10,7 @@ TNA is typically only available at the quarterly or semi-annual frequency in the
 
 I link CRSP mutual fund data to Thomson holdings data using MFLINKS, initially developed by @wermers00 and recently updated by @cx15 until the end of 2014.^[@zhu17 shows that Thomson's coverage of new share classes deteriorates after 2008. In the [Online Appendix](https://www.dropbox.com/s/k7dygbn5slyrybc/Online_Appendix.pdf?dl=0) (under construction), I carry out analyses using data up to 2008, finding similar results.]
  
-Since CRSP data are at the share class level, at each date I aggregate variables to the portfolio level by taking the lagged TNA-weighted average of returns, expense ratio, turnover, and summing up TNA. Following @pst17, I winsorize turnover at the 1\% level. The final sample is a fund-month level panel spanning March 1980-November 2016. 
+Since CRSP data are at the share class level, at each date I aggregate variables to the portfolio level by taking the lagged TNA-weighted average of returns, expense ratio, turnover, and summing up TNA. Following @pst17, I winsorize turnover at the 1\% level. The final sample is a fund-month level panel spanning March 1980-December 2016. 
 
 
 ## Fund Selection
@@ -69,7 +69,7 @@ I calculate portfolio liquidity variables according to @pst17L, constructing the
 
 ## Summary Statistics {#sec:sumStats}
 
-Since my analysis relies on within-fund variation, I require each fund to have at least twelve months of non-missing observations of both returns and $CompetitorSize$ to be included in the estimation sample. My sample runs from March 1980 to November 2016, and includes 2,554 distinct funds. 
+Since my analysis relies on within-fund variation, I require each fund to have at least twelve months of non-missing observations of both returns and $CompetitorSize$ to be included in the estimation sample. My sample runs from March 1980 to December 2016, and includes 2,554 distinct funds. 
 $CompetitorSize$ to performance. 
 Table \@ref(tab:sumStats) reports summary statistics. 
 
