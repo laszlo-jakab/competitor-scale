@@ -28,7 +28,7 @@ CompSize <- function(sim.mat, fund.size) {
     stop("Fund size must be non-missing")
   }
   if (any(fund.size < 0)) {
-    stop("Fund size must be positive")
+    stop("Fund size must be non-negative")
   }
 
   # make sure funds are lined up correctly
