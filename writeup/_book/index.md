@@ -1,7 +1,7 @@
 --- 
 title: "Competitor Scale and Mutual Fund Behavior"
 author: "László Jakab"
-date: "March 16, 2018"
+date: "March 17, 2018"
 output: 
     bookdown::gitbook:
         css:
