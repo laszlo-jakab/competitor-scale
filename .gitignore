@@ -10,3 +10,4 @@ tab/*
 /writeup/debug
 .Rhistory
 R/data_wrangling/scandal/scandal_wficns/*
+docs/Articles/*
