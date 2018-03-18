@@ -1,4 +1,5 @@
 new_session: yes
+book_filename: "Jakab_Dissertation.Rmd"
 
 rmd_files: [
   "index.rmd",
