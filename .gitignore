@@ -12,6 +12,4 @@ packrat/lib*/
 R/data_wrangling/scandal/scandal_wficns/*
 writeup/debug/*
 writeup/_bookdown_files/*
-writeup/_book/*
-!writeup/_book/Jakab_Dissertation.pdf
 R/functions/SplitData.R
