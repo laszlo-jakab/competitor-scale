@@ -5,12 +5,12 @@
 
 # packages
 library(lfe)
+library(laszlor)
 
 # dataset
 scandal.dt <- readRDS("data/scandal/scandal_dt.Rds")
 
-# source function for displaying regression results
-source("R/functions/RegDisplay_Fn.R")
+# source convenience function for regressions
 source("R/functions/FeedFERegData.R")
 
 

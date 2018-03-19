@@ -5,9 +5,7 @@
 
 # packages
 library(lfe)
-
-# source functions for displaying regressions
-source("R/functions/RegDisplay_Fn.R")
+library(laszlor)
 
 # load data
 combined <- readRDS("data/combined/combined.Rds")

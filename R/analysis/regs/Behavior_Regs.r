@@ -5,9 +5,7 @@
 
 # libraries
 library(lfe)
-
-# source functions to construct reg tables
-source("R/functions/RegDisplay_Fn.R")
+library(laszlor)
 
 # load combined fund-month level data
 combined <- readRDS("data/combined/combined.Rds")
