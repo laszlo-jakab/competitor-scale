@@ -1,5 +1,7 @@
 # (APPENDIX) Appendix {-}
 
+\singlespacing
+
 # Summary Statistics
 
 
