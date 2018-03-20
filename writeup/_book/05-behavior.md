@@ -49,7 +49,7 @@ Under the hypothesis of symmetrically informed outside investors, $\gamma=0$. Un
 
 Table \@ref(tab:fundResponse) presents results from empirical tests evaluating hypothesis 1 against hypothesis 2. The statistically significant coefficients on $\Delta CS$ provide a rejection of the hypothesis that managers and outside investors are symmetrically informed of investment opportunities captured by changes in the scale of competing funds.
 
-The results are consistent with managers reacting optimally to decreasing returns to own and competitor scale by scaling back active management. A one percent increase in competitor size is associated with a -0.04bp change in active share, and a -0.52bp change in the turnover to portfolio liquidity ratio. Increases in competitor scale are associated with statistically significant increases in each component of portfolio liquidity. A one percent increase in own size is associated with a -0.02bp change in active share, and a -0.11bp change in turnover to portfolio liquidity. 
+The results are consistent with managers reacting optimally to decreasing returns to own and competitor scale by scaling back active management. A one percent increase in competitor size is associated with a -4bp change in active share, and a -52bp change in the turnover to portfolio liquidity ratio. Increases in competitor scale are associated with statistically significant increases in each component of portfolio liquidity. A one percent increase in own size is associated with a -2bp change in active share, and a -11bp change in turnover to portfolio liquidity. 
 
 
 \begin{table}[ht]
