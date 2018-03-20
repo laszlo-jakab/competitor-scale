@@ -72,7 +72,7 @@ w_{h,i,t} = \frac{Q_{h,i,t^i_r} P_{h,t} }{\sum_{h\in\theta_{i,t^i_r}} Q_{h,i,t^i
 Stacking the portfolio weights for each fund, denote the vector of portfolio weights by $\mathbf{w}_{i,t}$.
 
 
-## $CompetitorSize$ Variable {#sec:CompetitorSize}
+## *CompetitorSize* Variable {#sec:CompetitorSize}
 
 For each fund, I calculate $CompetitorSize$ as the sum of all other funds' size, weighted by the cosine similarity between the funds' stock capitalization adjusted portfolio weights. I cap adjust portfolio weights, as cross-holding a given security is more informative about fund similarity when the market capitalization of the cross-held security is small [@ccp05]. 
 I define capitalization adjusted weights as portfolio weights scaled by the inverse of the security's weight in the market portfolio:
