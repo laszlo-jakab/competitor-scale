@@ -1,125 +1,80 @@
 # Laszlo Jakab
-# Mar 3, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
-# directories
-pw.dir     <- "data/portfolio"
-data.dir   <- "data/clean"
-sample.dir <- "data/funds_included"
-out.dir    <- "data/competitor_size"
-fn.dir     <- "R/functions"
-
-# source functions
-source(file.path(fn.dir, "CosSim_Fn.R"))
+# load packages
+library(compsizer)
 
 
 # Load Data --------------------------------------------------------------------
 
 # list of included funds
-funds.in.sample <- readRDS(file.path(sample.dir, "funds_in_sample.Rds"))
+funds.in.sample <- readRDS("data/funds_included/funds_in_sample.Rds")
 
 # portfolio weights
-pw <- readRDS(file.path(pw.dir, "portfolio_weights.Rds"))[
-  , w := NULL]
+pw <- readRDS("data/portfolio/portfolio_weights.Rds")[, w := NULL]
 
-# fund tna
-fund.tna <- readRDS(file.path(data.dir, "fund_level_crsp.Rds"))[
-  , .(wficn, date, tna)]
+# fund size
+size <- readRDS("data/clean/fund_level_crsp.Rds")[, .(wficn, date, tna)]
 
 # total market cap of CRSP universe
-total.mktcap <- readRDS(file.path(data.dir, "total_mktcap.Rds"))[
-  , .(date, totcap)]
+total.mktcap <- readRDS("data/clean/total_mktcap.Rds")[, .(date, totcap)]
 
 
-# Intersect Weights and Sizes --------------------------------------------------
+# Prep Datasets ----------------------------------------------------------------
 
-# unique wficn-date pairs from portfolio weight dataset
-pw.wficn.date <- unique(pw[, .(wficn, date)])
-setkey(pw.wficn.date, wficn, date)
-# unique wficn-date pairs common to both datasets
-wficn.date <- fund.tna[, .(wficn, date)][
-  # intersect with portfolio weight datasets
-  pw.wficn.date, on = c("wficn", "date"), nomatch = 0][
-  # restrict to funds meeting sample filters
+# filter portfolio weight dataset
+pw <- pw[
+  # keep only funds that meet sample criteria
+  funds.in.sample, on = "wficn", nomatch = 0]
+
+# filter fund size dataset
+size <- size[
+  # keep only funds that meet sample criteria
   funds.in.sample, on = "wficn", nomatch = 0][
-  # keep only Mar 1980 to Dec 2016
+  # keep only sample period
   "Mar 1980" <= date & date <= "Dec 2016"][
-  # keep only quarter-end months
+  # restrict to quarter-end months
   month(date) %in% c(3, 6, 9, 12)]
 
-# fund size: keep only intersection, and normalize by total mkt cap
-fund.tna <- fund.tna[
-  # keep only if meets sample criteria
-  wficn.date, on = c("wficn", "date"), nomatch = 0][
-  # add in total mktcap
+# normalize tna by total mkt cap
+size <- size[
   total.mktcap, on = "date", nomatch = 0][
-  # normalize by total market cap
   , fund.size := tna * 10^6 / totcap][
-  # drop chaff
   , c("tna", "totcap") := NULL]
 
-# portfolio weights: keep only intersection
-setkey(pw, wficn, date)
-pw <- pw[wficn.date, on = c("wficn", "date"), nomatch = 0]
 
+# Split by Date and Calculate Cosine Similarity ----------------------------------------------------------------
 
-# Split by Date ----------------------------------------------------------------
+# csl is list of wide-form weight matrices and fund size matrices by date
+csl <- SplitByDate(pw, size, w.var = "w.adj")
 
-# sort by date
-setkey(fund.tna, date, wficn)
-setkey(pw, date, wficn, permno)
-# split portfolio weight dataset by date and arrange in a list of data.tables
-pwl <- split(pw, by = "date", keep.by = FALSE)
-# split fund size dataset by date and arrange in a list of data.tables
-ftl <- split(fund.tna, by = "date", keep.by = FALSE)
-# list of dates
-datel <- sort(unique(fund.tna$date))
+# clean up memory
+rm(pw, size, funds.in.sample, total.mktcap)
 
-# zip together the three lists (e.g. first element includes both weights
-# and sizes for Mar 1980 as separate datasets, as well as the date as the
-# third element)
-csl <- Map(list, pwl, ftl, datel)
-
-# clean up
-rm(fund.tna, pw, pwl, ftl)
-
-
-# Re-Format to Matrix ----------------------------------------------------------
-
-DtToMatrix <- function(dt) {
-
-  # portfolio weights in wide form data.table
-  w <- dcast(dt[[1]], permno ~ wficn, value.var = "w.adj", fill = 0)
-  # portfolio weight matrix
-  w <- as.matrix(w[, 2:dim(w)[2]])
-
-  # cosine similarities, excluding own
-  cos.sim <- CosSim(w)
-  diag(cos.sim) <- 0
-
-  # fund size matrix
-  fs <- as.matrix(dt[[2]]$fund.size)
-  rownames(fs) <- dt[[2]]$wficn
-
-  # output
-  out <- list(cos.sim, fs, dt[[3]])
-  return(out)
+# replace weight matrix with
+# cosine similarity matrix (diagonal set to zero)
+i.list <- seq_along(csl)
+pb <- txtProgressBar(max = length(i.list), style = 3)
+for (i in i.list) {
+  csl[[i]][[1]] <- CosSim(csl[[i]][[1]])
+  diag(csl[[i]][[1]]) <- 0
+  setTxtProgressBar(pb, i)
 }
-
-csl.mat <- lapply(csl, DtToMatrix)
+close(pb)
 
 
 # Delta (log) CompetitorSize ---------------------------------------------------
 
-# perform the calculations month-by-month
+# perform the calculations quarter-by-quarter
 # loop through time and get ln_DCS
 out.mat <- NULL
-cs.mat <- for (i in (2:length(csl.mat))) {
+for (i in (2:length(csl))) {
 
   # last period's similarity, fund size
-  cos.sim.last   <- csl.mat[[i-1]][[1]]
-  fund.size.last <- csl.mat[[i-1]][[2]]
+  cos.sim.last   <- csl[[i-1]][[1]]
+  fund.size.last <- csl[[i-1]][[2]]
 
   # last period competitor size
   if (!identical(rownames(cos.sim.last), rownames(fund.size.last))) {
@@ -128,7 +83,7 @@ cs.mat <- for (i in (2:length(csl.mat))) {
   cs.last <- cos.sim.last %*% fund.size.last
 
   # this period's fund size
-  fund.size.this <- csl.mat[[i]][[2]]
+  fund.size.this <- csl[[i]][[2]]
 
   # intersect last period's similarity and this period's fund size
   wficns.this <- intersect(
@@ -156,22 +111,19 @@ cs.mat <- for (i in (2:length(csl.mat))) {
 
   # output
   out.mat <- rbind(out.mat,
-    cbind(cs_delta_log, year(csl.mat[[i]][[3]]), month(csl.mat[[i]][[3]])))
+    cbind(cs_delta_log, csl[[i]][[3]]))
 }
-
 
 # convert output to data.table
 dcs.dt <- data.table(out.mat, keep.rownames = TRUE)
-setnames(dcs.dt, c("wficn", "dln.comp.size", "year", "month"))
+setnames(dcs.dt, c("wficn", "dln.comp.size", "date"))
 dcs.dt[
   # convert wficn to numeric
   , wficn := as.numeric(wficn)][
   # date variable corresponding to year and month
-  , date := as.yearmon(paste0(year, "-", month))][
-  # drop year and month
-  , c("year", "month") := NULL]
+  , date := as.yearmon(date)]
 # fix column order
 setcolorder(dcs.dt, c("wficn", "date", "dln.comp.size"))
 # sort and save
 setkey(dcs.dt, wficn, date)
-saveRDS(dcs.dt, file.path(out.dir, "dln_competitor_size.Rds"))
+saveRDS(dcs.dt, "data/competitor_size/dln_competitor_size.Rds")
