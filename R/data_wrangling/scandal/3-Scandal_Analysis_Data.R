@@ -3,19 +3,11 @@
 
 # Setup ------------------------------------------------------------------------
 
-# directories
-combined.dir <- "data/combined"
-scandal.dir  <- "data/scandal"
-
 # datasets
-combined         <- readRDS(file.path(
-  combined.dir, "combined.Rds"))
-scandal.wficns   <- readRDS(file.path(
-  scandal.dir, "scandal_wficns_2018-Mar-06.Rds"))
-scandal.exposure.dt <- readRDS(file.path(
-  scandal.dir, "scandal_exposure.Rds"))
-scandal.outflow.dt  <- readRDS(file.path(
-  scandal.dir, "scandal_outflow.Rds"))
+combined         <- readRDS("data/combined/combined.Rds")
+scandal.wficns   <- readRDS("data/scandal/scandal_wficns_2018-Mar-06.Rds")
+scandal.exposure.dt <- readRDS("data/scandal/scandal_exposure.Rds")
+scandal.outflow.dt  <- readRDS("data/scandal/scandal_outflow.Rds")
 
 
 # Aug 2003 Scandal Info --------------------------------------------------------
@@ -85,4 +77,4 @@ combined[
 
 # sort and save
 setkey(combined, wficn, date)
-saveRDS(combined, file.path(scandal.dir, "scandal_dt.Rds"))
+saveRDS(combined, "data/scandal/scandal_dt.Rds")
