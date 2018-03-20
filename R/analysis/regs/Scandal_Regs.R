@@ -125,7 +125,7 @@ did.rt.bm <- rbind(did.1yr.rt.bm, did.2yr.rt.bm)
 did.tab.bm <- list(
   results = did.rt.bm,
   sub.results = list(w1yr = did.1yr.rt.bm, w2yr = did.2yr.rt.bm),
-  title = "Capital Allocation and the Scandal: Before and After Analysis --- Benchmark $\\times$ Date FE",
+  title = "Capital Allocation and the Scandal: Before and After Analysis --- Benchmark $\\times$ Time FE",
   caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
