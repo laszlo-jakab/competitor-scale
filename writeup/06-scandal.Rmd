@@ -87,9 +87,9 @@ I measure pre-scandal exposure as the proportion of competitor size attributable
 \begin{equation}
 ScandalExposure_i = \frac{\sum_{j\in \Phi} \psi_{i,j,2003m8} FundSize_{j,2003m8}}{\sum_{j\neq i}\psi_{i,j,2003m8} FundSize_{j,2003m8}}.
 \end{equation}
-On average, $22$\% of untainted funds' competitor size is due to tainted fund families. Exposure ranges from 7\% to over 40\%, with upper quartile 25\% and lower quartile 19\%.
+On average, `r round(scandal.dt[date == "Aug 2003", sum(scandal.fund * fund.size) / sum(fund.size)]*100)`\% of untainted funds' competitor size is due to tainted fund families. Exposure ranges from `r round(scandal.dt[date == "Aug 2003", min(scandal.exposure, na.rm = TRUE)]*100)`\% to `r round(scandal.dt[date == "Aug 2003", max(scandal.exposure, na.rm = TRUE)])`\%, with upper quartile `r round(scandal.dt[date == "Aug 2003", quantile(scandal.exposure, c(0.75), na.rm = TRUE, names = FALSE)]*100)`\% and lower quartile `r round(scandal.dt[date == "Aug 2003", quantile(scandal.exposure, c(0.25), na.rm = TRUE, names = FALSE)]*100)`\%.
 
-To present interpretable summary statistics, I sort funds into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. Table~\ref{tab:snapShotHL200308} gives a snapshot taken in August 2003. High exposure funds are slightly smaller, have higher turnover to portfolio liquidity ratios, expense ratios, $CompetitorSize$, and worse performance. Fund age is almost identical across the two groups, limiting the plausibility of life cycle effects as an explanation for differences in outcome paths. 
+To present interpretable summary statistics, I sort funds into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. Table \@ref(tab:snapShotHL200308) gives a snapshot taken in August 2003. High exposure funds are slightly smaller, have higher turnover to portfolio liquidity ratios, expense ratios, $CompetitorSize$, and worse performance. Fund age is almost identical across the two groups, limiting the plausibility of life cycle effects as an explanation for differences in outcome paths. 
 
 Figure \@ref(fig:exposureDID) summarizes the identifying variation in the data. I plot the groupwise cross-sectional mean of within-fund deviations for competitor size, log active share, and log turnover to portfolio liquidity ratio. The differential impact of the scandal across groups is identified by the difference in the pre- and post-scandal period wedges between the series. The $CompetitorSize$ of the low exposure group overall trends upward, despite a small dip in the middle of the scandal period. The $CompetitorSize$ of high exposure funds drops more substantively  during the scandal, and remains flat for almost a year after the end of the scandal period. The historical accident of scandal-related outflows at involved funds appear to have insulated their closest competitors from contemporaneous increases in the aggregate size of the industry. 
 
@@ -176,13 +176,15 @@ print(
 ```
 
 
-Table \@ref(tab:scandalSpillover) presents results. The one (two) year window estimate implies a $6.7$\% ($3.5$\%) post-scandal reduction in $CompetitorSize$ for untainted funds at the 75$^{\text{th}}$ percentile of $ScandalExposure$ relative to untainted funds at the 25$^{\text{th}}$ percentile of $ScandalExposure$. The same difference in $ScandalExposure$ is associated with a $2.4$\% ($2.6$\%) relative increase in active share, and a $6.3$\% ($4.4$\%) increase in the turnover to portfolio liquidity ratio. The coefficients also imply a relative decline in portfolio liquidity and its components for high exposure funds. These findings are consistent with high exposure funds increasing activeness in response to softened competition.
+Table \@ref(tab:scandalSpillover) presents results. The one (two) year window estimate implies a `r formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w1yr[1, ln.CS])))*100, digits = 1, format = "f")`\% (`r formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w2yr[1, ln.CS])))*100, digits = 1, format = "f")`\%) post-scandal reduction in $CompetitorSize$ for untainted funds at the 75$^{\text{th}}$ percentile of $ScandalExposure$ relative to untainted funds at the 25$^{\text{th}}$ percentile of $ScandalExposure$. 
+
+**The same difference in $ScandalExposure$ is associated with a `r formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w1yr[1, ln.AS])))*100, digits = 1, format = "f")`\% (`r formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w2yr[1, ln.CS])))*100, digits = 1, format = "f")`\%) relative increase in active share, and a `r formatC(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w1yr[1, ln.TL]))*100, digits = 1, format = "f")`\% (`r formatC(as.numeric(gsub("\\*", "", scandal.tab$did$sub.results$w2yr[1, ln.TL]))*100, digits = 1, format = "f")`\%) change in the turnover to portfolio liquidity ratio. The coefficients also imply a relative decline in portfolio liquidity and its components for high exposure funds. These findings are consistent with high exposure funds increasing activeness in response to softened competition.** FIX THIS
 
 The main concern with identification based on comparing pre- and post-event periods across groups is that the measured effect might be the manifestation of favorable trends across the groups in the pre-period. I test for differential trends in the pre-period as a function of $ScandalExposure$ by estimating the regression
 \begin{equation}
 y_{i,t} = \alpha_i + \alpha_t + \gamma \left(t \times ScandalExposure_i\right) + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t},
 \end{equation}
-where $t$ is a linear time trend and $\mathbf{X}_{i,t}$ includes the usual controls. I estimate this regression on pre-period observations. Differential pre-trends by $ScandalExposure$ would be a concern if the coefficient on the trend interaction was statistically significant and of the same sign as the corresponding interaction coefficient in Table \@ref(tab:scandalSpillover). Results from these specifications fail to reject the null hypothesis of no differential trends in the pre-period (Table~\ref{tab:scandalSpilloverPreTrend}). 
+where $t$ is a linear time trend and $\mathbf{X}_{i,t}$ includes the usual controls. I estimate this regression on pre-period observations. **Differential pre-trends by $ScandalExposure$ would be a concern if the coefficient on the trend interaction was statistically significant and of the same sign as the corresponding interaction coefficient in Table \@ref(tab:scandalSpillover). Results from these specifications fail to reject the null hypothesis of no differential trends in the pre-period (Table \@ref(tab:scandalSpilloverPreTrend)).** FIX THIS
 
 
 
@@ -223,7 +225,9 @@ I link tainted funds' flows directly to untainted fund outcomes through the redu
 	y_{i,t}=\alpha_i+\alpha_t+\gamma ScandalOutFlow_{i,t} + \mathbf{X}_{i,t}\Gamma + \varepsilon_{i,t},
 \end{equation}
 where $\mathbf{X}_{i,t}$ includes log size and expense ratio.
-Table \@ref(tab:scandalSpilloverIV) presents results. The coefficient on $ScandalOutFlow$ represents the expected difference in outcomes between funds across the variable's interquartile range. Moving from the 25$^{\text{th}}$ to the 75$^{\text{th}}$ percentile of abnormal scandal-affected competitor outflow is associated with an approximately $18$\% relative decline in competitor size. Consistent with the difference-in-differences-style analysis, the results indicate that funds whose competitors were particularly affected by scandal-related outflows expanded active management relative to funds with less affected competitors, increasing active share, turnover to portfolio liquidity ratios, and decreasing portfolio liquidity.
+Table \@ref(tab:scandalSpilloverIV) presents results. The coefficient on $ScandalOutFlow$ represents the expected difference in outcomes between funds across the variable's interquartile range. Moving from the 25$^{\text{th}}$ to the 75$^{\text{th}}$ percentile of abnormal scandal-affected competitor outflow is associated with an approximately `r formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$sof$sub.results$w1yr[1, ln.CS])))*100, digits = 1, format = "f")`\% relative decline in competitor size using a one year event window, and formatC(abs(as.numeric(gsub("\\*", "", scandal.tab$sof$sub.results$w2yr[1, ln.CS])))*100, digits = 1, format = "f")\% using a two year event window. 
+
+**Consistent with the difference-in-differences-style analysis, the results indicate that funds whose competitors were particularly affected by scandal-related outflows expanded active management relative to funds with less affected competitors, increasing active share, turnover to portfolio liquidity ratios, and decreasing portfolio liquidity.** FIX WORDING
 
 
 
@@ -285,7 +289,11 @@ In additional analyses I isolate the variation in $CompetitorSize$ attributable 
 \begin{equation}
 	y_{i,t}=\alpha_i+\alpha_t + \gamma \ln(CompetitorSize_{i,t}) + \mathbf{X}_{i,t}\Gamma+\varepsilon_{i,t},
 \end{equation}
-where $y_{i,t}$ is log active share or log turnover-liquidity ratio, and $\mathbf{X}$ the usual controls. Table~\ref{tab:scandal2SLS} presents results. As expected based on the first column of Table \@ref(tab:scandalSpilloverIV), the first stage F-statistics are high, and $ScandalOutFlow$ passes the relevance criterion. Consistent with earlier results, variation in competitor size attributable to $ScandalOutFlow$ is associated with decreased active management and increased portfolio liquidity.
+where $y_{i,t}$ is log active share or log turnover-liquidity ratio, and $\mathbf{X}$ the usual controls. Table \@ref(tab:scandal2SLS) presents results. As expected based on the first column of Table \@ref(tab:scandalSpilloverIV), 
+
+**the first stage F-statistics are high, and $ScandalOutFlow$ passes the relevance criterion.** CHECK THIS
+
+ Consistent with earlier results, variation in competitor size attributable to $ScandalOutFlow$ is associated with decreased active management and increased portfolio liquidity.
 
 
 \subsection{Controlling for Sector Level Shocks}
