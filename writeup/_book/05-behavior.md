@@ -49,7 +49,7 @@ Under the hypothesis of symmetrically informed outside investors, $\gamma=0$. Un
 
 Table \@ref(tab:fundResponse) presents results from empirical tests evaluating hypothesis 1 against hypothesis 2. The statistically significant coefficients on $\Delta CS$ provide a rejection of the hypothesis that managers and outside investors are symmetrically informed of investment opportunities captured by changes in the scale of competing funds.
 
-The results are consistent with managers reacting optimally to decreasing returns to own and competitor scale by scaling back active management. A one percent increase in competitor size is associated with a -0.05bp change in active share, and a -0.47bp change in the turnover to portfolio liquidity ratio. Increases in competitor scale are associated with statistically significant increases in each component of portfolio liquidity. A one percent increase in own size is associated with a -0.02bp change in active share, and a -0.18bp change in turnover to portfolio liquidity. 
+The results are consistent with managers reacting optimally to decreasing returns to own and competitor scale by scaling back active management. A one percent increase in competitor size is associated with a -0.04bp change in active share, and a -0.52bp change in the turnover to portfolio liquidity ratio. Increases in competitor scale are associated with statistically significant increases in each component of portfolio liquidity. A one percent increase in own size is associated with a -0.02bp change in active share, and a -0.11bp change in turnover to portfolio liquidity. 
 
 
 \begin{table}[ht]
@@ -61,27 +61,27 @@ The results are consistent with managers reacting optimally to decreasing return
   \multicolumn{8}{p{.975\textwidth}}{\scriptsize Observations are first differences at the fund $\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\Delta CS_{i,t}=\ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t} \right) - \ln\left(\sum_{j\neq i} \psi_{i,j,t-1} FundSize_{j,t-1}\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.} \\ \addlinespace \toprule
 Dep. Var.: & $\Delta\ln(AS)$ & $\Delta\ln(TL^{-1/2})$ & $\Delta\ln(L)$ & $\Delta\ln(S)$ & $\Delta\ln(D)$ & $\Delta\ln(C)$ & $\Delta\ln(B)$ \\ 
   \midrule
-$\Delta CS$ & -0.051** & -0.472*** & 0.788*** & 0.659*** & 0.533*** & 0.173*** & 0.435*** \\ 
-   & (0.022) & (0.059) & (0.082) & (0.086) & (0.060) & (0.034) & (0.053) \\ 
-  $\Delta\ln(FundSize)$ & -0.016*** & -0.184*** & 0.218*** & 0.108*** & 0.196*** & 0.115*** & 0.115*** \\ 
-   & (0.003) & (0.016) & (0.017) & (0.013) & (0.015) & (0.011) & (0.011) \\ 
-  $\Delta\ln(f)$ & -0.018 & 0.063 & -0.009 & -0.025 & 0.005 & 0.023 & -0.015 \\ 
-   & (0.014) & (0.042) & (0.032) & (0.027) & (0.031) & (0.024) & (0.026) \\ 
-  $\Delta \ln(T)$ &  &  & -0.013* & -0.006 & -0.011* & 0.001 & -0.014** \\ 
-   &  &  & (0.007) & (0.005) & (0.006) & (0.004) & (0.005) \\ 
-  $\Delta\ln(D)$ &  &  &  & -0.340*** &  &  &  \\ 
-   &  &  &  & (0.018) &  &  &  \\ 
-  $\Delta\ln(S)$ &  &  &  &  & -0.570*** & -0.194*** & -0.458*** \\ 
-   &  &  &  &  & (0.017) & (0.013) & (0.021) \\ 
-  $\Delta\ln(B)$ &  &  &  &  &  & -0.114*** &  \\ 
+$\Delta CS$ & -0.045** & -0.521*** & 0.797*** & 0.627*** & 0.601*** & 0.181*** & 0.516*** \\ 
+   & (0.018) & (0.058) & (0.076) & (0.072) & (0.065) & (0.028) & (0.061) \\ 
+  $\Delta\ln(FundSize)$ & -0.016*** & -0.109*** & 0.183*** & 0.101*** & 0.163*** & 0.098*** & 0.100*** \\ 
+   & (0.002) & (0.012) & (0.012) & (0.010) & (0.011) & (0.007) & (0.009) \\ 
+  $\Delta\ln(f)$ & -0.021 & 0.038 & 0.038* & -0.011 & 0.052** & 0.029** & 0.034* \\ 
+   & (0.017) & (0.027) & (0.021) & (0.019) & (0.022) & (0.012) & (0.019) \\ 
+  $\Delta \ln(T)$ &  &  & -0.005 & -0.004 & -0.003 & 0.002 & -0.006* \\ 
+   &  &  & (0.004) & (0.003) & (0.004) & (0.003) & (0.003) \\ 
+  $\Delta\ln(D)$ &  &  &  & -0.355*** &  &  &  \\ 
+   &  &  &  & (0.020) &  &  &  \\ 
+  $\Delta\ln(S)$ &  &  &  &  & -0.632*** & -0.194*** & -0.539*** \\ 
+   &  &  &  &  & (0.017) & (0.014) & (0.023) \\ 
+  $\Delta\ln(B)$ &  &  &  &  &  & -0.126*** &  \\ 
    &  &  &  &  &  & (0.011) &  \\ 
-  $\Delta\ln(C)$ &  &  &  &  &  &  & -0.229*** \\ 
-   &  &  &  &  &  &  & (0.021) \\ 
+  $\Delta\ln(C)$ &  &  &  &  &  &  & -0.292*** \\ 
+   &  &  &  &  &  &  & (0.023) \\ 
   Fixed Effects &  &  &  &  &  &  &  \\ 
   $\bullet$ Quarter & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 34,984 & 57,146 & 57,146 & 57,146 & 57,146 & 57,146 & 57,146 \\ 
-  $R^2$ & 0.025 & 0.028 & 0.059 & 0.218 & 0.224 & 0.101 & 0.180 \\ 
-  $R^2$ (proj. model) & 0.005 & 0.018 & 0.045 & 0.202 & 0.209 & 0.081 & 0.171 \\ 
+  Observations & 35,311 & 57,284 & 57,284 & 57,284 & 57,284 & 57,284 & 57,284 \\ 
+  $R^2$ & 0.025 & 0.020 & 0.047 & 0.252 & 0.245 & 0.098 & 0.218 \\ 
+  $R^2$ (proj. model) & 0.004 & 0.007 & 0.031 & 0.233 & 0.231 & 0.077 & 0.209 \\ 
    \bottomrule
 \end{tabularx}
 \endgroup
