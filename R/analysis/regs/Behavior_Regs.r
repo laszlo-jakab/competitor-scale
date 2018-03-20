@@ -13,36 +13,28 @@ combined <- readRDS("data/combined/combined.Rds")
 dln.cs <- readRDS("data/competitor_size/dln_competitor_size.Rds")
 
 
-# Keep End of Quarter Report Dates ---------------------------------------------
+# Prep Data ---------------------------------------------
 
+# keep end of quarter report dates
 combined <- combined[
-  # keep report dates
-  date == rdate][
-  # keep quarter-end
-  month(date) %in% c(3, 6, 9, 12)][
-  # number of months since last obs
-  , d.months := round((date - shift(date))*12), by = wficn][
-  # keep if 3 months between this obs and last
-  d.months == 3]
+  month(date) %in% c(3, 6, 9, 12) & date == rdate]
 
-# get logs of active share, portfolio  liquidity variables,
-# fund size, and expense ratio
+# get logs of active share, portfolio liquidity, fund size, and expense ratio
 setnames(combined, c("activeshare", "exp_ratio", "To"), c("AS", "f", "T"))
 vars <- c("AS", "L", "S", "D", "C", "B", "fund.size", "f", "T")
-ln.vars <- paste0("ln.", vars)
-combined[, (ln.vars) := lapply(.SD, log), .SDcols = vars]
+combined[, (paste0("ln.", vars)) := lapply(.SD, log), .SDcols = vars]
 
-
-# First Differences ------------------------------------------------------------
-
+# FD log variables (note: interval for FD is not consistent for now)
 ln.vars <- c("ln.AS", "ln.TL", "ln.L", "ln.S", "ln.D", "ln.C",
   "ln.B", "ln.fund.size", "ln.f", "ln.T")
-dln.vars <- paste0("d", ln.vars)
-combined[, (dln.vars) := lapply(.SD, function(x) x - shift(x))
+combined[, (paste0("d", ln.vars)) := lapply(.SD, function(x) x - shift(x))
   , by = wficn, .SDcols = ln.vars]
 
 # add in quasi-first differenced log competitor size
 combined <- combined[dln.cs, on = c("wficn", "date"), nomatch = 0]
+
+# keep only if FD interval is three months
+combined <- combined[, dm := round((date - shift(date))*12), by = wficn][dm == 3]
 
 
 # Fund Behavior Regressions ----------------------------------------------------
