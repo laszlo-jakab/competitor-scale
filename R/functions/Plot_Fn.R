@@ -1,4 +1,35 @@
+# convenience function for histograms
+HistFn <- function(dt, x, nb, title, xlab){
+  p <-
+    dt %>%
+    ggplot() +
+    aes_string(x, "..density..") +
+    xlab(xlab) +
+    ylab("Density") +
+    ggtitle(title) +
+    geom_histogram(
+      bins = nb,
+      col = azure,
+      fill = azure,
+      alpha = .3) +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5))
+  return(p)
+}
 
+# convenience function for plotting CRSP data availability
+CRSPPlot <- function(dt, title) {
+  p <-
+    dt %>%
+    ggplot() +
+    aes(caldt, N) +
+    ylab("#share classes") +
+    ggtitle(title) +
+    geom_line(colour = azure) +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5))
+  return(p)
+}
 
 # convenience function for plotting DiD
 DidPlot <- function(dt, y, ylabel, title, theme.type = c("bw", "minimal", "classic"), refline = FALSE) {
