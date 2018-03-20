@@ -7,6 +7,9 @@
 library(ggplot2)
 library(magrittr)
 
+# load functions
+source("R/functions/Plot_Fn.R")
+
 # datasets
 combined        <- readRDS("data/combined/combined.Rds")
 shrcls.crsp     <- readRDS("data/clean/share_class_crsp_data.Rds")
@@ -16,25 +19,6 @@ wficn.rdate     <- readRDS("data/clean/wficn_rdate.Rds")
 
 
 # CompetitorSize Distribution --------------------------------------------------
-
-# convenience function
-HistFn <- function(dt, x, nb, title, xlab){
-  p <-
-    dt %>%
-      ggplot() +
-      aes_string(x, "..density..") +
-      xlab(xlab) +
-      ylab("Density") +
-      ggtitle(title) +
-      geom_histogram(
-        bins = nb,
-        col = azure,
-        fill = azure,
-        alpha = .3) +
-      theme_bw() +
-      theme(plot.title = element_text(hjust = 0.5))
-  return(p)
-}
 
 # unconditional distribution
 p.hist.uncond <- HistFn(combined[, .(comp.size)], "comp.size", 50,
@@ -62,20 +46,6 @@ shrcls.crsp <- shrcls.crsp[
   funds.in.sample, on = "wficn", nomatch = 0][
   # keep only Mar 1980-Dec 2016
   "Mar 1980" <= as.yearmon(caldt) & as.yearmon(caldt) <= "Dec 2016"]
-
-# convenience function
-CRSPPlot <- function(dt, title) {
-  p <-
-    dt %>%
-      ggplot() +
-        aes(caldt, N) +
-        ylab("#share classes") +
-        ggtitle(title) +
-        geom_line(colour = azure) +
-        theme_bw() +
-        theme(plot.title = element_text(hjust = 0.5))
-  return(p)
-}
 
 # plot and annotate
 crsp.plots <- list(
@@ -129,7 +99,7 @@ rdate.plot <- list(
 
 # Industry Size Time Series ----------------------------------------------------
 
-isize <- combined[, .(CompetitorSize = mean(comp.size),
+isize <- combined[, .(CompetitorSize = mean(comp.size, na.rm = TRUE),
   IndustrySize = mean(industry.size)), keyby = date]
 isize[, CompetitorSize := CompetitorSize * 40]
 p.isize <- melt(isize, id.vars = "date") %>%
