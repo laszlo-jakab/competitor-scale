@@ -71,7 +71,7 @@ setkey(fund.crsp, wficn, date)
 isize <- fund.crsp[, .(industry.size = sum(fund.size)), keyby = date]
 
 
-# Combine datasets -------------------------------------------------------------
+# Combine Datasets -------------------------------------------------------------
 
 # combine, keeping only intersection of datasets
 combined <- fund.crsp[
