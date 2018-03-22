@@ -8,19 +8,14 @@ pkgs <- c("foreach",
           "doParallel")
 lapply(pkgs, library, character.only = TRUE)
 
-# directories
-pw.dir <- "data/portfolio"
-cs.dir <- "data/competitor_size"
-
 
 # Load Data --------------------------------------------------------------------
 
 # portfolio weights
-pw <- readRDS(file.path(pw.dir, "portfolio_weights.Rds"))[
-  , w.adj := NULL]
+pw <- readRDS("data/portfolio/portfolio_weights.Rds")[ , w.adj := NULL]
 
 # fund-month pairs to include (taken from competitor size file for convenience)
-wficn.date <- unique(readRDS(file.path(cs.dir, "competitor_size.Rds"))[, .(wficn, date)])
+wficn.date <- unique(readRDS("data/competitor_size/competitor_size.Rds")[, .(wficn, date)])
 setkey(wficn.date, wficn, date)
 
 
@@ -79,7 +74,6 @@ cfun <- function(a,b) mapply(rbind, a, b, SIMPLIFY = FALSE)
 #setup parallel backend to use all but one of the cores
 n.cores <- detectCores()
 cl <- makeCluster(n.cores - 1)
-#cl <- makeCluster(n.cores)
 # register the cluster
 registerDoParallel(cl)
 # perform the calculations month-by-month
@@ -129,4 +123,4 @@ pg.list$gs <- pg.list$gs[
   , c("year", "month") := NULL]
 setcolorder(pg.list$gs, c("date", paste0("port.grp.size.", seq(10))))
 setkey(pg.list$gs, date)
-saveRDS(pg.list$gs, file.path(pw.dir, "portfolio_grp_size.Rds"))
+saveRDS(pg.list$gs, "data/portfolio/portfolio_grp_size.Rds")

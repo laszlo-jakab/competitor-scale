@@ -18,7 +18,6 @@ ret.fund.level <- readRDS(file.path(data.dir, "fund_level_crsp.Rds"))
 
 # Filter funds -----------------------------------------------------------------
 
-
 # add in wficn to thomson, fund header
 s12type1 <- s12type1[mfl.tfn, on = c("fundno", "fdate"), nomatch = 0]
 fund.hdr <- fund.hdr[mfl.crsp, on = "crsp_fundno", nomatch = 0]
@@ -129,7 +128,5 @@ setDT(wficns.incl)
 setnames(wficns.incl, "wficns.incl", "wficn")
 setkey(wficns.incl, wficn)
 saveRDS(wficns.incl, file.path(out.dir, "funds_in_sample.Rds"))
-
 saveRDS(track.obs, file.path(out.dir, "track_obs.Rds"))
 track.obs
-

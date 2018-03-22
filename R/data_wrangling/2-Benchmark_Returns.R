@@ -1,13 +1,6 @@
 # Laszlo Jakab
 # Mar 2018
 
-# Setup ------------------------------------------------------------------------
-
-# directories
-raw.dir  <- "data/raw"
-data.dir <- "data/clean"
-out.dir  <- "data/benchmarked_returns"
-
 
 # Regression Function ----------------------------------------------------------
 
@@ -21,8 +14,8 @@ RegCoefs <- function(dt, fm) {
 
 # Load Fund Level Returns, FF factors ------------------------------------------
 
-fund.ret   <- readRDS(file.path(data.dir, "fund_level_crsp.Rds"))
-ff.factors <- readRDS(file.path(raw.dir,  "ff_factors.Rds"))
+fund.ret   <- readRDS("data/clean/fund_level_crsp.Rds")
+ff.factors <- readRDS("data/raw/ff_factors.Rds")
 
 
 # Combine Datasets -------------------------------------------------------------
@@ -116,5 +109,4 @@ risk.adj.ret <- fund.ret[loadings, on = "wficn"][
       ra.gross.capm, ra.gross.ff3, ra.gross.ff4)]
 # sort and save
 setkey(risk.adj.ret, wficn, date)
-saveRDS(risk.adj.ret, file.path(out.dir, "risk_adj_ret.Rds"))
-
+saveRDS(risk.adj.ret, "data/benchmarked_returns/risk_adj_ret.Rds")

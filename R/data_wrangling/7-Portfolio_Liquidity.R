@@ -1,23 +1,15 @@
 # Laszlo Jakab
 # Feb 26, 2018
 
-# Setup ------------------------------------------------------------------------
 
-# directories
-data.dir <- "data/clean"
-pw.dir   <- "data/portfolio"
-
-
-# Load and Prep Data -----------------------------------------------------------
+# Load Data --------------------------------------------------------------------
 
 # stock data
-msf <- readRDS(file.path(data.dir, "msf_common_equity.Rds"))[
-  , .(permno, date, w.mkt.adj)]
+msf <- readRDS("data/clean/msf_common_equity.Rds")[, .(permno, date, w.mkt.adj)]
 setnames(msf, "w.mkt.adj", "w.mkt")
 
 # fund portfolio weights
-pw <- readRDS(file.path(pw.dir, "portfolio_weights.Rds"))[
-  , .(wficn, date, permno, w)]
+pw <- readRDS("data/portfolio/portfolio_weights.Rds")[, .(wficn, date, permno, w)]
 
 
 # Portfolio Liquidity ----------------------------------------------------------
@@ -67,4 +59,4 @@ B <- pw[
 # Consolidate and Save ---------------------------------------------------------
 
 portfolio_liquidity <- L[S][C][B][, D := C * B]
-saveRDS(portfolio_liquidity, file.path(pw.dir, "portfolio_liquidity.Rds"))
+saveRDS(portfolio_liquidity, "data/portfolio/portfolio_liquidity.Rds")
