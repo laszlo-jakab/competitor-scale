@@ -72,18 +72,18 @@ I double cluster standard errors by fund and portfolio group $\times$ time. I no
 \label{tab:scandalSpillover}
 \begingroup\scriptsize
 \begin{tabularx}{0.975\textwidth}{lYYYYYYYY}
-  \multicolumn{9}{p{.975\textwidth}}{Dependent variables are identified in the column headers. $\ln(C.S.)$ is an abbreviation for $\ln(CompetitorSize)$. For regressions with $\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\mathbb{I}$ is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group $\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.}\\
+  \multicolumn{9}{p{.975\textwidth}}{Dependent variables are identified in the column headers. $\ln(C.S.)$ is an abbreviation for $\ln(CompetitorSize)$. Observations are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\mathbb{I}$ is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group $\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.}\\
 \addlinespace \toprule
 Dep. Var.: & $\ln(C.S.)$ & $\ln(AS)$ & $\ln(TL^{-1/2})$ & $\ln(L)$ & $\ln(S)$ & $\ln(D)$ & $\ln(C)$ & $\ln(B)$ \\ 
   \midrule \\
  \multicolumn{9}{c}{\textbf{Panel A: 1 year window}}\\
  \midrule
-$\mathbb{I}\times ScanEx$ & -0.064*** & 0.026*** & 0.011 & -0.100*** & -0.095*** & -0.049** & -0.026* & -0.026 \\ 
-   & (0.019) & (0.006) & (0.031) & (0.024) & (0.018) & (0.022) & (0.014) & (0.017) \\ 
-  $\ln(FundSize)$ & 0.130*** & -0.014** & -0.182*** & 0.172*** & 0.083*** & 0.141*** & 0.074*** & 0.077*** \\ 
-   & (0.020) & (0.007) & (0.030) & (0.026) & (0.015) & (0.026) & (0.019) & (0.018) \\ 
-  $\ln(f)$ & -0.004 & -0.016 & 0.012 & 0.016 & -0.067 & 0.067 & 0.098 & -0.024 \\ 
-   & (0.099) & (0.029) & (0.137) & (0.116) & (0.078) & (0.106) & (0.078) & (0.077) \\ 
+$\mathbb{I}\times ScanEx$ & -0.064*** & 0.026*** & 0.019 & -0.100*** & -0.095*** & -0.049** & -0.026* & -0.026 \\ 
+   & (0.019) & (0.006) & (0.033) & (0.024) & (0.018) & (0.022) & (0.014) & (0.017) \\ 
+  $\ln(FundSize)$ & 0.130*** & -0.014** & -0.164*** & 0.172*** & 0.083*** & 0.141*** & 0.074*** & 0.077*** \\ 
+   & (0.020) & (0.007) & (0.031) & (0.026) & (0.015) & (0.026) & (0.019) & (0.018) \\ 
+  $\ln(f)$ & -0.004 & -0.016 & 0.072 & 0.016 & -0.067 & 0.067 & 0.098 & -0.024 \\ 
+   & (0.099) & (0.029) & (0.140) & (0.116) & (0.078) & (0.106) & (0.078) & (0.077) \\ 
   $\ln(T)$ &  &  &  & -0.079*** & -0.065*** & -0.045* & 0.018 & -0.064*** \\ 
    &  &  &  & (0.027) & (0.017) & (0.025) & (0.015) & (0.018) \\ 
   $\ln(D)$ &  &  &  &  & -0.228*** &  &  &  \\ 
@@ -97,17 +97,17 @@ $\mathbb{I}\times ScanEx$ & -0.064*** & 0.026*** & 0.011 & -0.100*** & -0.095***
   Fixed Effects &  &  &  &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Time & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 7,079 & 6,072 & 24,192 & 6,893 & 6,893 & 6,893 & 6,893 & 6,893 \\ 
-  $R^2$ & 0.926 & 0.914 & 0.895 & 0.962 & 0.987 & 0.941 & 0.942 & 0.892 \\ 
-  $R^2$ (proj. model) & 0.052 & 0.022 & 0.026 & 0.077 & 0.156 & 0.121 & 0.084 & 0.062 \\ 
+  Observations & 7,079 & 6,072 & 6,893 & 6,893 & 6,893 & 6,893 & 6,893 & 6,893 \\ 
+  $R^2$ & 0.926 & 0.914 & 0.896 & 0.962 & 0.987 & 0.941 & 0.942 & 0.892 \\ 
+  $R^2$ (proj. model) & 0.052 & 0.022 & 0.024 & 0.077 & 0.156 & 0.121 & 0.084 & 0.062 \\ 
    \midrule \\
  \multicolumn{9}{c}{\textbf{Panel B: 2 year window}} \\
  \midrule $\mathbb{I}\times ScanEx$ & -0.034* & 0.029*** & 0.010 & -0.100*** & -0.105*** & -0.039* & -0.032** & -0.011 \\ 
-   & (0.020) & (0.006) & (0.031) & (0.025) & (0.018) & (0.022) & (0.015) & (0.016) \\ 
-  $\ln(FundSize)$ & 0.149*** & -0.018*** & -0.205*** & 0.184*** & 0.088*** & 0.148*** & 0.074*** & 0.084*** \\ 
+   & (0.020) & (0.006) & (0.033) & (0.025) & (0.018) & (0.022) & (0.015) & (0.016) \\ 
+  $\ln(FundSize)$ & 0.149*** & -0.018*** & -0.201*** & 0.184*** & 0.088*** & 0.148*** & 0.074*** & 0.084*** \\ 
    & (0.016) & (0.006) & (0.025) & (0.022) & (0.014) & (0.021) & (0.016) & (0.015) \\ 
-  $\ln(f)$ & -0.096 & 0.004 & 0.113 & -0.072 & -0.169** & 0.040 & 0.105 & -0.061 \\ 
-   & (0.072) & (0.027) & (0.117) & (0.107) & (0.076) & (0.090) & (0.072) & (0.070) \\ 
+  $\ln(f)$ & -0.096 & 0.004 & 0.169 & -0.072 & -0.169** & 0.040 & 0.105 & -0.061 \\ 
+   & (0.072) & (0.027) & (0.127) & (0.107) & (0.076) & (0.090) & (0.072) & (0.070) \\ 
   $\ln(T)$ &  &  &  & -0.063*** & -0.065*** & -0.025 & 0.023* & -0.049*** \\ 
    &  &  &  & (0.024) & (0.014) & (0.022) & (0.014) & (0.015) \\ 
   $\ln(D)$ &  &  &  &  & -0.216*** &  &  &  \\ 
@@ -121,9 +121,9 @@ $\mathbb{I}\times ScanEx$ & -0.064*** & 0.026*** & 0.011 & -0.100*** & -0.095***
   Fixed Effects &  &  &  &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Time & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 13,666 & 11,773 & 46,660 & 13,291 & 13,291 & 13,291 & 13,291 & 13,291 \\ 
-  $R^2$ & 0.895 & 0.878 & 0.860 & 0.943 & 0.980 & 0.914 & 0.914 & 0.848 \\ 
-  $R^2$ (proj. model) & 0.065 & 0.027 & 0.043 & 0.083 & 0.154 & 0.114 & 0.071 & 0.063 \\ 
+  Observations & 13,666 & 11,773 & 13,291 & 13,291 & 13,291 & 13,291 & 13,291 & 13,291 \\ 
+  $R^2$ & 0.895 & 0.878 & 0.858 & 0.943 & 0.980 & 0.914 & 0.914 & 0.848 \\ 
+  $R^2$ (proj. model) & 0.065 & 0.027 & 0.044 & 0.083 & 0.154 & 0.114 & 0.071 & 0.063 \\ 
    \bottomrule
 \end{tabularx}
 \endgroup
@@ -132,7 +132,7 @@ $\mathbb{I}\times ScanEx$ & -0.064*** & 0.026*** & 0.011 & -0.100*** & -0.095***
 
 Table \@ref(tab:scandalSpillover) presents results. The one (two) year window estimate implies a 6.4\% (3.4\%) post-scandal reduction in $CompetitorSize$ for untainted funds at the 75$^{\text{th}}$ percentile of $ScandalExposure$ relative to untainted funds at the 25$^{\text{th}}$ percentile of $ScandalExposure$. 
 
-**The same difference in $ScandalExposure$ is associated with a 2.6\% (3.4\%) relative increase in active share, and a 1.1\% (1.0\%) change in the turnover to portfolio liquidity ratio. The coefficients also imply a relative decline in portfolio liquidity and its components for high exposure funds. These findings are consistent with high exposure funds increasing activeness in response to softened competition.** FIX THIS
+**The same difference in $ScandalExposure$ is associated with a 2.6\% (3.4\%) relative increase in active share, and a 1.9\% (1.0\%) change in the turnover to portfolio liquidity ratio. The coefficients also imply a relative decline in portfolio liquidity and its components for high exposure funds. These findings are consistent with high exposure funds increasing activeness in response to softened competition.** FIX THIS
 
 The main concern with identification based on comparing pre- and post-event periods across groups is that the measured effect might be the manifestation of favorable trends across the groups in the pre-period. I test for differential trends in the pre-period as a function of $ScandalExposure$ by estimating the regression
 \begin{equation}
@@ -184,17 +184,17 @@ Table \@ref(tab:scandalSpilloverIV) presents results. The coefficient on $Scanda
 \label{tab:scandalSpilloverIV}
 \begingroup\scriptsize
 \begin{tabularx}{0.975\textwidth}{lYYYYYYYY}
-  \multicolumn{9}{p{.975\textwidth}}{Dependent variables are identified in the column headers. For regressions with $\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes untainted funds during $\{[2003m9-W, 2004m10+W] \}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\ln(C.S.)$ is an abbreviation for $\ln(CompetitorSize)$. Standard errors are double clustered by fund and portfolio group $\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.}\\
+  \multicolumn{9}{p{.975\textwidth}}{Dependent variables are identified in the column headers. Observations are at the fund-report date level. The estimation sample includes untainted funds during $\{[2003m9-W, 2004m10+W] \}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\ln(C.S.)$ is an abbreviation for $\ln(CompetitorSize)$. Standard errors are double clustered by fund and portfolio group $\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.}\\
 \addlinespace \toprule
 Dep. Var.: & $\ln(C.S.)$ & $\ln(AS)$ & $\ln(TL^{-1/2})$ & $\ln(L)$ & $\ln(S)$ & $\ln(D)$ & $\ln(C)$ & $\ln(B)$ \\ 
   \midrule \\
  \multicolumn{9}{c}{\textbf{Panel A: 1 year window}} \\
  \midrule
-$ScandalOutFlow$ & -0.181*** & 0.059*** & 0.114*** & -0.221*** & -0.120*** & -0.181*** & -0.076*** & -0.127*** \\ 
-   & (0.017) & (0.007) & (0.024) & (0.024) & (0.015) & (0.022) & (0.015) & (0.015) \\ 
-  $\ln(FundSize)$ & 0.092*** & -0.010* & -0.149*** & 0.143*** & 0.080*** & 0.116*** & 0.075*** & 0.056*** \\ 
-   & (0.017) & (0.005) & (0.027) & (0.022) & (0.013) & (0.022) & (0.017) & (0.015) \\ 
-  $\ln(f)$ & -0.066 & -0.009 & 0.036 & -0.027 & -0.061 & 0.009 & 0.079 & -0.064 \\ 
+$ScandalOutFlow$ & -0.181*** & 0.059*** & 0.122*** & -0.221*** & -0.120*** & -0.181*** & -0.076*** & -0.127*** \\ 
+   & (0.017) & (0.007) & (0.026) & (0.024) & (0.015) & (0.022) & (0.015) & (0.015) \\ 
+  $\ln(FundSize)$ & 0.092*** & -0.010* & -0.131*** & 0.143*** & 0.080*** & 0.116*** & 0.075*** & 0.056*** \\ 
+   & (0.017) & (0.005) & (0.026) & (0.022) & (0.013) & (0.022) & (0.017) & (0.015) \\ 
+  $\ln(f)$ & -0.066 & -0.009 & 0.067 & -0.027 & -0.061 & 0.009 & 0.079 & -0.064 \\ 
    & (0.071) & (0.024) & (0.110) & (0.089) & (0.059) & (0.083) & (0.062) & (0.059) \\ 
   $\ln(T)$ &  &  &  & -0.057*** & -0.045*** & -0.038** & 0.011 & -0.052*** \\ 
    &  &  &  & (0.019) & (0.011) & (0.018) & (0.011) & (0.014) \\ 
@@ -209,17 +209,17 @@ $ScandalOutFlow$ & -0.181*** & 0.059*** & 0.114*** & -0.221*** & -0.120*** & -0.
   Fixed Effects &  &  &  &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Time & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 12,095 & 10,334 & 39,784 & 11,689 & 11,689 & 11,689 & 11,689 & 11,689 \\ 
-  $R^2$ & 0.935 & 0.933 & 0.904 & 0.967 & 0.988 & 0.949 & 0.950 & 0.901 \\ 
-  $R^2$ (proj. model) & 0.088 & 0.073 & 0.027 & 0.107 & 0.172 & 0.174 & 0.107 & 0.103 \\ 
+  Observations & 12,095 & 10,334 & 11,689 & 11,689 & 11,689 & 11,689 & 11,689 & 11,689 \\ 
+  $R^2$ & 0.935 & 0.933 & 0.903 & 0.967 & 0.988 & 0.949 & 0.950 & 0.901 \\ 
+  $R^2$ (proj. model) & 0.088 & 0.073 & 0.025 & 0.107 & 0.172 & 0.174 & 0.107 & 0.103 \\ 
    \midrule \\
  \multicolumn{9}{c}{\textbf{Panel B: 2 year window}} \\
- \midrule $ScandalOutFlow$ & -0.168*** & 0.061*** & 0.110*** & -0.209*** & -0.125*** & -0.162*** & -0.075*** & -0.104*** \\ 
-   & (0.015) & (0.007) & (0.022) & (0.021) & (0.014) & (0.019) & (0.015) & (0.013) \\ 
-  $\ln(FundSize)$ & 0.113*** & -0.012** & -0.182*** & 0.156*** & 0.083*** & 0.128*** & 0.072*** & 0.070*** \\ 
-   & (0.014) & (0.005) & (0.023) & (0.020) & (0.013) & (0.019) & (0.015) & (0.013) \\ 
-  $\ln(f)$ & -0.132** & 0.011 & 0.135 & -0.109 & -0.168** & -0.016 & 0.076 & -0.090 \\ 
-   & (0.058) & (0.023) & (0.098) & (0.094) & (0.070) & (0.079) & (0.061) & (0.062) \\ 
+ \midrule $ScandalOutFlow$ & -0.168*** & 0.061*** & 0.116*** & -0.209*** & -0.125*** & -0.162*** & -0.075*** & -0.104*** \\ 
+   & (0.015) & (0.007) & (0.023) & (0.021) & (0.014) & (0.019) & (0.015) & (0.013) \\ 
+  $\ln(FundSize)$ & 0.113*** & -0.012** & -0.175*** & 0.156*** & 0.083*** & 0.128*** & 0.072*** & 0.070*** \\ 
+   & (0.014) & (0.005) & (0.022) & (0.020) & (0.013) & (0.019) & (0.015) & (0.013) \\ 
+  $\ln(f)$ & -0.132** & 0.011 & 0.182* & -0.109 & -0.168** & -0.016 & 0.076 & -0.090 \\ 
+   & (0.058) & (0.023) & (0.104) & (0.094) & (0.070) & (0.079) & (0.061) & (0.062) \\ 
   $\ln(T)$ &  &  &  & -0.049** & -0.049*** & -0.024 & 0.017 & -0.043*** \\ 
    &  &  &  & (0.019) & (0.011) & (0.018) & (0.012) & (0.013) \\ 
   $\ln(D)$ &  &  &  &  & -0.259*** &  &  &  \\ 
@@ -233,8 +233,8 @@ $ScandalOutFlow$ & -0.181*** & 0.059*** & 0.114*** & -0.221*** & -0.120*** & -0.
   Fixed Effects &  &  &  &  &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Time & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\ 
-  Observations & 18,904 & 16,211 & 63,055 & 18,309 & 18,309 & 18,309 & 18,309 & 18,309 \\ 
-  $R^2$ & 0.907 & 0.898 & 0.869 & 0.951 & 0.982 & 0.924 & 0.922 & 0.860 \\ 
+  Observations & 18,904 & 16,211 & 18,309 & 18,309 & 18,309 & 18,309 & 18,309 & 18,309 \\ 
+  $R^2$ & 0.907 & 0.898 & 0.867 & 0.951 & 0.982 & 0.924 & 0.922 & 0.860 \\ 
   $R^2$ (proj. model) & 0.103 & 0.086 & 0.046 & 0.117 & 0.180 & 0.164 & 0.095 & 0.096 \\ 
    \bottomrule
 \end{tabularx}

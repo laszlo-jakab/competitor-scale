@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Mar 8, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------
 
@@ -8,10 +8,7 @@ library(lfe)
 library(laszlor)
 
 # dataset
-scandal.dt <- readRDS("data/scandal/scandal_dt.Rds")
-
-# source convenience function for regressions
-source("R/functions/FeedFERegData.R")
+scandal <- readRDS("data/scandal/scandal_dt.Rds")
 
 
 # Coef Label Table  ------------------------------------------------------------
@@ -35,304 +32,265 @@ setnames(coef.lab.dt, c("old.name", "new.name"))
 
 # Reg Model Components ---------------------------------------------------------
 
-ys <- c("ln.CS", "ln.AS", "ln.TL", "ln.L", "ln.S", "ln.D", "ln.C", "ln.B")
-ys.iv <- ys[2:length(ys)]
+y <- c("ln.CS", "ln.AS", "ln.TL", "ln.L", "ln.S", "ln.D", "ln.C", "ln.B")
+y.2sls <- y[2:length(y)]
 
-ctrls <- c(
+x2 <- c(
   rep("ln.fund.size + ln.f", 3),
   "ln.fund.size + ln.f + ln.T",
   "ln.fund.size + ln.f + ln.T + ln.D",
   "ln.fund.size + ln.f + ln.T + ln.S",
   "ln.fund.size + ln.f + ln.T + ln.S + ln.B",
   "ln.fund.size + ln.f + ln.T + ln.S + ln.C")
-ctrls.iv <- ctrls[2:length(ctrls)]
+x2.2sls <- x2[2:length(x2)]
 
-fes    <- "wficn + date"
-fes.bm <- "wficn + benchmark.min.X.date"
+fe    <- "wficn + date"
+fe.bm <- "wficn + benchmark.min.X.date"
 
-ivs <- "0"
-ivs.2sls <- "(ln.CS ~ scandal.outflow)"
+iv <- "0"
+iv.2sls <- "(ln.CS ~ scandal.outflow)"
 
-cls    <- "wficn + date.port.grp"
-cls.bm <- "wficn + benchmark.min.X.date"
+cl    <- "wficn + date.port.grp"
+cl.bm <- "wficn + benchmark.min.X.date"
 
-xs.did <- "postXscan"
-xs.sof <- "scandal.outflow"
-xs.pt  <- "scandal.exposure:date"
+x.did <- "postXscan"
+x.sof <- "scandal.outflow"
+x.pt  <- "scandal.exposure:date"
 
 
 # DiD  --------------------------------------------------------------
 
-# data
-did.1yr.dt <- c(
-  rep("scandal.dt[did.1yr == TRUE & date == rdate]", 2),
-  "scandal.dt[did.1yr == TRUE]",
-  rep("scandal.dt[did.1yr == TRUE & date == rdate]", 5))
-did.2yr.dt <- c(
-  rep("scandal.dt[did.2yr == TRUE & date == rdate]", 2),
-  "scandal.dt[did.2yr == TRUE]",
-  rep("scandal.dt[did.2yr == TRUE & date == rdate]", 5))
-
 # regression models
-did.models <- paste(paste(paste(ys, xs.did, sep = " ~ "), ctrls, sep = " + "),
-  fes, ivs, cls, sep = " | ")
+m.did <- FormFELM(y, paste(x.did, x2, sep = " + "), fe, iv, cl)
 
 # run regressions
-did.1yr.res <- Map(FeedFERegData, did.models, did.1yr.dt)
-did.2yr.res <- Map(FeedFERegData, did.models, did.2yr.dt)
+r.did.1yr <- lapply(m.did, felm, scandal[did.1yr == TRUE & date == rdate])
+r.did.2yr <- lapply(m.did, felm, scandal[did.2yr == TRUE & date == rdate])
 
 # format regression output
 fe.list <- rbind(
   c("Fixed Effects", rep("", 8)),
   c("$\\bullet$ Fund", rep("Yes", 8)),
   c("$\\bullet$ Time", rep("Yes", 8)))
-did.1yr.rt <- RegTable(did.1yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-did.2yr.rt <- RegTable(did.2yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-did.rt <- rbind(did.1yr.rt, did.2yr.rt)
+rt.did.1yr <- RegTable(r.did.1yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.did.2yr <- RegTable(r.did.2yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.did <- rbind(rt.did.1yr, rt.did.2yr)
 
 # label output table
-did.tab <- list(
-  results = did.rt,
-  sub.results = list(w1yr = did.1yr.rt, w2yr = did.2yr.rt),
+tab.did <- list(
+  results = rt.did,
+  sub.results = list(w1yr = rt.did.1yr, w2yr = rt.did.2yr),
   title = "Capital Allocation and the Scandal: Before and After Analysis",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # DiD: Bm X Time ---------------------------------------------------------------
 
 # reg specification
-did.models.bm <- paste(paste(paste(ys, xs.did, sep = " ~ "), ctrls,
-  sep = " + "), fes.bm, ivs, cls.bm, sep = " | ")
+m.did.bm <- FormFELM(y, paste(x.did, x2, sep = " + "), fe.bm, iv, cl.bm)
 
 # run regressions
-did.1yr.res.bm <- Map(FeedFERegData, did.models.bm, did.1yr.dt)
-did.2yr.res.bm <- Map(FeedFERegData, did.models.bm, did.2yr.dt)
+r.did.1yr.bm <- lapply(m.did.bm, felm, scandal[did.1yr == TRUE & date == rdate])
+r.did.2yr.bm <- lapply(m.did.bm, felm, scandal[did.2yr == TRUE & date == rdate])
 
 # format regression output
 fe.list.bm <- rbind(
   c("Fixed Effects", rep("", 8)),
   c("$\\bullet$ Fund", rep("Yes", 8)),
   c("$\\bullet$ Benchmark $\\times$ Time", rep("Yes", 8)))
-did.1yr.rt.bm <- RegTable(did.1yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-did.2yr.rt.bm <- RegTable(did.2yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-did.rt.bm <- rbind(did.1yr.rt.bm, did.2yr.rt.bm)
+rt.did.1yr.bm <- RegTable(r.did.1yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.did.2yr.bm <- RegTable(r.did.2yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.did.bm <- rbind(rt.did.1yr.bm, rt.did.2yr.bm)
 
 # label output table
-did.tab.bm <- list(
-  results = did.rt.bm,
-  sub.results = list(w1yr = did.1yr.rt.bm, w2yr = did.2yr.rt.bm),
+tab.did.bm <- list(
+  results = rt.did.bm,
+  sub.results = list(w1yr = rt.did.1yr.bm, w2yr = rt.did.2yr.bm),
   title = "Capital Allocation and the Scandal: Before and After Analysis --- Benchmark $\\times$ Time FE",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level. The estimation sample includes only funds not directly involved in the scandal. It covers the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Pre-Trend --------------------------------------------------------------------
 
-# data
-pt.1yr.dt <- c(
-  rep("scandal.dt[did.1yr == TRUE & date == rdate & date < 'Sep 2003']", 2),
-  "scandal.dt[did.1yr == TRUE & date < 'Sep 2003']",
-  rep("scandal.dt[did.1yr == TRUE & date == rdate & date < 'Sep 2003']", 5))
-pt.2yr.dt <- c(
-  rep("scandal.dt[did.2yr == TRUE & date == rdate & date < 'Sep 2003']", 2),
-  "scandal.dt[did.2yr == TRUE & date < 'Sep 2003']",
-  rep("scandal.dt[did.2yr == TRUE & date == rdate & date < 'Sep 2003']", 5))
-
 # regression models
-pt.models <- paste(paste(paste(ys, xs.pt, sep = " ~ "),
-  ctrls, sep = " + "), fes, ivs, cls, sep = " | ")
+m.pt <- FormFELM(y, paste(x.pt, x2, sep = " + "), fe, iv, cl)
 
 # run regressions
-pt.1yr.res <- Map(FeedFERegData, pt.models, pt.1yr.dt)
-pt.2yr.res <- Map(FeedFERegData, pt.models, pt.2yr.dt)
+r.pt.1yr <- lapply(m.pt, felm, scandal[
+  did.1yr == TRUE & date == rdate & date < "Sep 2003"])
+r.pt.2yr <- lapply(m.pt, felm, scandal[
+  did.2yr == TRUE & date == rdate & date < "Sep 2003"])
 
 # format regression output
-pt.1yr.rt <- RegTable(pt.1yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-pt.2yr.rt <- RegTable(pt.2yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-pt.rt <- rbind(pt.1yr.rt, pt.2yr.rt)
+rt.pt.1yr <- RegTable(r.pt.1yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.pt.2yr <- RegTable(r.pt.2yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.pt <- rbind(rt.pt.1yr, rt.pt.2yr)
 
 # label output table
-pt.tab <- list(
-  results = pt.rt,
-  sub.results = list(w1yr = pt.1yr.rt, w2yr = pt.2yr.rt),
+tab.pt <- list(
+  results = rt.pt,
+  sub.results = list(w1yr = rt.pt.1yr, w2yr = rt.pt.2yr),
   title = "Capital Allocation and the Scandal: Testing for Pre-Trends",
-  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $[2003m8-W, 2003m8]$. Dependent variables are noted in the table header. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $[2003m8-W, 2003m8]$. Dependent variables are noted in the table header. Observations are at the fund-report date level. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Pre-Trend: Bm X Time ---------------------------------------------------------
 
 # regression models
-pt.models.bm <- paste(paste(paste(ys, xs.pt, sep = " ~ "),
-  ctrls, sep = " + "), fes.bm, ivs, cls, sep = " | ")
+m.pt.bm <- FormFELM(y, paste(x.pt, x2, sep = " + "), fe.bm, iv, cl)
 
 # run regressions
-pt.1yr.res.bm <- Map(FeedFERegData, pt.models.bm, pt.1yr.dt)
-pt.2yr.res.bm <- Map(FeedFERegData, pt.models.bm, pt.2yr.dt)
+r.pt.1yr.bm <- lapply(m.pt.bm, felm, scandal[
+  did.1yr == TRUE & date == rdate & date < "Sep 2003"])
+r.pt.2yr.bm <- lapply(m.pt.bm, felm, scandal[
+  did.2yr == TRUE & date == rdate & date < "Sep 2003"])
 
 # format regression output
-pt.1yr.rt.bm <- RegTable(pt.1yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-pt.2yr.rt.bm <- RegTable(pt.2yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-pt.rt.bm <- rbind(pt.1yr.rt.bm, pt.2yr.rt.bm)
+rt.pt.1yr.bm <- RegTable(r.pt.1yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.pt.2yr.bm <- RegTable(r.pt.2yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.pt.bm <- rbind(rt.pt.1yr.bm, rt.pt.2yr.bm)
 
 # label output table
-pt.tab.bm <- list(
-  results = pt.rt.bm,
-  sub.results = list(w1yr = pt.1yr.rt.bm, w2yr = pt.2yr.rt.bm),
+tab.pt.bm <- list(
+  results = rt.pt.bm,
+  sub.results = list(w1yr = rt.pt.1yr.bm, w2yr = rt.pt.2yr.bm),
   title = "Capital Allocation and the Scandal: Testing for Pre-Trends --- Benchmark $\\times$ Time FE",
-  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $[2003m8-W, 2003m8]$. Dependent variables are noted in the table header. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $[2003m8-W, 2003m8]$. Dependent variables are noted in the table header. Observations are at the fund-report date level. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # ScandalOutFlow ---------------------------------------------------------------
 
 # regression models to estimate
-sof.models <- paste(paste(paste(ys, xs.sof, sep = " ~ "), ctrls, sep = " + "),
-  fes, ivs, cls, sep = " | ")
-
-# data on which to estimate each specification
-sof.1yr.dt <- c(
-  rep("scandal.dt[sample.1yr == TRUE & date == rdate]", 2),
-  "scandal.dt[sample.1yr == TRUE]",
-  rep("scandal.dt[sample.1yr == TRUE & date == rdate]", 5))
-sof.2yr.dt <- c(
-  rep("scandal.dt[sample.2yr == TRUE & date == rdate]", 2),
-  "scandal.dt[sample.2yr == TRUE]",
-  rep("scandal.dt[sample.2yr == TRUE & date == rdate]", 5))
+m.sof <- FormFELM(y, paste(x.sof, x2, sep = " + "), fe, iv, cl)
 
 # run regressions
-sof.1yr.res <- Map(FeedFERegData, sof.models, sof.1yr.dt)
-sof.2yr.res <- Map(FeedFERegData, sof.models, sof.2yr.dt)
+r.sof.1yr <- lapply(m.sof, felm, scandal[sample.1yr == TRUE & date == rdate])
+r.sof.2yr <- lapply(m.sof, felm, scandal[sample.2yr == TRUE & date == rdate])
 
 # format regression output
-sof.1yr.rt <- RegTable(sof.1yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-sof.2yr.rt <- RegTable(sof.2yr.res,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = ys)
-sof.rt <- rbind(sof.1yr.rt, sof.2yr.rt)
+rt.sof.1yr <- RegTable(r.sof.1yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.sof.2yr <- RegTable(r.sof.2yr,
+  fe.list = fe.list, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.sof <- rbind(rt.sof.1yr, rt.sof.2yr)
 
 # label regression output
-sof.tab <- list(
-  results = sof.rt,
-  sub.results = list(w1yr = sof.1yr.rt, w2yr = sof.2yr.rt),
+tab.sof <- list(
+  results = rt.sof,
+  sub.results = list(w1yr = rt.sof.1yr, w2yr = rt.sof.2yr),
   title = "Capital Allocation and the Scandal: Using Abnormal Flows",
-  caption = "Dependent variables are identified in the column headers. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes untainted funds during $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. Observations are at the fund-report date level. The estimation sample includes untainted funds during $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # ScandalOutFlow: Bm X Time ---------------------------------------------------
 
 # regression models to estimate
-sof.models.bm <- paste(paste(paste(ys, xs.sof, sep = " ~ "), ctrls,
-  sep = " + "), fes.bm, ivs, cls.bm, sep = " | ")
+m.sof.bm <- FormFELM(y, paste(x.sof, x2, sep = " + "), fe.bm, iv, cl.bm)
 
 # run models
-sof.1yr.res.bm <- Map(FeedFERegData, sof.models.bm, sof.1yr.dt)
-sof.2yr.res.bm <- Map(FeedFERegData, sof.models.bm, sof.2yr.dt)
+r.sof.1yr.bm <- lapply(m.sof.bm, felm, scandal[
+  sample.1yr == TRUE & date == rdate])
+r.sof.2yr.bm <- lapply(m.sof.bm, felm, scandal[
+  sample.2yr == TRUE & date == rdate])
 
 # format regression output
-sof.1yr.rt.bm <- RegTable(sof.1yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-sof.2yr.rt.bm <- RegTable(sof.2yr.res.bm,
-  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = ys)
-sof.rt.bm <- rbind(sof.1yr.rt.bm, sof.2yr.rt.bm)
+rt.sof.1yr.bm <- RegTable(r.sof.1yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.sof.2yr.bm <- RegTable(r.sof.2yr.bm,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt, col.names = y)
+rt.sof.bm <- rbind(rt.sof.1yr.bm, rt.sof.2yr.bm)
 
 # label regression output
-sof.tab.bm <- list(
-  results = sof.rt.bm,
-  sub.results = list(w1yr = sof.1yr.rt.bm, w2yr = sof.2yr.rt.bm),
+tab.sof.bm <- list(
+  results = rt.sof.bm,
+  sub.results = list(w1yr = rt.sof.1yr.bm, w2yr = rt.sof.2yr.bm),
   title = "Capital Allocation and the Scandal: Using Abnormal Flows --- Benchmark $\\times$ Time FE",
-  caption = "Dependent variables are identified in the column headers. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. The estimation sample includes untainted funds during $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. Observations are at the fund-report date level. The estimation sample includes untainted funds during $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified at the bottom of each panel. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # IV: ScandalOutflow -----------------------------------------------------------
 
-# data on which to estimate each specification
-sof.1yr.dt.iv <- c(
-  "scandal.dt[sample.1yr == TRUE & date == rdate]",
-  "scandal.dt[sample.1yr == TRUE]",
-  rep("scandal.dt[sample.1yr == TRUE & date == rdate]", 5))
-sof.2yr.dt.iv <- c(
-  "scandal.dt[sample.2yr == TRUE & date == rdate]",
-  "scandal.dt[sample.2yr == TRUE]",
-  rep("scandal.dt[sample.2yr == TRUE & date == rdate]", 5))
-
 # regression models to estimate
-sof.models.iv <- paste(paste(ys.iv, ctrls.iv, sep = " ~ "),
-  fes, ivs.2sls, cls, sep = " | ")
+m.sof.iv <- FormFELM(y.2sls, x2.2sls, fe, iv.2sls, cl)
 
 # run regressions
-sof.1yr.res.iv <- Map(FeedFERegData, sof.models.iv, sof.1yr.dt.iv)
-sof.2yr.res.iv <- Map(FeedFERegData, sof.models.iv, sof.2yr.dt.iv)
+r.sof.1yr.iv <- lapply(m.sof.iv, felm, scandal[
+  sample.1yr == TRUE & date == rdate])
+r.sof.2yr.iv <- lapply(m.sof.iv, felm, scandal[
+  sample.2yr == TRUE & date == rdate])
 
 # format regression output
-sof.1yr.rt.iv <- RegTable(sof.1yr.res.iv,
+rt.sof.1yr.iv <- RegTable(r.sof.1yr.iv,
   fe.list = fe.list[, 1:(ncol(fe.list) - 1)], coef.lab.dt = coef.lab.dt)
-sof.2yr.rt.iv <- RegTable(sof.2yr.res.iv,
+rt.sof.2yr.iv <- RegTable(r.sof.2yr.iv,
   fe.list = fe.list[, 1:(ncol(fe.list) - 1)], coef.lab.dt = coef.lab.dt)
-sof.rt.iv <- rbind(sof.1yr.rt.iv, sof.2yr.rt.iv)
+rt.sof.iv <- rbind(rt.sof.1yr.iv, rt.sof.2yr.iv)
 
 # label regression output
-sof.tab.iv <- list(
-  results = sof.rt.iv,
-  sub.results = list(w1yr = sof.1yr.rt.iv, w2yr = sof.2yr.rt.iv),
+tab.sof.iv <- list(
+  results = rt.sof.iv,
+  sub.results = list(w1yr = rt.sof.1yr.iv, w2yr = rt.sof.2yr.iv),
   title = "Capital Allocation and the Scandal: Instrumenting Competitor Size with Abnormal Flows",
-  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. Dependent variables are noted in the column headers. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. I estimate regressions via two stage least squares, instrumenting for $\\ln(CompetitorSize_{i,t})$ with $ScandalOutFlow_{i,t}$. The F-statistic of the first stage relation is reported at the bottom of each panel. Standard errors are double clustered by fund and portfolio group $\\times$ time, and are reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. Dependent variables are noted in the column headers. Observations are at the fund-report date level. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. I estimate regressions via two stage least squares, instrumenting for $\\ln(CompetitorSize_{i,t})$ with $ScandalOutFlow_{i,t}$. The F-statistic of the first stage relation is reported at the bottom of each panel. Standard errors are double clustered by fund and portfolio group $\\times$ time, and are reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # IV: ScandalOutflow: Bm X Date FE ---------------------------------------------
 
 # regression models to estimate
-sof.models.iv.bm <- paste(paste(ys.iv, ctrls.iv, sep = " ~ "),
-  fes.bm, ivs.2sls, cls.bm, sep = " | ")
+m.sof.iv.bm <- FormFELM(y.2sls, x2.2sls, fe.bm, iv.2sls, cl.bm)
 
 # run regressions
-sof.1yr.res.iv.bm <- Map(FeedFERegData, sof.models.iv.bm, sof.1yr.dt.iv)
-sof.2yr.res.iv.bm <- Map(FeedFERegData, sof.models.iv.bm, sof.2yr.dt.iv)
+r.sof.1yr.iv.bm <- lapply(m.sof.iv.bm, felm, scandal[
+  sample.1yr == TRUE & date == rdate])
+r.sof.2yr.iv.bm <- lapply(m.sof.iv.bm, felm, scandal[
+  sample.2yr == TRUE & date == rdate])
 
 # format regression output
-sof.1yr.rt.iv.bm <- RegTable(sof.1yr.res.iv.bm,
+rt.sof.1yr.iv.bm <- RegTable(r.sof.1yr.iv.bm,
   fe.list = fe.list[, 1:(ncol(fe.list) - 1)], coef.lab.dt = coef.lab.dt)
-sof.2yr.rt.iv.bm <- RegTable(sof.2yr.res.iv.bm,
+rt.sof.2yr.iv.bm <- RegTable(r.sof.2yr.iv.bm,
   fe.list = fe.list[, 1:(ncol(fe.list) - 1)], coef.lab.dt = coef.lab.dt)
-sof.rt.iv.bm <- rbind(sof.1yr.rt.iv.bm, sof.2yr.rt.iv.bm)
+rt.sof.iv.bm <- rbind(rt.sof.1yr.iv.bm, rt.sof.2yr.iv.bm)
 
 # label regression output
-sof.tab.iv.bm <- list(
-  results = sof.rt.iv.bm,
-  sub.results = list(w1yr = sof.1yr.rt.iv.bm, w2yr = sof.2yr.rt.iv.bm),
+tab.sof.iv.bm <- list(
+  results = rt.sof.iv.bm,
+  sub.results = list(w1yr = rt.sof.1yr.iv.bm, w2yr = rt.sof.2yr.iv.bm),
   title = "Capital Allocation and the Scandal: Instrumenting Competitor Size with Abnormal Flows --- Benchmark $\\times$ Time FE",
-  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. Dependent variables are noted in the column headers. For regressions with $\\ln(TL^{-1/2})$ as the dependent variable, observations are at the fund-month level. Other specifications are at the fund-report date level. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. I estimate regressions via two stage least squares, instrumenting for $\\ln(CompetitorSize_{i,t})$ with $ScandalOutFlow_{i,t}$. The F-statistic of the first stage relation is reported at the bottom of each panel. Standard errors are double clustered by fund and benchmark $\\times$ time, and are reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "The estimation sample includes only funds not directly involved in the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. Dependent variables are noted in the column headers. Observations are at the fund-report date level. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. I estimate regressions via two stage least squares, instrumenting for $\\ln(CompetitorSize_{i,t})$ with $ScandalOutFlow_{i,t}$. The F-statistic of the first stage relation is reported at the bottom of each panel. Standard errors are double clustered by fund and benchmark $\\times$ time, and are reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Performance ------------------------------------------------------------------
 
 # specifications to estimate
-ys.p <- "ra.gross.ff3"
-xs.p <- c(rep(xs.did, 2), rep(xs.sof, 2), rep("", 2))
-ctrls.p <- "ln.fund.size"
-fes.p <- rep(c(fes, fes.bm), 3)
-ivs.p <- c(rep(ivs, 4), rep(ivs.2sls, 2))
-cls.p <- rep(c(cls, cls.bm), 3)
-
-perf.models <- paste(paste(paste(ys.p, xs.p, sep = " ~ "),
-  ctrls.p, sep = " + "), fes.p, ivs.p, cls.p, sep = " | ")
+y.p <- "ra.gross.ff3"
+x.p <- c(rep(x.did, 2), rep(x.sof, 2), rep("", 2))
+x2.p <- "ln.fund.size"
+fe.p <- rep(c(fe, fe.bm), 3)
+iv.p <- c(rep(iv, 4), rep(iv.2sls, 2))
+cl.p <- rep(c(cl, cl.bm), 3)
+m.perf <- FormFELM(y.p, paste(x.p, x2.p, sep = "+"), fe.p, iv.p, cl.p)
 
 # data over which to estimate specifications
-perf.1yr.dt <- c(
-  rep("scandal.dt[did.1yr == TRUE]", 2),
-  rep("scandal.dt[sample.1yr == TRUE]", 4))
-perf.2yr.dt <- c(
-  rep("scandal.dt[did.2yr == TRUE]", 2),
-  rep("scandal.dt[sample.2yr == TRUE]", 4))
+dt.perf.1yr <- c(
+  rep("scandal[did.1yr == TRUE]", 2),
+  rep("scandal[sample.1yr == TRUE]", 4))
+dt.perf.2yr <- c(
+  rep("scandal[did.2yr == TRUE]", 2),
+  rep("scandal[sample.2yr == TRUE]", 4))
 
 # run regressions
-perf.1yr.res <- Map(FeedFERegData, perf.models, perf.1yr.dt)
-perf.2yr.res <- Map(FeedFERegData, perf.models, perf.2yr.dt)
+mapfn <- function(a, b) felm(a, eval(parse(text = b)))
+r.perf.1yr <- Map(mapfn, m.perf, dt.perf.1yr)
+r.perf.2yr <- Map(mapfn, m.perf, dt.perf.2yr)
 
 # label reg tables
 fe.list.p <- rbind(
@@ -341,32 +299,32 @@ fe.list.p <- rbind(
   c("$\\bullet$ Month", rep(c("Yes", "No"), 3)),
   c("$\\bullet$ Benchmark $\\times$ Month", rep(c("No", "Yes"), 3)))
 
-perf.1yr.rt <- RegTable(perf.1yr.res,
+rt.perf.1yr <- RegTable(r.perf.1yr,
   fe.list = fe.list.p, coef.lab.dt = coef.lab.dt)
-perf.2yr.rt <- RegTable(perf.2yr.res,
+rt.perf.2yr <- RegTable(r.perf.2yr,
   fe.list = fe.list.p, coef.lab.dt = coef.lab.dt)
 
 # label results
-perf.rt <- rbind(perf.1yr.rt, perf.2yr.rt)
-perf.tab <- list(
-  results = perf.rt,
-  sub.results = list(w1yr = perf.1yr.rt, w2yr = perf.2yr.rt),
+rt.perf <- rbind(rt.perf.1yr, rt.perf.2yr)
+tab.perf <- list(
+  results = rt.perf,
+  sub.results = list(w1yr = rt.perf.1yr, w2yr = rt.perf.2yr),
   title = "Fund Performance and the Scandal",
   caption = "The dependent variable is Fama-French 3 factor adjusted gross returns, in annual percent units. Observations are monthly. The estimation sample includes only funds not tainted by the scandal. In columns (1)-(4) regressions are estimated by ordinary least squares. In columns (5)-(6), regressions are estimated by two stage least squares, instrumenting $\\ln(CompetitorSize)$ with $ScandalOutFlow$. In columns (1)-(2), the sample includes $\\{(2003m8-W, 2003m8], [2004m11,2004m11+W) \\}$, where $W$ corresponds to the number of years specified. In columns (3)-(6), the sample is taken over the period $\\{[2003m9-W, 2004m10+W] \\}$. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and portfolio group $\\times$ month in odd columns, and by fund and benchmark $\\times$ month in even columns (5)-(6). Standard errors are reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Combine and Save -------------------------------------------------------------
 
-reg.tab.scandal <- list(
-  did    = did.tab,
-  did.bm = did.tab.bm,
-  pt     = pt.tab,
-  pt.bm  = pt.tab.bm,
-  sof    = sof.tab,
-  sof.bm = sof.tab.bm,
-  iv     = sof.tab.iv,
-  iv.bm  = sof.tab.iv.bm,
-  perf = perf.tab
+tab.reg.scandal <- list(
+  did    = tab.did,
+  did.bm = tab.did.bm,
+  pt     = tab.pt,
+  pt.bm  = tab.pt.bm,
+  sof    = tab.sof,
+  sof.bm = tab.sof.bm,
+  iv     = tab.sof.iv,
+  iv.bm  = tab.sof.iv.bm,
+  perf   = tab.perf
 )
-saveRDS(reg.tab.scandal, "tab/reg_scandal.Rds")
+saveRDS(tab.reg.scandal, "tab/reg_scandal.Rds")
 

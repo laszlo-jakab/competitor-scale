@@ -16,8 +16,7 @@ dln.cs <- readRDS("data/competitor_size/dln_competitor_size.Rds")
 # Prep Data ---------------------------------------------
 
 # keep end of quarter report dates
-combined <- combined[
-  month(date) %in% c(3, 6, 9, 12) & date == rdate]
+combined <- combined[month(date) %in% c(3, 6, 9, 12) & date == rdate]
 
 # get logs of active share, portfolio liquidity, fund size, and expense ratio
 setnames(combined, c("activeshare", "exp_ratio", "To"), c("AS", "f", "T"))
@@ -37,26 +36,24 @@ combined <- combined[dln.cs, on = c("wficn", "date"), nomatch = 0]
 combined <- combined[, dm := round((date - shift(date))*12), by = wficn][dm == 3]
 
 
-# Fund Behavior Regressions ----------------------------------------------------
+# FD Regressions ---------------------------------------------------------------
 
-ys <- c("dln.AS", "dln.TL", "dln.L", "dln.S", "dln.D", "dln.C", "dln.B")
-xs <- "dln.comp.size"
-ctrls <- c(
+y <- c("dln.AS", "dln.TL", "dln.L", "dln.S", "dln.D", "dln.C", "dln.B")
+x1 <- "dln.comp.size"
+x2 <- c(
   rep("dln.fund.size + dln.f", 2),
   "dln.fund.size + dln.f + dln.T",
   "dln.fund.size + dln.f + dln.T + dln.D",
   "dln.fund.size + dln.f + dln.T + dln.S",
   "dln.fund.size + dln.f + dln.T + dln.S + dln.B",
   "dln.fund.size + dln.f + dln.T + dln.S + dln.C")
-fes <- "date"
-ivs <- "0"
-cls <- "wficn + date.port.grp"
-models.behavior <- paste(paste(paste(ys, xs, sep = " ~ "), ctrls, sep = " + "),
-  fes, ivs, cls, sep = " | ")
+fe <- "date"
+iv <- "0"
+cl <- "wficn + date.port.grp"
+m.fd <- FormFELM(y, paste(x1, x2, sep = " + "), fe, iv, cl)
 
 # run regressions
-res.behavior <- lapply(models.behavior,
-  function(x) felm(as.formula(x), data = combined))
+r.fd <- lapply(m.fd, felm, combined)
 
 # output regression table
 coef.lab.dt <- data.table(
@@ -68,29 +65,27 @@ coef.lab.dt <- data.table(
 fe.list <- rbind(
   c("Fixed Effects", rep("", 7)),
   c("$\\bullet$ Quarter", rep("Yes", 7)))
-rt.behavior <- RegTable(res.behavior,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt)
+
+rt.fd <- RegTable(r.fd, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 
 # label table
-behavior.reg.base <- list(
-  results = rt.behavior,
+tab.fd <- list(
+  results = rt.fd,
   title = "Capital Allocation and Competitor Size",
   caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
-# Fund Behavior Regressions, Pre-2008 ---------------------------------------
+# FD Regressions, Pre-2008 -----------------------------------------------------
 
 # run regressions
-res.behavior.08 <- lapply(models.behavior,
-  function(x) felm(as.formula(x), data = combined[date <= "Dec 2007"]))
+r.fd.08 <- lapply(m.fd, felm, combined[date <= "Dec 2007"])
 
 # output regression table
-rt.behavior.08 <- RegTable(res.behavior.08,
-  fe.list = fe.list, coef.lab.dt = coef.lab.dt)
+rt.fd.08 <- RegTable(r.fd.08, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 
 # label table
-behavior.reg.base.08 <- list(
-  results = rt.behavior.08,
+tab.fd.08 <- list(
+  results = rt.fd.08,
   title = "Capital Allocation and Competitor Size --- Pre-2008 Data",
   caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2007. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Standard errors are double clustered by fund and portfolio group $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
@@ -98,25 +93,22 @@ behavior.reg.base.08 <- list(
 # Benchmark X Date FE ----------------------------------------------------------
 
 # update specification
-fes.bd <- "benchmark.min.X.date"
-cls.bd <- "wficn + benchmark.min.X.date"
-models.behavior.bd <- paste(paste(paste(ys, xs, sep = " ~ "),
-  ctrls, sep = " + "), fes.bd, ivs, cls.bd, sep = " | ")
+fe.bm <- "benchmark.min.X.date"
+cl.bm <- "wficn + benchmark.min.X.date"
+m.fd.bm <- FormFELM(y, paste(x1, x2, sep = " + "), fe.bm, iv, cl.bm)
 
 # run regressions
-res.behavior.bd <- lapply(models.behavior.bd,
-  function(x) felm(as.formula(x), data = combined))
+r.fd.bm <- lapply(m.fd.bm, felm, combined)
 
 # format output table
-fe.list.bd <- rbind(
+fe.list.bm <- rbind(
   c("Fixed Effects", rep("", 7)),
   c("$\\bullet$ Benchmark $\\times$ Quarter", rep("Yes", 7)))
-rt.behavior.bd <- RegTable(res.behavior.bd,
-  fe.list = fe.list.bd, coef.lab.dt = coef.lab.dt)
+rt.fd.bm <- RegTable(r.fd.bm, fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt)
 
 # label table
-behavior.reg.bd <- list(
-  results = rt.behavior.bd,
+tab.fd.bm <- list(
+  results = rt.fd.bm,
   title = "Capital Allocation and Competitor Size --- Benchmark $\\times$ Quarter FE",
   caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2016. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}, covering years 1980-2009. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
@@ -124,16 +116,15 @@ behavior.reg.bd <- list(
 # Benchmark X Date FE, Pre-2008 ---------------------------------------------------
 
 # run regressions
-res.behavior.bd.08 <- lapply(models.behavior.bd,
-  function(x) felm(as.formula(x), data = combined[date <= "Dec 2007"]))
+r.fd.bm.08 <- lapply(m.fd.bm, felm, combined[date <= "Dec 2007"])
 
 # format output table
-rt.behavior.bd.08 <- RegTable(res.behavior.bd.08,
-  fe.list = fe.list.bd, coef.lab.dt = coef.lab.dt)
+rt.fd.bm.08 <- RegTable(r.fd.bm.08,
+  fe.list = fe.list.bm, coef.lab.dt = coef.lab.dt)
 
 # label table
-behavior.reg.bd.08 <- list(
-  results = rt.behavior.bd.08,
+tab.fd.bm.08 <- list(
+  results = rt.fd.bm.08,
   title = "Capital Allocation and Competitor Size --- Benchmark $\\times$ Quarter FE, Pre-2008 Data",
   caption = "Observations are first differences at the fund $\\times$ quarter level, from 1980-2008. Dependent variables are noted in the column headers. $AS$ is active share relative to self-declared benchmarks \\citep{cp09, petajisto13}. $TL^{-1/2}$ is the turnover to portfolio liquidity ratio, as in \\citet{pst17L}. $S$, $D$, $C$, and $B$ are the components of portfolio liquidity, namely stock liquidity, diversification, coverage, and balance (each calculated with respect to all U.S. equity). $\\Delta CS_{i,t}=\\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t} \\right) - \\ln\\left(\\sum_{j\\neq i} \\psi_{i,j,t-1} FundSize_{j,t-1}\\right)$ is the change in log competitor size, holding previous quarter end similarity weights fixed. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ quarter, and reported in parentheses. Asterisks denote statistical significance: \\*** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
@@ -141,8 +132,8 @@ behavior.reg.bd.08 <- list(
 # Collect and Save ------------------------------------------------------
 
 behavior.tab <- list(
-  baseline    = behavior.reg.base,
-  bd          = behavior.reg.bd,
-  baseline.08 = behavior.reg.base.08,
-  bd.08       = behavior.reg.bd.08)
+  baseline    = tab.fd,
+  bd          = tab.fd.bm,
+  baseline.08 = tab.fd.08,
+  bd.08       = tab.fd.bm.08)
 saveRDS(behavior.tab, "tab/reg_behavior.Rds")

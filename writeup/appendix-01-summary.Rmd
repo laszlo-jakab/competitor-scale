@@ -100,6 +100,9 @@ cat(out.tab)
 ```
 
 
+\clearpage
+
+
 ```{r correlations, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'}
 # Correlations -----------------------------------------------------------------
 
@@ -149,6 +152,8 @@ print(
 
 # ------------------------------------------------------------------------------
 ```
+
+\clearpage
 
 
 ## Figures
