@@ -1,5 +1,5 @@
 # Ignore everything
-*
+/*
 
 # Except for these files
 !.Rprofile
@@ -7,11 +7,17 @@
 !MF_Industry_Size_R.Rproj
 !README.Rmd
 
+!R/
+R/*
 !R/Initialize_Folders.R
 
+!R/data_acquisition/
+R/data_acquisition/*
 !R/data_acquisition/WRDS_Data.R
 !R/data_acquisition/Other_Web_Data.R
 
+!R/data_wrangling/
+R/data_wrangling/*
 !R/data_wrangling/1-Clean.R
 !R/data_wrangling/2-Benchmark_Returns.R
 !R/data_wrangling/3-Portfolio_Weights.R
@@ -22,12 +28,20 @@
 !R/data_wrangling/8-Portfolio_Groups.R
 !R/data_wrangling/9-Combine_Data.R
 
+!R/data_wrangling/scandal/
+R/data_wrangling/scandal/*
 !R/data_wrangling/scandal/1-ScandalExposure.R
 !R/data_wrangling/scandal/2-ScandalOutFlow.R
 !R/data_wrangling/scandal/3-Scandal_Analysis_Data.R
 
+!data/
+data/*
+!data/scandal/
+data/scandal/*
 !data/scandal/scandal_wficns_2018-Mar-06.Rds
 
+!thesis/
+thesis/*
 !thesis/render_book.R
 !thesis/index.Rmd
 
@@ -51,6 +65,8 @@
 !thesis/preamble.tex
 !thesis/ucetd.tex
 
+!packrat/
+packrat/*
 !packrat/init.R
 !packrat/packrat.lock
 !packrat/packrat.opts

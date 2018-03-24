@@ -1,0 +1,48 @@
+\usepackage{amsthm}
+\usepackage{tabularx}
+%\usepackage{setspace}
+\usepackage{pdflscape}
+
+%\usepackage{xstring}
+%\usepackage{etoolbox}
+\usepackage[labelfont={bf,small},labelsep=period]{caption}
+\captionsetup[table]{labelsep=newline,labelfont=bf,textfont=bf}
+
+%\makeatletter
+%\newcommand\formatlabel[1]{%
+%    \noexpandarg
+%    \IfSubStr{#1}{.}{%
+%      \StrBefore{#1}{.}[\firstcaption]%
+%      \StrBehind{#1}{.}[\secondcaption]%
+%      \textbf{\firstcaption.} \secondcaption}{%
+%      #1}%
+%      }
+%\patchcmd{\@caption}{#3}{\formatlabel{#3}}
+%\makeatother
+
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Z}{>{\raggedleft\arraybackslash}X}
+
+
+%% Use these commands to set a dedication and epigraph text
+%\dedication{To my wife Jackie, whose warmth carried me through the cold Chicago winters.}
+%\epigraph{Epigraph Text}
+
+\usepackage{thmtools}
+\declaretheoremstyle[
+	headfont=\bf,
+	headindent=0em,
+	notefont=\bf,
+	bodyfont=\it,
+	headpunct=:,
+	spaceabove=1em, 
+	spacebelow=.5em
+	]{mystyle}
+\declaretheorem[style=mystyle]{hypothesis}
+\declaretheorem[name=Empirical Test of Hypothesis,style=mystyle]{test}
+
+\usepackage{float}
+%\floatplacement{figure}{H}
+%\floatplacement{table}{H}
+

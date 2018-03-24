@@ -1,0 +1,54 @@
+--- 
+documentclass: ucetd
+bibliography: [mf-references.bib]
+biblio-style: apalike
+link-citations: yes
+---
+
+
+\begin{titlepage}
+	\begin{center}
+		\rule{0in}{0.55in} % Artificial extra [old=0.95in] margin. Why not vspace?
+		THE UNIVERSITY OF CHICAGO\\
+		\vspace{0.8in}
+		COMPETITOR SCALE AND MUTUAL FUND BEHAVIOR\\
+		\vspace{0.8in}
+		A DISSERTATION SUBMITTED TO\\
+		THE FACULTY OF THE UNIVERSITY OF CHICAGO\\
+        BOOTH SCHOOL OF BUSINESS \\
+		IN CANDIDACY FOR THE DEGREE OF\\
+		DOCTOR OF PHILOSOPHY \\
+		\ \\
+		\vspace{0.8in}
+		BY\\
+		LASZLO PAL JAKAB \\
+		\vspace{0.8in}
+		CHICAGO, ILLINOIS\\
+		JUNE 2018
+		\vspace*{0.45in}
+	\end{center}
+\end{titlepage}
+
+
+\pagenumbering{roman}
+\addtocounter{page}{1}
+
+\null\vfill
+\centerline{Copyright \copyright\ \number\year\ by Laszlo Pal Jakab}
+\centerline{All Rights Reserved}
+\vskip 15pt\relax
+
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\acknowledgments
+I thank my advisors \v{L}ubo\v{s} P\'astor, Samuel Hartzmark, Elisabeth Kempf and Michael Weber for their support. I also thank Douglas Diamond, Eugene Fama, Zhiguo He, Juhani Linnainmaa, Stefan Nagel, John Shim, Willem van Vliet, Taras Zlupko, and seminar participants at Chicago Booth for their helpful comments.
+
+
+
+\abstract
+
+I study the effects of competition on the investment behavior and performance of active mutual funds. I find that funds respond to increased competitor scale by curtailing costly active management. To establish causality, I exploit quasi-exogenous variation in fund flows created by a natural experiment---the 2003 mutual fund scandal. Funds whose competitors were the most affected by the scandal expand active management and perform better after the scandal. Interpreting the findings through the lens of models of decreasing returns to scale indicates information asymmetry between fund managers and outside investors.
+

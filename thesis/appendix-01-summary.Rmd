@@ -1,0 +1,60 @@
+\appendix
+\singlespacing
+
+\chapter{Raw Data Characteristics}
+
+```{r, include = FALSE}
+# Setup ------------------------------------------------------------------------
+
+# packages
+pkgs <- c(
+  "data.table",
+  "zoo",
+  "knitr",
+  "xtable",
+  "ggplot2",
+  "gridExtra"
+)
+lapply(pkgs, library, character.only = TRUE)
+options(knitr.kable.NA = '')
+
+# set figures at top of page
+knitr::opts_chunk$set(fig.pos = 'H')
+
+# quiet xtable
+options(xtable.comment = FALSE)
+
+# directories
+setwd("..")
+
+# load tables
+summary.tab <- readRDS("tab/summary_stats.Rds")
+
+# load figures
+summary.fig <- readRDS("fig/summary_plots.Rds")
+
+# custom colors
+azure <- "#007FFF"
+orangebrown <- "#E67300"
+lgreen <- "#00eb76"
+
+# -----------------------------------------------------------------------------
+```
+
+
+```{r sampleCompleteness, echo = FALSE, dpi = 300, fig.width = 6, fig.height = 6, fig.align = 'center', fig.cap = paste0(summary.fig$crsp$title, summary.fig$crsp$caption), fig.scap = summary.fig$crsp$title}
+# Data Availability in CRSP ----------------------------------------------------
+grid.arrange(
+  summary.fig$crsp$results$mret,
+  summary.fig$crsp$results$mtna,
+  summary.fig$crsp$results$exp_ratio, 
+  nrow = 3)
+# -----------------------------------------------------------------------------
+```
+
+
+```{r rdateFreq, echo = FALSE, dpi = 300, fig.width = 6, fig.height = 3, fig.align = 'center', fig.cap = paste0(summary.fig$rdates$title, summary.fig$rdates$caption), fig.scap = summary.fig$rdates$title}
+# Report Dates in Thomson ------------------------------------------------------
+summary.fig$rdates$results
+# -------------------------------------------------------------------------------
+```
