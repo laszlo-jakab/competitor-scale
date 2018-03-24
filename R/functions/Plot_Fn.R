@@ -32,11 +32,11 @@ CRSPPlot <- function(dt, title) {
 }
 
 # convenience function for plotting DiD
-DidPlot <- function(dt, y, ylabel, title, theme.type = c("bw", "minimal", "classic"), refline = FALSE) {
+DidPlot <- function(dt, y, grp, ylabel, title, theme.type = c("bw", "minimal", "classic"), refline = FALSE) {
   p <-
     dt %>%
     ggplot() +
-    aes_string("caldt", y, group = "high.exposure") +
+    aes_string("caldt", y, group = grp) +
     xlab("Date") +
     ylab(ylabel) +
     ggtitle(title)
@@ -65,7 +65,7 @@ DidPlot <- function(dt, y, ylabel, title, theme.type = c("bw", "minimal", "class
 
     # add time series lines
   p <- p +
-    geom_line(aes(linetype = high.exposure, colour = high.exposure)) +
+    geom_line(aes_string(linetype = grp, colour = grp)) +
     scale_linetype_manual("", values = c("solid", "longdash")) +
     scale_colour_manual("", values = c(azure, orangebrown)) +
     theme(
