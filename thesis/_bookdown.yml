@@ -1,0 +1,21 @@
+new_session: yes
+book_filename: "Jakab_Dissertation.Rmd"
+
+rmd_files: [
+  "index.rmd",
+  
+  "01-intro.Rmd",
+  "02-literature.Rmd",
+  "03-model.Rmd",
+  "04-data.Rmd",
+  "05-behavior.Rmd",
+  "06-scandal.Rmd",
+  "07-conclusion.Rmd",
+      
+  "appendix-01-summary.Rmd",
+  "appendix-02-performance.Rmd",
+  "appendix-03-behavior.Rmd",
+  "appendix-04-scandal.Rmd",
+  
+  "ref-toc.Rmd"
+]
