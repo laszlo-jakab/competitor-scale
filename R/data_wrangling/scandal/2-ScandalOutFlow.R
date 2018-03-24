@@ -1,24 +1,13 @@
 # Laszlo Jakab
-# Mar 7, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
 # packages
 pkgs <- c("lfe",
-          "broom")
+          "broom",
+          "compsizer")
 lapply(pkgs, library, character.only = TRUE)
-
-# directories
-combined.dir <- "data/combined"
-scandal.dir  <- "data/scandal"
-pw.dir       <- "data/portfolio"
-fn.dir       <- "R/functions"
-data.dir     <- "data/clean"
-sample.dir   <- "data/funds_included"
-
-# source functions
-source(file.path(fn.dir, "CosSim_Fn.R"))
-source(file.path(fn.dir, "CompSize_Fn.R"))
 
 
 # Load Data ------------------------------------------------------------
@@ -31,8 +20,7 @@ scandal.wficns <- readRDS("data/scandal/scandal_wficns_2018-Mar-06.Rds")
 
 # portfolio weights
 pw <- readRDS("data/portfolio/portfolio_weights.Rds")[
-  date == "Aug 2003"][
-  , c("w", "date") := NULL]
+  date == "Aug 2003", .(wficn, date, permno, w.adj)]
 
 
 # Prep Scandal Data ------------------------------------------------------------
@@ -145,7 +133,7 @@ datel <- sort(unique(size.loss$date))
 scofl <- Map(list, sll, ual, datel)
 
 # clean up the workspace
-rm(list=setdiff(ls(), c("scandal.dir", "scofl", "cos.sim")))
+rm(list = setdiff(ls(), c("scandal.dir", "scofl", "cos.sim")))
 
 
 # ScandalOutflow --------------------------------------------------------------

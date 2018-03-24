@@ -57,8 +57,8 @@ crsp.plots <- list(
     exp_ratio = CRSPPlot(shrcls.crsp[!is.na(exp_ratio), .N, keyby = caldt],
       "Panel C: Share classes with exp_ratio")
     ),
-  title = "Data Availability in the CRSP Mutual Fund Dataset.",
-  caption = "Number of share class level observations passing filters for identifying actively managed domestic equity funds. Note that consistent mtna records begin January 1991. Further, there were over 300 share classes added to the dataset in Jan 1991, whose returns come online Feb 1992. However, these added share classes do not have size and expense ratio information, so do not majorly influence the fund level dataset used in the analysis.")
+  title = "Data availability in the CRSP Mutual Fund dataset.",
+  caption = "Number of actively managed domestic equity fund share classes with non-missing \\texttt{mret}, \\texttt{mtna}, and \\texttt{exp\\_ratio} in the CRSP Mutual Fund Dataset by date.")
 
 
 # Report Dates in Thomson ---------------------------------------------------
@@ -94,7 +94,7 @@ p.rdate <-
 rdate.plot <- list(
   results = p.rdate,
   title = "Fund report dates in Thomson.",
-  caption = "Time series plot of the number of funds reporting during a given month.")
+  caption = "Time series plot of the number of funds reporting portfolio holdings during a given month. End-of-quarter months (March, June, September, December) are differentiated from mid-quarter months by a distinct color.")
 
 
 # Industry Size Time Series ----------------------------------------------------

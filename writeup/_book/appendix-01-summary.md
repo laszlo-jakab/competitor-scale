@@ -54,6 +54,7 @@ $\bar{R}^{FF3}$ & 2,395 & -0.15 & 4.1 & -12.96 & -3.67 & -1.2 & 0.26 & 1.58 & 2.
 \end{table}
 
 
+
 \begin{table}[ht]
 \centering
 \caption{Correlations} 
@@ -92,6 +93,8 @@ $CompetitorSize$ & 1.00 &  &  &  &  &  &  &  &  &  \\
 \end{tabularx}
 \endgroup
 \end{table}
+
+
 
 
 ## Figures

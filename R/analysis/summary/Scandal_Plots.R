@@ -70,6 +70,8 @@ sof.pctiles <- melt(sof.pctiles, id.vars = "Date",
 # reorder percentiles for legend
 sof.pctiles[, variable := factor(variable, levels = c("p75", "p50", "p25"))]
 
+# high-low groups by ScandalOutFlow
+#untainted.sof <-
 
 # Data: DiD --------------------------------------------------------------------
 
@@ -136,8 +138,8 @@ p.scandal.size <- scandal.size.date %>%
 # label plots
 scandal.flow.plots <- list(
   results = list(flows = p.scandal.flows, size = p.scandal.size),
-  title = "Net flows and relative size of funds involved in the scandal.",
-  caption = "I categorize funds according to Table 1 in @hw05. The left panel plots mean monthly net flows, defined according to @st98, by scandal involvement. The vertical line corresponds to August 2003, the month before the announcement of the first investigations. The right panel shows the total net assets of funds coming under investigation in a given month, relative to the total size of funds in my sample.")
+  title = "Flows and size by scandal involvement.",
+  caption = "The left panel plots mean monthly net flows. The vertical line corresponds to August 2003, the month before the announcement of the first investigations. The right panel shows the total net assets of funds coming under investigation in a given month, relative to the total size of funds in my sample.")
 
 
 # Plot: DiD --------------------------------------------------------------------
@@ -208,8 +210,8 @@ p.sof <- sof.pctiles %>%
 # label plots
 sof.plots <- list(
   results = list(betas = p.betas, pctiles = p.sof),
-  title = "Abnormal flows and $ScandalOutFlow$.",
-  caption = "The left panel shows the cross-sectional mean coefficient on post-scandal cohort $\\times$ time fixed effects from Equation \\@ref(eq:cohortReg). The right panel shows the time series of cross-sectional percentiles of $ScandalOutFlow$ across untainted funds, calculated according to Equation \\@ref(eq:scandalOutFlow).")
+  title = "Estimated abnormal outflows from scandal funds.",
+  caption = "The left panel shows the cross-sectional mean coefficient on post-scandal cohort $\\times$ time fixed effects from Equation \\@ref(eq:cohortReg). The right panel shows the time series of cross-sectional percentiles of $ScandalOutFlow$ across untainted funds.")
 
 
 # Combine and Save -------------------------------------------------------------

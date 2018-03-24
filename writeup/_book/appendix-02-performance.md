@@ -166,17 +166,17 @@ Panel B of Table \@ref(tab:roleOfLiquidity) presents results from the regression
  \addlinespace \toprule
  & (1) & (2) & (3) & (4) \\ 
   \midrule
-$CompetitorSize$ & -1.023*** &  & -1.269*** & -0.864*** \\ 
-   & (0.225) &  & (0.319) & (0.207) \\ 
-  $IndustrySize$ &  & -0.314* & 0.271 &  \\ 
-   &  & (0.180) & (0.251) &  \\ 
-  $FundSize$ &  &  &  & -0.036*** \\ 
+$CompetitorSize$ & -1.068*** &  & -1.210*** & -0.842*** \\ 
+   & (0.225) &  & (0.317) & (0.206) \\ 
+  $IndustrySize$ &  & -0.400** & 0.157 &  \\ 
+   &  & (0.183) & (0.254) &  \\ 
+  $FundSize$ &  &  &  & -0.035*** \\ 
    &  &  &  & (0.012) \\ 
   Fixed Effects &  &  &  &  \\ 
   $\bullet$ Fund & Yes & Yes & Yes & Yes \\ 
   $\bullet$ Month & No & No & No & Yes \\ 
-  Observations & 229,071 & 229,071 & 229,071 & 229,071 \\ 
-  $R^2$ & 0.018 & 0.018 & 0.018 & 0.106 \\ 
+  Observations & 230,606 & 230,606 & 230,606 & 230,606 \\ 
+  $R^2$ & 0.017 & 0.017 & 0.018 & 0.106 \\ 
   $R^2$ (proj. model) & 0.001 & 0.000 & 0.001 & 0.001 \\ 
    \bottomrule
 \end{tabularx}

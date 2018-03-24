@@ -1,34 +1,17 @@
 --- 
 title: "Competitor Scale and Mutual Fund Behavior"
 author: "László Jakab"
-date: "March 20, 2018"
-output: 
-    bookdown::gitbook:
-        css:
-            style.css
-        config:
-            toc:
-                collapse: subsection
-                scroll_highlight: yes
-                before: null
-                after: null
-            toolbar:
-                position: fixed
-                edit : null
-                download: null
-                search: yes
-            fontsettings:
-                theme: white
-                family: serif
-                size: 2
+date: "March 22, 2018"
 documentclass: book
 classoption: openany
 bibliography: [mf-references.bib]
 biblio-style: apalike
 link-citations: yes
+lof: true
+lot: true
 ---
 
-\onehalfspacing
+\doublespacing
 
 # Abstract {-}
 

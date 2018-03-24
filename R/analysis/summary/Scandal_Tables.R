@@ -35,7 +35,7 @@ setnames(scandal.snapshot.dt, c("Scandal involvement", "No", "Yes"))
 scandal.snapshot = list(
   results = scandal.snapshot.dt,
   title = "Fund Characteristics as of August 2003 by Scandal Involvement",
-  caption = "Means of various characteristics as of August 2003, depending on whether the family the fund belongs to was later implicated in the late trading scandal. Returns are annualized, in percentages. Fund families are assigned to scandal involvement according to Table 1 of \\citet{hg05}.")
+  caption = "Means of various characteristics as of August 2003, depending on whether the family the fund belongs to was later implicated in the late trading scandal. Returns are annualized, in percentages.")
 
 
 # Snapshot of Untainted Funds, Aug 2003 ----------------------------------------
@@ -74,7 +74,7 @@ untainted.snapshot.dt <- untainted.snapshot.dt[, `:=`
 untainted.snapshot = list(
   results = untainted.snapshot.dt,
   title = "Snapshot of Untainted Fund Characteristics as of August 2003",
-  caption = "Means of various characteristics as of Aug 2003 for untainted funds, depending on whether the fund's $ScandalExposure$ is above the cross-sectional median. Variables are as defined in earlier tables.")
+  caption = "Means of various characteristics as of Aug 2003 for untainted funds, depending on whether the fund's $ScandalExposure$ is above the cross-sectional median.")
 
 # Save Output Tables -----------------------------------------------------------
 

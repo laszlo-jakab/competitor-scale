@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Mar, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
@@ -7,10 +7,13 @@
 library(lfe)
 library(laszlor)
 
+# helper function
+mapfn <- function(a, b) felm(a, eval(parse(text = b)))
+
 # load data
 funds.in.sample <- readRDS("data/funds_included/funds_in_sample.Rds")
 flc      <- readRDS("data/clean/fund_level_crsp.Rds")[
-                    , .(wficn, date, r.net, tna, tna.lagged)]
+  , .(wficn, date, r.net, tna, tna.lagged)]
 tmc      <- readRDS("data/clean/total_mktcap.Rds")[, .(date, totcap)]
 ra       <- readRDS("data/benchmarked_returns/risk_adj_ret.Rds")
 combined <- readRDS("data/combined/combined.Rds")
@@ -39,7 +42,8 @@ flc <- LagDT(flc, "fund.size", shift.by = 2, panel.id = "wficn")[
   , ln.fund.size.l2 := log(fund.size.l2)]
 
 # get a year's worth of lagged net returns (CAPM and FF3-adjusted)
-ra.dt <- ra[, .(wficn, date, ra.net.capm = 100*ra.net.capm, ra.net.ff3 = 100*ra.net.ff3)]
+ra.dt <- ra[
+  , .(wficn, date, ra.net.capm = 100*ra.net.capm, ra.net.ff3 = 100*ra.net.ff3)]
 setnames(ra.dt, c("wficn", "date", "rcapm", "rff3"))
 setkey(ra.dt, wficn, date)
 ra.dt <- LagDT(ra.dt, c("rcapm", "rff3"), shift.by = 1:12, panel.id = "wficn")
@@ -61,6 +65,7 @@ scandal[, flow := flow * 100]
 
 coef.lab.dt <- data.table(
   old.name = c(
+    "post.scandal:scandal.fund",
     "postXscan",
     "scandal.outflow",
     "cs.std",
@@ -68,12 +73,13 @@ coef.lab.dt <- data.table(
     paste0("rcapm.l", 1:12),
     paste0("rff3.l", 1:12)),
   new.name = c(
+    "$\\mathbb{I} \\times$ Scandal",
     "$\\mathbb{I} \\times ScanEx$",
     "$ScandalOutFlow$",
     "$CompetitorSize",
     "$\\ln(FundSize_{t-2})$",
-    paste0("$R^{CAPM}_{t-$", 1:12, "}"),
-    paste0("$R^{FF3}_{t-$", 1:12, "}")))
+    paste0("$R^{CAPM}_{t-", 1:12, "}$"),
+    paste0("$R^{FF3}_{t-", 1:12, "}$")))
 
 
 # Flows and Past Returns -------------------------------------------------------
@@ -131,6 +137,35 @@ rt.cs.capm <- RegTable(r.cs.capm, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 rt.cs.ff3 <- RegTable(r.cs.ff3, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 
 
+# Scandal: Flows from Tainted Funds --------------------------------------------
+
+# add in past returns
+scandal <- merge(scandal, ra.dt, by = c("wficn", "date"), all.x = TRUE)
+
+# specifications
+dt.t <- c(rep("scandal['Sep 2002' <= date & date < 'Nov 2005']", each = 2),
+          rep("scandal", each = 2))
+x.t <- rep(c(
+  "post.scandal:scandal.fund",
+  paste("post.scandal:scandal.fund",
+         paste0("rff3.l", 1:12, collapse = " + "), sep = " + ")), 2)
+fe.t <- "wficn + date"
+cl.t <- "wficn + date.port.grp"
+m.t <- FormFELM(y, x.t, fe.t, iv, cl.t)
+
+# run regressions
+r.t <- Map(mapfn, m.t, dt.t)
+
+# format tables
+fe.list.t <- rbind(
+  c("$W =$", rep(c("1yr", "2yr"), each = 2)),
+  c("Fixed Effects", rep("", 4)),
+  c("$\\bullet$ Fund", rep("Yes", 4)),
+  c("$\\bullet$ Month", rep("Yes", 4)))
+rt.t <- RegTable(r.t,
+  fe.list = fe.list.t, coef.lab.dt = coef.lab.dt, print.tstat = TRUE)
+
+
 # Scandal: Flows Among Untainted Funds -----------------------------------------
 
 # data on which to estimate
@@ -144,10 +179,9 @@ dt.s <- c(
 x.s <- rep(c(rep("postXscan", 2), rep("scandal.outflow", 2)), 2)
 fe.s <- rep(c("wficn + date", "wficn + benchmark.X.date"), 4)
 cl.s <- rep(c("wficn + date.port.grp", "wficn + benchmark.X.date"), 2)
-m.s <- FormFELM(y, x.scan, fe.scan, iv, cl.scan)
+m.s <- FormFELM(y, x.s, fe.s, iv, cl.s)
 
 # run regressions
-mapfn <- function(a, b) felm(a, eval(parse(text = b)))
 r.s <- Map(mapfn, m.s, dt.s)
 
 # format tables
@@ -158,15 +192,27 @@ fe.list.scan <- rbind(
   c("$\\bullet$ Benchmark $\\times$ Month", rep(c("No", "Yes"), 4)))
 rt.s <- RegTable(r.s, fe.list = fe.list.scan, coef.lab.dt = coef.lab.dt)
 
+# --- Controlling for past returns ---
+# specifications
+x.sr <- rep(c(
+  rep(paste("postXscan",
+            paste0("rff3.l", 1:12, collapse = " + "), sep = " + "), 2),
+  rep(paste("scandal.outflow",
+            paste0("rff3.l", 1:12, collapse = " + "),sep = " + "), 2)), 2)
+m.sr <- FormFELM(y, x.sr, fe.s, iv, cl.s)
 
+# run regressions
+r.sr <- Map(mapfn, m.sr, dt.s)
 
-
-
+# format tables
+rt.sr <- RegTable(r.sr, fe.list = fe.list.scan, coef.lab.dt = coef.lab.dt)
+rt.scandal <- rbind(rt.s, rt.sr)
+setnames(rt.scandal, "V1", "")
 
 
 # Collect Results and Save -----------------------------------------------------
 
-flow.tab <- list(
+tab.flow <- list(
   capm = list(
     results = rt.capm,
     title = "Fund Flows and Past Performance --- CAPM",
@@ -186,7 +232,18 @@ flow.tab <- list(
   cs.ff3 = list(
     results = rt.cs.ff3,
     title = "CompetitorSize and Fund Flows --- Controlling for Past $R^{FF3}$",
-    caption = "The dependent variable is net flows, $flow_{i,t} = \\frac{TNA_{i,t} - TNA_{i,t-1}(1 + r_{i,t})}{TNA_{i,t-1}}$. The sample runs from Jan 1991 to Dec 2016")
+    caption = "The dependent variable is net flows, $flow_{i,t} = \\frac{TNA_{i,t} - TNA_{i,t-1}(1 + r_{i,t})}{TNA_{i,t-1}}$. The sample runs from Jan 1991 to Dec 2016"),
+  scandal.treat = list(
+    results = rt.t,
+    title = "Impact of Scandal Involvement on Fund Flows",
+    caption = "The dependent variable is net flows, $flow_{i,t} = \\frac{TNA_{i,t} - TNA_{i,t-1}(1 + r_{i,t})}{TNA_{i,t-1}}$."
+  ),
+  scandal.cs = list(
+    results = rt.scandal,
+	sub.results = list(raw = rt.s, ret.controls = rt.sr),
+    title = "Flows to Untainted Funds",
+    caption = "The dependent variable is net flows in monthly percent units. Observations are at the fund-month level, including only funds untainted by the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$. $\\mathbb{I}$ is an indicator for the post scandal period. $ScandalExposure$ ($ScanEx$) and $ScandalOutFlow$ are normalized by interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. Standard errors are double clustered by fund and portfolio group $\\times$ month in the month FE specifications, and by fund and benchmark $\\times$ month in the benchmark $\\times$ month specifications, reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1."
+  )
 )
 
-saveRDS(flow.tab, "tab/reg_flow.Rds")
+saveRDS(tab.flow, "tab/reg_flow.Rds")
