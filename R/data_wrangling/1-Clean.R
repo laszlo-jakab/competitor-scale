@@ -8,8 +8,7 @@ raw.dir   <- "data/raw"
 clean.dir <- "data/clean"
 
 # load packages
-pkgs <- c("lubridate")
-lapply(pkgs, library, character.only = TRUE)
+library(lubridate)
 
 # convenience function for speeding up date conversions
 as.Date.fast <- function(x) as.Date(fast_strptime(x, "%Y-%m-%d"))
