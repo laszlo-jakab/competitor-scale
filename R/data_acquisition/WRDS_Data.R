@@ -1,16 +1,13 @@
 # Laszlo Jakab
 # Feb 2018
 
-# ------------------------------------------------------------------------------
-# Setup
-# ------------------------------------------------------------------------------
+# Setup ------------------------------------------------------------------------
 
 # relative path where I want output to go
-data.dir <- "./data/raw/"
+data.dir <- "data/raw"
 
-# ------------------------------------------------------------------------------
-# connecting to WRDS
-# ------------------------------------------------------------------------------
+
+# Connecting to WRDS -----------------------------------------------------------
 
 # necessary packages and options
 # load packages and set options
@@ -32,13 +29,10 @@ wrdsconnect <- function(user=user, pass=pass){
   return(wrds)
 }
 
-wrds <- wrdsconnect(user=user, pass=pass)
+wrds <- wrdsconnect(user = user, pass = pass)
 
 
-
-# ------------------------------------------------------------------------------
-# Helper function for performing queries
-# ------------------------------------------------------------------------------
+# Function for performing queries ----------------------------------------------
 
 # eats:
 #  (1) three strings:
@@ -81,14 +75,13 @@ query.fn <- function(qstr, nobs = -1, con = wrds, out.dir = data.dir) {
   setnames(dt, dt.names)
 
   # save data
-  saveRDS(dt, file.path(data.dir,paste0(qstr[1],".Rds")))
+  saveRDS(dt, file.path(data.dir, paste0(qstr[1],".Rds")))
   # clean workspace
   rm(list = c("db.query", "dt", "q.all.vars", "dt.names"))
 }
 
-# ------------------------------------------------------------------------------
-# Specification of queries
-# ------------------------------------------------------------------------------
+
+# Specification of queries -----------------------------------------------------
 
 query.list <- list(
   # MFLINKS: crsp_fundno-wficn
@@ -184,9 +177,9 @@ query.list <- list(
   )
 )
 
-# ------------------------------------------------------------------------------
-# loop over queries
-# ------------------------------------------------------------------------------
+
+# Loop over queries ------------------------------------------------------------
+
 for(q in query.list){
   print(q)
   query.fn(q)
