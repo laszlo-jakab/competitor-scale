@@ -6,6 +6,7 @@
 !.gitignore
 !MF_Industry_Size_R.Rproj
 !README.Rmd
+
 !R/
 R/*
 !R/Initialize_Folders.R
@@ -29,11 +30,13 @@ R/data_wrangling/scandal/*
 !R/data_wrangling/scandal/1-ScandalExposure.R
 !R/data_wrangling/scandal/2-ScandalOutFlow.R
 !R/data_wrangling/scandal/3-Scandal_Analysis_Data.R
+
 !data/
 data/*
 !data/scandal/
 data/scandal/*
 !data/scandal/scandal_wficns_2018-Mar-06.Rds
+
 !thesis/
 thesis/*
 !thesis/render_book.R
@@ -55,6 +58,7 @@ thesis/*
 !thesis/mf-references.bib
 !thesis/preamble.tex
 !thesis/ucetd.cls
+
 !packrat/
 packrat/*
 !packrat/init.R
