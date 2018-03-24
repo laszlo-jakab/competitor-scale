@@ -54,7 +54,7 @@ thesis/*
 !thesis/appendix-04-scandal.Rmd
 !thesis/ref-toc.Rmd
 !thesis/_bookdown.yml
-!thesis/_output_yml
+!thesis/_output.yml
 !thesis/mf-references.bib
 !thesis/preamble.tex
 !thesis/ucetd.cls
