@@ -1,9 +1,8 @@
 # Laszlo Jakab
 # 2-21-2018
 
-# ------------------------------------------------------------------------------
-# Setup
-# ------------------------------------------------------------------------------
+
+# Setup ------------------------------------------------------------------------
 
 # load packages
 pkgs <- c(
@@ -14,9 +13,8 @@ lapply(pkgs, library, character.only = TRUE)
 # relative path for output
 data.dir <- "./data/raw/"
 
-# ------------------------------------------------------------------------------
-# Active share
-# ------------------------------------------------------------------------------
+
+# Active share -----------------------------------------------------------------
 
 # source url (Antti Petajisto's website)
 activeshare.url <- "http://www.petajisto.net/data/activeshare.sas7bdat"
@@ -32,9 +30,8 @@ petajisto.activeshare[, date := as.yearmon(as.Date(date))]
 setkey(petajisto.activeshare, wficn, date)
 saveRDS(petajisto.activeshare, file.path(data.dir, "petajisto_activeshare.Rds"))
 
-# ------------------------------------------------------------------------------
-# Index based factor returns
-# ------------------------------------------------------------------------------
+
+# Index based factor returns ---------------------------------------------------
 
 cpz.factors.url <- "http://www.petajisto.net/data/factorret_cpz_monthly.sas7bdat"
 cpz.factors <- data.table(import(cpz.factors.url))
@@ -45,9 +42,8 @@ cpz.factors[, date := as.Date(date)]
 setkey(cpz.factors, date)
 saveRDS(cpz.factors, file.path(data.dir, "cpz_factors.Rds"))
 
-# ------------------------------------------------------------------------------
-# CPI
-# ------------------------------------------------------------------------------
+
+# CPI --------------------------------------------------------------------------
 
 # load FRED API key
 fred.key <- Sys.getenv("FRED_API_KEY")
@@ -63,9 +59,8 @@ setkey(fred.cpiaucsl, date)                      # sort by date
 # save
 saveRDS(fred.cpiaucsl, file.path(data.dir, "fred_cpiaucs.Rds"))
 
-# ------------------------------------------------------------------------------
-# Sentiment (Baker and Wurgler)
-# ------------------------------------------------------------------------------
+
+# Sentiment (Baker and Wurgler) ------------------------------------------------
 
 # source url
 sentiment.url <- "http://people.stern.nyu.edu/jwurgler/data/Copy%20of%20Investor_Sentiment_Data_20160331_POST.xlsx"
@@ -81,9 +76,8 @@ setnames(bw.sentiment, old = c("SENT^", "SENT"), new = c("sent_o", "sent"))
 setkey(bw.sentiment, date)
 saveRDS(bw.sentiment, file.path(data.dir, "bw_sentiment.Rds"))
 
-# ------------------------------------------------------------------------------
-# Mispricing factors
-# ------------------------------------------------------------------------------
+
+# Mispricing factors -----------------------------------------------------------
 
 # Stambaugh-Yuan mispricing factors (monthly)
 sy.factor.url <- "http://www.saif.sjtu.edu.cn/facultylist/yyuan/M4.csv"
@@ -124,6 +118,3 @@ setcolorder(sy.mispricing, c("permno", "date", "avg_score"))
 # sort and save
 setkey(sy.mispricing, permno, date)
 saveRDS(sy.mispricing, file.path(data.dir, "sy_mispricing.Rds"))
-
-
-
