@@ -1,12 +1,11 @@
 # Laszlo Jakab
-# Mar 3, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
 # load packages
-pkgs <- c("ggplot2",
-          "magrittr")
-lapply(pkgs, library, character.only = TRUE)
+library(ggplot2)
+library(magrittr)
 
 # load data
 scandal.dt         <- readRDS("data/scandal/scandal_dt.Rds")
@@ -70,18 +69,22 @@ sof.pctiles <- melt(sof.pctiles, id.vars = "Date",
 # reorder percentiles for legend
 sof.pctiles[, variable := factor(variable, levels = c("p75", "p50", "p25"))]
 
-# high-low groups by ScandalOutFlow
-#untainted.sof <-
 
 # Data: DiD --------------------------------------------------------------------
 
 # dataset of untainted funds
-untainted.dt <- scandal.dt[
-  scandal.fund == 0]
+untainted.dt <- scandal.dt[scandal.fund == 0]
 
 # split by median 2003 Aug scandal exposure
-scandal.exposure.median <- untainted.dt[date == "Aug 2003", median(scandal.exposure)]
-untainted.dt[, high.exposure := ifelse(scandal.exposure > scandal.exposure.median, "High exposure", "Low exposure")]
+scandal.exposure.median <- untainted.dt[
+  date == "Aug 2003", median(scandal.exposure)]
+untainted.dt[, high.exposure := ifelse(
+  scandal.exposure > scandal.exposure.median, "High exposure", "Low exposure")]
+
+# split by median of average scandal outflow
+untainted.dt[, scandal.outflow.mean := mean(scandal.outflow), by = wficn]
+untainted.dt[, high.outflow := ifelse(
+  scandal.outflow.mean > median(scandal.outflow.mean), "High outflow", "Low outflow")]
 
 # demean logged variables by fund
 var.list <- c("ln.CS", "ln.AS", "ln.TL", "ln.T", "ln.L")
@@ -89,7 +92,7 @@ untainted.dt[, (paste0("f", var.list)) :=
   lapply(.SD, function(x) x - mean(x, na.rm = TRUE)),
   by = wficn, .SDcols = var.list]
 
-# mean 3-factor adjusted excess returns by exposure group
+# mean outcomes by exposure group
 high.low.dt <- untainted.dt[, lapply(.SD, mean, na.rm = TRUE),
   by = .(high.exposure, date),
   .SDcols = c(paste0("f", var.list), "ra.gross.ff3")]
@@ -100,6 +103,18 @@ setkey(high.low.dt, high.exposure, date)
 high.low.dret <- dcast(
   high.low.dt, caldt ~ high.exposure, value.var = "ra.gross.ff3")[
   , dra.gross.ff3 := `High exposure` - `Low exposure`]
+
+# mean outcomes by outflow group
+high.low.sof.dt <- untainted.dt[, lapply(.SD, mean, na.rm = TRUE),
+  by = .(high.outflow, date),
+  .SDcols = c(paste0("f", var.list), "ra.gross.ff3")]
+high.low.sof.dt[, caldt := as.Date(date)]
+setkey(high.low.sof.dt, high.outflow, date)
+
+# difference between mean 3-factor adjusted returns of high and low outflow groups
+high.low.sof.dret <- dcast(
+  high.low.sof.dt, caldt ~ high.outflow, value.var = "ra.gross.ff3")[
+  , dra.gross.ff3 := `High outflow` - `Low outflow`]
 
 
 # Plot: Flows ------------------------------------------------------------------
@@ -147,12 +162,13 @@ scandal.flow.plots <- list(
 theme.type <- "bw"
 
 # log(CompetitorSize)
-p.ln.CS <- DidPlot(high.low.dt, "fln.CS",
+p.ln.CS <- DidPlot(high.low.dt, "fln.CS", "high.exposure",
   expression(ln(C.S)), expression(ln(CompetitorSize)),
   theme.type = theme.type)
 
 # log(Active Share)
 p.ln.AS <- DidPlot(high.low.dt[month(date) %in% c(3, 6, 9, 12)], "fln.AS",
+  "high.exposure",
   expression(ln(AS)), expression(ln(AS)),
   theme.type = theme.type)
 
@@ -162,16 +178,18 @@ p.ff3 <- DidBarPlot(high.low.dret, "dra.gross.ff3",
   theme.type = theme.type)
 
 # log(TL)
-p.ln.TL <- DidPlot(high.low.dt[month(date) %in% c(3, 6, 9, 12)], "fln.TL",
+p.ln.TL <- DidPlot(high.low.dt, "fln.TL", "high.exposure",
   expression(ln(T/sqrt(L))), expression(ln(TL^-frac(1,2))),
   theme.type = theme.type)
 
 # log(T)
-p.ln.T <- DidPlot(high.low.dt, "fln.T", expression(ln(T)), expression(ln(T)),
+p.ln.T <- DidPlot(high.low.dt, "fln.T", "high.exposure",
+  expression(ln(T)), expression(ln(T)),
   theme.type = theme.type)
 
 # log(L)
-p.ln.L <- DidPlot(high.low.dt, "fln.L", expression(ln(L)), expression(ln(L)),
+p.ln.L <- DidPlot(high.low.dt, "fln.L", "high.exposure",
+  expression(ln(L)), expression(ln(L)),
   theme.type = theme.type)
 
 # label plots
@@ -179,7 +197,49 @@ did.plots <- list(
   results = list(ln.CS = p.ln.CS, ln.AS = p.ln.AS, ff3 = p.ff3,
                  ln.TL =  p.ln.TL, ln.T = p.ln.T, ln.L = p.ln.L),
   title = "Untainted fund outcomes by exposure to competition from scandal funds.",
-  caption = "Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across exposure groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across the two groups. Vertical lines correspond to August 2003, the month before the announcement of the first investigations, and October 2004, the month of the last investigations according to Table 1 of @hw05.")
+  caption = "Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across groups. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
+
+
+# Plot: DiD for ScandalOutFlow -------------------------------------------------
+
+# log(CompetitorSize)
+p.sof.ln.CS <- DidPlot(high.low.sof.dt, "fln.CS", "high.outflow",
+                       expression(ln(C.S)), expression(ln(CompetitorSize)),
+                       theme.type = theme.type)
+
+# log(Active Share)
+p.sof.ln.AS <- DidPlot(high.low.sof.dt[month(date) %in% c(3, 6, 9, 12)],
+                       "fln.AS", "high.outflow",
+                       expression(ln(AS)), expression(ln(AS)),
+                       theme.type = theme.type)
+
+# 3-factor adjusted returns
+p.sof.ff3 <- DidBarPlot(high.low.sof.dret, "dra.gross.ff3",
+                        expression(R[high]^{FF3} - R[low]^{FF3}), expression(paste(R^{FF3})),
+                        theme.type = theme.type)
+
+# log(TL)
+p.sof.ln.TL <- DidPlot(high.low.sof.dt, "fln.TL",
+                       "high.outflow",
+                       expression(ln(T/sqrt(L))), expression(ln(TL^-frac(1,2))),
+                       theme.type = theme.type)
+
+# log(T)
+p.sof.ln.T <- DidPlot(high.low.sof.dt, "fln.T", "high.outflow",
+                      expression(ln(T)), expression(ln(T)),
+                      theme.type = theme.type)
+
+# log(L)
+p.sof.ln.L <- DidPlot(high.low.sof.dt, "fln.L", "high.outflow",
+                      expression(ln(L)), expression(ln(L)),
+                      theme.type = theme.type)
+
+# label plots
+did.sof.plots <- list(
+  results = list(ln.CS = p.sof.ln.CS, ln.AS = p.sof.ln.AS, ff3 = p.sof.ff3,
+                 ln.TL =  p.sof.ln.TL, ln.T = p.sof.ln.T, ln.L = p.sof.ln.L),
+  title = "Untainted fund outcomes by mean $ScandalOutFlow$.",
+  caption = "Funds are sorted into high and low groups depending on whether their mean $ScandalOutflow$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across the two groups. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
 
 
 # Plot: ScandalOutFlow ---------------------------------------------------------
@@ -216,6 +276,9 @@ sof.plots <- list(
 
 # Combine and Save -------------------------------------------------------------
 
-scandal.plots <- list(flows = scandal.flow.plots, did = did.plots, sof = sof.plots)
+scandal.plots <- list(
+  flows   = scandal.flow.plots,
+  did     = did.plots,
+  sof.did = did.sof.plots,
+  sof     = sof.plots)
 saveRDS(scandal.plots, "fig/scandal_plots.Rds")
-
