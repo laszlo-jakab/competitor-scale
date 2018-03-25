@@ -32,7 +32,7 @@ Note that the `.Rprofile` file in the root loads `data.table` and `zoo`, as thes
 0. `Initialize_Folders.R`: Create folders for housing data and results.
 
 1. `data_acquisition/`: Download data from the web.
-    - `Pull_WRDS_Data.R`: Download data directly from WRDS using `R`'s interface.
+    - `Pull_WRDS_Data.R`: Download data directly from WRDS using `R`'s interface. You need a WRDS subscription for this step. Follow the WRDS instructions for setting up `R` access (you need to download the appropriate .jar files for instance).
     - `Other_Web_Data.R`: Download data from other sources on the web, such as active share, CPI, etc.
 
 2. `data_wrangling/`: Prepare the data for analysis. Run in sequence.
@@ -52,7 +52,7 @@ Note that the `.Rprofile` file in the root loads `data.table` and `zoo`, as thes
 
 ### `data/`: Data used in analysis
 
-- `scandal/scandal_wficns_2018-Mar-06.Rds`: File containing categorization of funds by scandal status. Categorization done manually; this is the only piece of data generated outside of the code in the `R/` folder.  
+- `scandal/scandal_wficns_2018-Mar-06.Rds`: File containing categorization of funds by scandal status. Categorization done manually based on Aug 2003 fund names. This is the only piece of data generated outside of the code in the `R/` folder.  
 
 ### `thesis/`: Files to generate dissertation pdf.
 
