@@ -49,12 +49,32 @@ Note that the `.Rprofile` file in the root loads `data.table` and `zoo`, as thes
         - `1-ScandalExposure.R`: Calculate *ScandalExposure*.
         - `2-ScandalOutFlow.R`: Calculate *ScandalOutFlow*.
         - `3-Scandal_Analysis_Data.R` Combine dataset used in scandal analysis.
+ 
+3. `analysis/summary/`: Descriptive statistics.
+    - `Summary_Tables.R`: Tables of summary statistics and correlations.
+    - `Summary_Plots.R`: Descriptive figures.
+        - *CompetitorSize* time series, histograms.
+        - Thomson report dates.
+        - Data availability in CRSP.
+    - `Scandal_Tables.R`: Tables of summary statistics related to the 2003 mutual fund scandal.
+        - Snapshot of fund characteristics as of Aug 2003 by scandal status.
+        - Snapshot of fund characteristics as of Aug 2003 by scandal exposure.
+    - `Scandal_Plots.R`: Figures related to the scandal.
+        - Flows by scandal status, fraction of industry affected.
+        - *ScandalOutFlow* characteristics
+        - Time series of untainted fund outcomes by scandal exposure, mean scandal outflow
+
+4. `analysis/regs/`: Regressions.
+    - `Behavior_Regs.R`: Regressions of changes in capital allocation decisions on changes in competitor scale.
+    - `Scandal_Regs.R`: Regressions using the 2003 mutual fund scandal as a quasi-exogenous shock to competitor scale.
+    - `Returns_Regs.R`: Within-fund regressions of risk-adjusted returns on competitor scale.
+    - `Flow_Regs.R`: Regressions using net flows as the dependent variable.
 
 ### `data/`: Data used in analysis
 
 - `scandal/scandal_wficns_2018-Mar-06.Rds`: File containing categorization of funds by scandal status. Categorization done manually based on Aug 2003 fund names. This is the only piece of data generated outside of the code in the `R/` folder.  
 
-### `thesis/`: Files to generate dissertation pdf.
+### `thesis/`: Files to generate pdf document.
 
 - `render_book.R`: Compiles the document.
 - `preamble.tex`: Additional tex in the preamble.
