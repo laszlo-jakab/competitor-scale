@@ -59,6 +59,10 @@ thesis/*
 !thesis/preamble.tex
 !thesis/ucetd.cls
 
+!thesis/book/
+thesis/book/*
+!thesis/book/Jakab_Dissertation.pdf
+
 !packrat/
 packrat/*
 !packrat/init.R

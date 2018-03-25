@@ -88,12 +88,12 @@ pw[, d := NULL]
 
 # merge in crsp prices
 setkey(pw, permno, date)
-pw <- pw[msf[, .(permno, date, p, w.mkt.adj)], on = c("permno", "date"), nomatch = 0]
+pw <- pw[msf[, .(permno, date, p, w.mkt)], on = c("permno", "date"), nomatch = 0]
 # calculate portfolio weights
 setkey(pw, wficn, date)
 pw[, w := shares * p / sum(shares * p), by = .(wficn, date)]
-pw[, w.adj := w / w.mkt.adj]
-pw[, c("shares", "p", "w.mkt.adj") := NULL]
+pw[, w.adj := w / w.mkt]
+pw[, c("shares", "p", "w.mkt") := NULL]
 
 # keep only if at least five stocks
 setkey(pw, wficn, date)

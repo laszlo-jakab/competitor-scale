@@ -120,14 +120,8 @@ msf <- foverlaps(
     , c("namedt", "nameenddt", "caldt2", "shrcd") := NULL]
 
 # calculate adjusted price, shrout, and market weights
-msf <- msf[
-  , `:=` (
-    p = prc / cfacpr,
-    tso = shrout * 1000 * cfacshr,
-    w.mkt = (prc * shrout) / sum(prc * shrout),
-    w.mkt.adj =
-      (prc * shrout * cfacpr / cfacpr) / sum(prc * shrout * cfacpr / cfacpr)
-  ), by = date]
+msf <- msf[, `:=` 
+  (p = prc / cfacpr, w.mkt = (prc * shrout) / sum(prc * shrout)), by = date]
 
 # sort and save
 setkey(msf, permno, date)
@@ -137,11 +131,7 @@ saveRDS(msf, file.path(clean.dir, "msf_common_equity.Rds"))
 # Total Market Cap -------------------------------------------------------------
 
 total.mktcap <- msf[
-  , .(
-    totcap = sum(prc * shrout * 1000),
-    totcap.adj = sum(prc * shrout * 1000 * cfacshr / cfacpr),
-    num.stocks = .N)
-    , keyby = date]
+  , .(totcap = sum(prc * shrout * 1000), num.stocks = .N), keyby = date]
 saveRDS(total.mktcap, file.path(clean.dir, "total_mktcap.Rds"))
 
 

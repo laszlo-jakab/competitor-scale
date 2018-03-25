@@ -271,9 +271,6 @@ where $y_{i,t}$ is log active share or log turnover-liquidity ratio, and $\mathb
  ```{r scandalPerformance, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
 # Performance Regression Tables ------------------------------------------------
 
-# fix first row
-setnames(tab.scandal$perf$results, "V1", "")
-
 # add caption and panel headers
 rb <- nrow(tab.scandal$perf$sub.results$w1yr)
 nc <- ncol(tab.scandal$perf$results)
@@ -302,5 +299,5 @@ The analysis presented so far is consistent with competitors of scandal-tainted 
 
 # Investor Flows
 
-I have argued that observing a relation between investment opportunities and funds' internal capital allocation after controlling for fund size is indicative of information asymmetry between managers and outside investors. Table~\ref{tab:scandalFlow} provides further evidence of sluggish adjustment in external capital markets to fund investment opportunities. Specifically, I test for differential relative net flows among untainted funds by their pre-scandal exposure to competition from tainted funds. I find no evidence of increased relative net flows to closely competing funds in the year surrounding the scandal, suggesting that investors did not foresee improvements in prospective performance. There is slight evidence of differential investor flows over a two year window, which I interpret as consistent with investors chasing performance instead of anticipating it.
+I have argued that observing a relation between investment opportunities and funds' internal capital allocation after controlling for fund size is indicative of information asymmetry between managers and outside investors. Table \@ref(tab:scandalFlow) provides further evidence of sluggish adjustment in external capital markets to fund investment opportunities. Specifically, I test for differential relative net flows among untainted funds by their pre-scandal exposure to competition from tainted funds. I find no evidence of increased relative net flows to closely competing funds in the year surrounding the scandal, suggesting that investors did not foresee improvements in prospective performance. There is slight evidence of differential investor flows over a two year window, which I interpret as consistent with investors chasing performance instead of anticipating it.
 

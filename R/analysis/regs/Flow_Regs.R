@@ -28,10 +28,6 @@ flc <- flc[
   funds.in.sample, on = "wficn", nomatch = 0][
   # keep only March 1980 to December 2016
   "Mar 1980" <= date & date <= "Dec 2016"][
-  # generate net (percent) flows
-  , flow.raw := 100 * (tna - tna.l1 * (1 + r.net)) / tna.l1][
-  # winsorized flow
-  , flow := psych::winsor(flow.raw, trim = .01)][
   # add in total market cap
   tmc, on = "date", nomatch = 0][
   # generate FundSize
@@ -57,7 +53,8 @@ combined <- merge(combined, ra.dt, by = c("wficn", "date"), all.x = TRUE)
 # clear up workspace
 rm(funds.in.sample, flc, tmc, ra)
 
-# flows in percent for scandal dataset
+# flows in percent
+combined[, flow := flow * 100]
 scandal[, flow := flow * 100]
 
 

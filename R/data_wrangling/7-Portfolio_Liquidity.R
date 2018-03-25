@@ -5,8 +5,7 @@
 # Load Data --------------------------------------------------------------------
 
 # stock data
-msf <- readRDS("data/clean/msf_common_equity.Rds")[, .(permno, date, w.mkt.adj)]
-setnames(msf, "w.mkt.adj", "w.mkt")
+msf <- readRDS("data/clean/msf_common_equity.Rds")[, .(permno, date, w.mkt)]
 
 # fund portfolio weights
 pw <- readRDS("data/portfolio/portfolio_weights.Rds")[, .(wficn, date, permno, w)]
