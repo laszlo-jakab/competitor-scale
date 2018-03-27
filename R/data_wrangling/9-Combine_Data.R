@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Feb 28, 2018
+# Mar 2018
 
 # Load Datasets ----------------------------------------------------------------
 
@@ -111,7 +111,7 @@ combined[, c("benchmark", "benchmark.min") :=
   lapply(.SD, na.locf, na.rm = FALSE),
   by = wficn, .SDcols = c("index", "index_min")]
 # benchmark X date
-combined[, c("benchmark.X.date", "benchmark.min.X.date") :=
+combined[!is.na(benchmark), c("benchmark.X.date", "benchmark.min.X.date") :=
   lapply(.SD, function(x) paste0(x, "X", date)),
   .SDcols = c("benchmark", "benchmark.min")]
 
