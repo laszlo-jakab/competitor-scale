@@ -97,7 +97,7 @@ size.loss <- treat.coefs[fund.size.aug03, on = "news.month", allow.cartesian = T
 size.loss[, e.size.loss := f.hat * fund.size]
 # sort and save for future reference
 setkey(size.loss, wficn, date)
-saveRDS(size.loss, file.path(scandal.dir, "expected_size_loss.Rds"))
+saveRDS(size.loss, "data/scandal/expected_size_loss.Rds")
 
 
 # Cosine Similarities (Aug 2003) ---------------------------------------------
@@ -133,7 +133,7 @@ datel <- sort(unique(size.loss$date))
 scofl <- Map(list, sll, ual, datel)
 
 # clean up the workspace
-rm(list = setdiff(ls(), c("scandal.dir", "scofl", "cos.sim")))
+rm(list = setdiff(ls(), c("scofl", "cos.sim")))
 
 
 # ScandalOutflow --------------------------------------------------------------
