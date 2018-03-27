@@ -33,15 +33,15 @@ wficns.incl <- intersect(wficns.incl, ret.fund.level[, wficn])
 track.obs <- c("Insufficient size, exp. ratio, or data", length(wficns.incl))
 
 # drop fund if ever classified as ioc %in%
-# 1 (international), 6 (Bond & preferred), 7 (balanced), 8 (metals)
+# 1 (international), 5 (municipal bond), 6 (bond&preferred), 7 (balanced), 8 (metals)
 wficns.incl <- intersect(wficns.incl,
-  s12type1[, if (max(ioc %in% c(1,5:8)) == 0) .SD
+  s12type1[, if (max(ioc %in% c(1, 5:8)) == 0) .SD
            , by = fundno][, wficn])
 track.obs <- rbind(track.obs, c("Drop by Thomson IOC", length(wficns.incl)))
 
 # drop index funds (based on index_fund_flag)
 wficns.incl <- intersect(wficns.incl,
-  fund.hdr[, if (max(index_fund_flag != "")==0) .SD
+  fund.hdr[, if (max(index_fund_flag != "") == 0) .SD
            , by = wficn][, wficn])
 track.obs <- rbind(track.obs, c("Drop by index_fund_flag", length(wficns.incl)))
 
@@ -79,7 +79,7 @@ wficns.incl <- intersect(wficns.incl,
 track.obs <- rbind(track.obs, c("Drop by name", length(wficns.incl)))
 
 # define domestic equity
-# consider lipper code first
+# consider lipper class first
 lipper.include <- c("EIEI", "G", "LCCE", "LCGE", "LCVE", "MCCE", "MCGE",
   "MCVE", "MLCE", "MLGE", "MLVE", "SCCE", "SCGE", "SCVE")
 fund.style[, domestic.equity := lipper_class %in% lipper.include]
