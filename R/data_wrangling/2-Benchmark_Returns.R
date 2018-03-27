@@ -82,7 +82,7 @@ loadings.gross <- capm.betas.gross[
   ff3.betas.gross, on = "wficn"][
   ff4.betas.gross, on = "wficn"]
 loadings <- merge(loadings.net, loadings.gross, by = "wficn", all = TRUE)
-saveRDS(loadings, file.path(out.dir, "factor_loadings.Rds"))
+saveRDS(loadings, "data/benchmarked_returns/factor_loadings.Rds")
 
 
 # Risk Adjusted Returns --------------------------------------------------------
