@@ -43,7 +43,6 @@ px <- function(tab, ...) {
     tabular.environment = "tabularx",
     width="0.99\\textwidth",
     caption.placement = 'top',
-    print.results = FALSE,
 	table.placement = "t",
 	...)
 }
@@ -61,8 +60,7 @@ fig.summary <- readRDS("fig/summary_plots.Rds")
 # ------------------------------------------------------------------------
 ```
 
-I build my dataset around two main sources. From the CRSP Survivor-Bias-Free US Mutual Fund database I obtain share class level information on returns, net asset values, expense ratios, TNA, fund turnover, first offer date, name, various fund objective classifications, and flags indicating index fund and ETF/ETN status. The CRSP Mutual Fund database includes data starting from January 1960. From the Thomson Reuters S12 database, I procure fund-level share holdings and additional information on fund investment objectives. Thomson's predecessor first compiled holdings data in March 1980, subsequent to which consistent holdings reports are available.^[The 1980 March vintage includes a smattering of holding reports dated between 1979 December and 1980 February. For a detailed discussion of vintage dates vs report dates, see \@ref(sec:data-appendix). In the analysis, I only consider holdings reported during or after 1980 March.] 
-I supplement these two main sources by security-level data on prices and shares outstanding from CRSP, monthly return factors from Ken French's data library^[http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html],
+I build my dataset around two main sources. From the CRSP Survivor-Bias-Free US Mutual Fund database I obtain share class level information on returns, net asset values, expense ratios, TNA, fund turnover, first offer date, name, various fund objective classifications, and flags indicating index fund and ETF/ETN status. The CRSP Mutual Fund database includes data starting from January 1960. From the Thomson Reuters S12 database, I procure fund-level share holdings and additional information on fund investment objectives. Thomson's predecessor first compiled holdings data in March 1980, subsequent to which consistent holdings reports are available.^[The 1980 March vintage includes a smattering of holding reports dated between 1979 December and 1980 February. For a detailed discussion of vintage dates vs report dates, see \@ref(sec:data-construction). In the analysis, I only consider holdings reported during or after 1980 March.] I supplement these two main sources by security-level data on prices and shares outstanding from CRSP, monthly return factors from Ken French's data library^[http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html],
 and active share [@cp09; @petajisto13] from Antti Petajisto's website^[http://www.petajisto.net/data.html. This dataset also includes the identity of the benchmark against which active share is calculated.]
 
 TNA is typically only available at the quarterly or semi-annual frequency in the CRSP files before 1991 (Figure \@ref(fig:sampleCompleteness)). I interpolate missing TNA by assuming zero net flows. For up to one year following the most recent non-missing TNA value, I replace missing time $t+1$ values of TNA as $TNA_{t+1}=TNA_t(1+r_{t+1})$, where $r$ corresponds to net returns.
@@ -74,10 +72,10 @@ Since CRSP data are at the share class level, at each date I aggregate variables
 
 # Fund Selection
 
-My aim is to study competition among long-only, general purpose actively managed U.S. domestic equity funds. I purge my sample of fixed income and ``balanced'' funds, money market funds, international funds, passive index funds, specialist long-short and sector funds, as well as target date funds. I use a variety of filters, based partially on previous research, and developed through a process of case-by-case inspection.^[The skeleton of my filtering algorithm is the scheme described in @ksz08. However, inspection of the fund universe resulting from my implementation of this scheme indicated a significant number of remaining international funds, sector funds, money market funds, and so forth. This observation led me to revise the scheme significantly, and add a number of additional filters in order to exclude undesirable funds.]
-The filters primarily rely on a combination of various investment objective classifications, as well as exclusions based on fund names. I describe these filters in the [Data Appendix](https://www.dropbox.com/s/qugvhb8b0wqp0cg/LJ_JMP_Data_Appendix.pdf?dl=0) in precise detail, and outline them below. 
+My aim is to study competition among long-only, general purpose actively managed U.S. domestic equity funds. I purge my sample of fixed income and ``balanced'' funds, money market funds, international funds, passive index funds, specialist long-short and sector funds, as well as target date funds. I use a variety of filters, based partially on previous research, and developed through a process of case-by-case inspection.^[The skeleton of my filtering algorithm is the scheme described in @ksz08. However, inspection of the fund universe resulting from my implementation of this scheme indicated a significant number of remaining international funds, sector funds, money market funds, etc. This observation led me to revise the scheme significantly, and add a number of additional filters in order to exclude undesirable funds.]
+The filters primarily rely on a combination of various investment objective classifications, as well as exclusions based on fund names. I describe these filters in Chapter \@ref(sec:data-appendix) in precise detail, and outline them below. 
 
-Since my analysis relies on within-fund variation, I construct filters at the fund level. I exclude all funds ever classified as International, Municipal Bonds, Bond \& Preferred, Balanced, or Metals by Thomson investment objective codes. I exclude a fund if any of its share classes are ever assigned a policy code contrary to a long-only equity strategy,^[Including codes corresponding to the following classifications: Balanced, Bonds \& Preferred Stock, Bonds, Canadian \& International, Leverage and/or Short Selling, Leases, Government Securities, Money Market, Preferred Stock, Sector/Highly Speculative, and various Tax Free.] assigned a CRSP objective code indicating sector fund or fixed income fund, flagged as an index fund, or have names indicative of index funds, target date funds, international funds, or tax managed funds. As an additional screen for money market funds, I drop observations with NAV exactly equal to one. I exclude funds that are identified over 25\% of the time as foreign equity by CRSP objective codes. This means that my dataset includes a handful of funds that transition to investing a portion of their assets in foreign markets.
+Since my analysis relies on within-fund variation, I construct filters at the fund level. I exclude all funds ever classified as International, Municipal Bonds, Bond & Preferred, Balanced, or Metals by Thomson investment objective codes. I exclude a fund if any of its share classes are ever assigned a policy code contrary to a long-only equity strategy,^[Including codes corresponding to the following classifications: Balanced, Bonds & Preferred Stock, Bonds, Canadian & International, Leverage and/or Short Selling, Leases, Government Securities, Money Market, Preferred Stock, Sector/Highly Speculative, and various Tax Free.] assigned a CRSP objective code indicating sector fund or fixed income fund, flagged as an index fund, or have names indicative of index funds, target date funds, international funds, or tax managed funds. I exclude funds that are identified over 25% of the time as foreign equity by CRSP objective codes. This means that my dataset includes a handful of funds that transition to investing a portion of their assets in foreign markets.
 
 In addition to the exclusion screens, I use objective codes to constructively identify actively managed domestic equity funds. I first use Lipper Class, including funds if any of their share classes are ever assigned a classification consistent with a domestic equity strategy^[Included classes are: Equity Income Funds, Growth Funds, Large-Cap Core Funds, Large-Cap Growth Funds, Large-Cap Value Funds, Mid-Cap Core Funds, Mid-Cap Growth Funds, Mid-Cap Value Funds, Multi-Cap Core Funds, Multi-Cap Growth Funds, Multi-Cap Value Funds, Small-Cap Core Funds, Small-Cap Growth Funds, and Small-Cap Value Funds.]
 
@@ -128,52 +126,9 @@ I calculate portfolio liquidity variables according to @pst17L, constructing the
 # Summary Statistics {#sec:sumStats}
 
 
-```{r sumStats, , echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'}
-# Summary Statistics -----------------------------------------------------------
+Since my analysis relies on within-fund variation, I require each fund to have at least twelve months of non-missing observations of both returns and $CompetitorSize$ to be included in the estimation sample. My sample runs from `r format(combined[, min(date)], "%B %Y")` to `r format(combined[, max(date)], "%B %Y")`, and includes `r format(length(combined[, unique(wficn)]),  big.mark=",")` distinct funds. Table \@ref(tab:sumStats) reports summary statistics. 
 
-# add caption and panel headers
-rb <- nrow(tab.summary$summary.stats$sub.results$fund.level)
-nc <- ncol(tab.summary$summary.stats$results)
-# add caption and panel headers
-add.to.row <- list(
-  pos = list(-1, 0, 0, rb, rb, rb), 
-  command = c(
-    TCap(nc + 1, tab.summary$summary.stats$caption),
-    mrn, PHead(nc + 1, "Panel A: Fund level means"),
-    mrn, PHead(nc + 1, "Panel B: Fund-month level statistics"), mr))
-
-# convert table to latex
-out.tab <- px(xtable(tab.summary$summary.stats$results,
-    caption = tab.summary$summary.stats$title,
-    label = "tab:sumStats",
-    display = c("s", "d", rep("f", (ncol(tab.summary$summary.stats$results) - 1)))
-    ),
-    format.args = list(big.mark = ",", drop0trailing = TRUE))
-# fix alignment
-out.tab <- gsub("rrrrrrrrrrr", "@{}lrYYYYYYYYY@{}", out.tab, fixed = TRUE)
-
-# print table
-cat(out.tab)
-# ------------------------------------------------------------------------------
-```
-
-
-Since my analysis relies on within-fund variation, I require each fund to have at least twelve months of non-missing observations of both returns and $CompetitorSize$ to be included in the estimation sample. My sample runs from `r format(combined[, min(date)], "%B %Y")` to `r format(combined[, max(date)], "%B %Y")`, and includes `r format(length(combined[, unique(wficn)]),  big.mark=",")` distinct funds. 
-$CompetitorSize$ to performance. 
-Table \@ref(tab:sumStats) reports summary statistics. 
-
-
-The time series of the cross-sectional average competitor size and aggregate industry size are closely related (left panel of Figure \@ref(fig:industrySize)). 
-
-```{r industrySize, echo=FALSE, dpi = 300, fig.width = 6, fig.height = 3, fig.align = 'center', fig.cap = paste(fig.summary$industry$title, fig.summary$industry$caption), fig.scap = fig.summary$industry$title}
-# Industry Size Time Series Plot -----------------------------------------------
-
-fig.summary$industry$results
-# ------------------------------------------------------------------------------
-```
-
-
-Figure \@ref(fig:histograms) presents histograms of the distribution of $CompetitorSize$. The unconditional distribution is right skewed, as shown in the left panel. This is to be expected, as $CompetitorSize$ is a weighted sum of the highly skewed $FundSize$. The within-fund distribution is centered more tightly, but still includes substantive variation. 
+The time series of the cross-sectional average competitor size and aggregate industry size are closely related (Figure \@ref(fig:industrySize)). Figure \@ref(fig:histograms) presents histograms of the distribution of $CompetitorSize$. The unconditional distribution is right skewed, as shown in the left panel. This is to be expected, as $CompetitorSize$ is a weighted sum of the highly skewed $FundSize$. The within-fund distribution is centered more tightly, but still includes substantive variation. 
 
 ```{r histograms, echo = FALSE, fig.width = 6, fig.height = 2.5, dpi = 300, fig.align = 'center', fig.cap = paste(fig.summary$histograms$title, fig.summary$histograms$caption), fig.scap = fig.summary$histograms$title}
 
@@ -199,27 +154,3 @@ cor.within <- tab.summary$correlations$sub.results$within.fund
 Panel A of Table \@ref(tab:correlations) presents unconditional pairwise correlations between variables, while Panel B presents within-fund pairwise correlations. $CompetitorSize$ is positively correlated with $IndustrySize$ both unconditionally ($\rho=$ `r formatC(cor.uncond["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and at the fund level ($\rho=$ `r formatC(cor.within["$IndustrySize$", "$Comp.$ $Size$"], digits = 2, format = "f")`). The residual within-fund variation in $CompetitorSize$ with respect to $IndustrySize$ reflects heterogenous dynamics in competitor size across funds pursuing different investment strategies.^[This residual variation is useful for identification, as the time series correlation between $IndustrySize$ and a linear time trend is $\rho=$ `r formatC(cor(combined[ , mean(industry.size, na.rm = TRUE), by = date][, .(as.numeric(date), V1)])[1,2], digits = 2, format = "f")`, making industry level decreasing returns to scale hard to distinguish from simple trends in the data.]
 
 There is a small but negative correlation between $CompetitorSize$ and risk adjusted gross returns, both unconditionally ($\rho=$ `r formatC(cor.uncond["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund ($\rho=$ `r formatC(cor.within["$R^{FF3}$", "$Comp.$ $Size$"], digits = 2, format = "f")`). $CompetitorSize$ tends to increase over each fund's lifetime. The within-fund correlation between $CompetitorSize$ and $FundAge$ is $\rho=$ `r formatC(cor.within["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`. The unconditional correlation is markedly lower ($\rho=$ `r formatC(cor.uncond["$FundAge$", "$Comp.$ $Size$"], digits = 2, format = "f")`), indicating that new funds begin their operations exploiting relatively lightly contested investment opportunities. $CompetitorSize$ is highly correlated with portfolio liquidity both unconditionally ($\rho=$ `r formatC(cor.uncond["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`) and within-fund ($\rho=$ `r formatC(cor.within["$L$", "$Comp.$ $Size$"], digits = 2, format = "f")`), evidence that more liquid market segments are capable of absorbing higher levels of active investment. Consistent with the joint determination of fund size, portfolio liquidity, turnover, and expense ratios in @pst17L, larger funds tend to be more liquid, trade less, and charge lower fees. 
-
-
-```{r correlations, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'}
-# Correlations -----------------------------------------------------------------
-
-# add caption and panel headers
-rb <- nrow(tab.summary$correlations$sub.results$unconditional)
-nc <- ncol(tab.summary$correlations$results)
-# add caption and panel headers
-add.to.row <- list(
-  pos = list(0, 0, 0, rb, rb, rb, rb), 
-  command = c(
-    mr, PHead(nc, ""), PHead(nc, "Panel A: Unconditional"),
-    mr, PHead(nc, ""), PHead(nc, "Panel B: Within-fund correlations"), mr))
-
-# convert table to latex
-px(xtable(tab.summary$correlations$results,
-  align = paste(c("ll|", rep("Z", (nc - 1))), collapse = ""),
-  caption = tab.summary$correlations$title,
-  label = "tab:correlations",
-  display = c("s", rep("f", nc)),
-  digits = 2))
-# ------------------------------------------------------------------------------
-```
