@@ -394,17 +394,22 @@ saveRDS(ret.tna, file.path(clean.dir, "share_class_crsp_data.Rds"))
 
 # Collapse to Fund Level -------------------------------------------------------
 
-# fill in gaps in mtna where consecutive mret is available
+# fill in gaps in mtna up to a year where consecutive mret is available
 ret.tna[
   # year-month variable
   , date := as.yearmon(caldt)][
+  # date of most recent non-missing mtna
+  !is.na(mtna), date.mtna := date][
+  , date.mtna := na.locf(date.mtna, na.rm = FALSE), by = crsp_fundno][
+  # most recent non-missing mtna
+  , tna := na.locf(mtna, na.rm = FALSE), by = crsp_fundno][
+  # set to missing if last non-missing mtna over a year ago
+  date - date.mtna >= 1, tna := NA][
   # number of months between non-missing mret obs
   !is.na(mret), gap.mret := round((date - shift(date)) * 12), by = crsp_fundno][
   # consider gap to be 1 for first non-missing obs of mret
   !is.na(mret), first.mret := .I[1L], by = crsp_fundno][
   1:.N == first.mret, gap.mret := 1][
-  # most recent non-missing mtna
-  , tna := na.locf(mtna, na.rm = FALSE), by = crsp_fundno][
   # mret, ignoring observations where there is a break in data availability
   gap.mret == 1, mret.nogap := mret][
   # compound returns by share class, resetting when missingness of mtna switches
