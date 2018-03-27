@@ -62,7 +62,7 @@ fund.crsp <- fund.crsp[
   # winsorize turnover (function taken from "psych" package)
   , To := psych::winsor(turn_ratio, trim = .01)][
   # generate net (percent) flows
-  , flow.raw := (tna - tna.lagged * (1 + r.net)) / tna.lagged][
+  , flow.raw := (tna - tna.l1 * (1 + r.net)) / tna.l1][
   # winsorized flow
   , flow := psych::winsor(flow.raw, trim = .01)]
 setkey(fund.crsp, wficn, date)
