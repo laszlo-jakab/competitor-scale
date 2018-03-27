@@ -11,12 +11,13 @@ rmd_files: [
   "05-behavior.Rmd",
   "06-scandal.Rmd",
   "07-conclusion.Rmd",
-      
-  "appendix-01-summary.Rmd",
-  "appendix-02-performance.Rmd",
-  "appendix-03-behavior.Rmd",
-  "appendix-04-scandal.Rmd",
-  "appendix-05-data.Rmd",
+  
+  "appendix-01-raw.Rmd",
+  "appendix-02-summary.Rmd",
+  "appendix-03-performance.Rmd",
+  "appendix-04-behavior.Rmd",
+  "appendix-05-scandal.Rmd",
+  "appendix-06-data.Rmd",
   
   "ref-toc.Rmd"
 ]
