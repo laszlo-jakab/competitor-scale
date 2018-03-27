@@ -69,7 +69,8 @@ close(pb)
 
 # perform the calculations quarter-by-quarter
 # loop through time and get ln_DCS
-out.mat <- NULL
+dcs.dt <- data.table(
+  wficn = numeric(), date = character(), dln.comp.size = numeric())
 for (i in (2:length(csl))) {
 
   # last period's similarity, fund size
@@ -107,23 +108,17 @@ for (i in (2:length(csl))) {
   if (!identical(rownames(cs.last), rownames(cs.this))) {
     stop("Funds must match for calculating Delta CS")
   }
-  cs_delta_log <- log(cs.this)-log(cs.last)
+  cs.dl <- data.table(log(cs.this)-log(cs.last), keep.rownames = TRUE)
+  setnames(cs.dl, c("wficn", "dln.comp.size"))
+  cs.dl[, wficn := as.numeric(wficn)]
+  cs.dl[, date:= csl[[i]][[3]]]
 
   # output
-  out.mat <- rbind(out.mat,
-    cbind(cs_delta_log, csl[[i]][[3]]))
+  dcs.dt <- rbind(dcs.dt, cs.dl)
 }
 
-# convert output to data.table
-dcs.dt <- data.table(out.mat, keep.rownames = TRUE)
-setnames(dcs.dt, c("wficn", "dln.comp.size", "date"))
-dcs.dt[
-  # convert wficn to numeric
-  , wficn := as.numeric(wficn)][
-  # date variable corresponding to year and month
-  , date := as.yearmon(date)]
-# fix column order
-setcolorder(dcs.dt, c("wficn", "date", "dln.comp.size"))
+# fix date variable
+dcs.dt[, date := as.yearmon(date)]
 # sort and save
 setkey(dcs.dt, wficn, date)
 saveRDS(dcs.dt, "data/competitor_size/dln_competitor_size.Rds")
