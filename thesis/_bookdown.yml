@@ -16,6 +16,7 @@ rmd_files: [
   "appendix-02-performance.Rmd",
   "appendix-03-behavior.Rmd",
   "appendix-04-scandal.Rmd",
+  "appendix-05-data.Rmd",
   
   "ref-toc.Rmd"
 ]
