@@ -99,7 +99,7 @@ pg.list$pg[
   , c("year", "month") := NULL]
 setcolorder(pg.list$pg, c("wficn", "date", "port.grp"))
 setkey(pg.list$pg, wficn, date)
-saveRDS(pg.list$pg, file.path(pw.dir, "portfolio_grp.Rds"))
+saveRDS(pg.list$pg, "data/portfolio/portfolio_grp.Rds")
 
 # portfolio centers (i.e. model portfolios)
 pg.list$pc <- data.table(pg.list$pc)
@@ -111,7 +111,7 @@ pg.list$pc[
   , c("year", "month") := NULL]
 setcolorder(pg.list$pc, c("permno", "date", paste0("port.grp.", seq(10))))
 setkey(pg.list$pc, date, permno)
-saveRDS(pg.list$pc, file.path(pw.dir, "portfolio_grp_center.Rds"))
+saveRDS(pg.list$pc, "data/portfolio/portfolio_grp_center.Rds")
 
 # group size
 pg.list$gs <- data.table(pg.list$gs)
