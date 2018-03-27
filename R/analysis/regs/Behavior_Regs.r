@@ -33,7 +33,8 @@ combined[, (paste0("d", ln.vars)) := lapply(.SD, function(x) x - shift(x))
 combined <- combined[dln.cs, on = c("wficn", "date"), nomatch = 0]
 
 # keep only if FD interval is three months
-combined <- combined[, dm := round((date - shift(date))*12), by = wficn][dm == 3]
+combined <- combined[
+  , dm := round((date - shift(date)) * 12), by = wficn][dm == 3]
 
 
 # FD Regressions ---------------------------------------------------------------
