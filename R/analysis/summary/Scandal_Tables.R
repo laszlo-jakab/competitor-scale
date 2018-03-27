@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Mar 10, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------
 
@@ -28,7 +28,8 @@ scandal.snapshot.dt <- scandal.dt[
 
 # reshape the table to convenient format
 scandal.snapshot.dt <- dcast(melt(
-  scandal.snapshot.dt, id.vars = "scandal.fund"), variable ~ scandal.fund)
+  scandal.snapshot.dt, id.vars = "scandal.fund"),
+  variable ~ scandal.fund)
 setnames(scandal.snapshot.dt, c("Scandal involvement", "No", "Yes"))
 
 # label table
@@ -38,7 +39,7 @@ scandal.snapshot = list(
   caption = "Means of various characteristics as of August 2003, depending on whether the family the fund belongs to was later implicated in the late trading scandal. Returns are annualized, in percentages.")
 
 
-# Snapshot of Untainted Funds, Aug 2003 ----------------------------------------
+# Snapshot of Untainted Funds By ScandalExposure, Aug 2003 --------------------
 
 untainted.snapshot.dt <- scandal.dt[
   # untainted funds as of Aug 2003
@@ -62,7 +63,8 @@ untainted.snapshot.dt <- scandal.dt[
 
 # reshape the table to convenient format
 untainted.snapshot.dt <- dcast(melt(
-  untainted.snapshot.dt, id.vars = "high.exp"), variable ~ high.exp)
+  untainted.snapshot.dt, id.vars = "high.exp"),
+  variable ~ high.exp)
 setcolorder(untainted.snapshot.dt, c("variable", "Low", "High"))
 setnames(untainted.snapshot.dt, c("$ScandalExposure$:", "Below median", "Above median"))
 # format numbers for display
@@ -73,11 +75,99 @@ untainted.snapshot.dt <- untainted.snapshot.dt[, `:=`
 # label table
 untainted.snapshot = list(
   results = untainted.snapshot.dt,
-  title = "Snapshot of Untainted Fund Characteristics as of August 2003",
+  title = "Untainted Fund Characteristics as of August 2003",
   caption = "Means of various characteristics as of Aug 2003 for untainted funds, depending on whether the fund's $ScandalExposure$ is above the cross-sectional median.")
+
+
+untainted.snapshot.dt <- scandal.dt[
+  # untainted funds as of Aug 2003
+  scandal.fund == 0 & date == "Aug 2003"][
+    # split by median scandal exposure
+    , high.exp :=
+      ifelse(scandal.exposure > median(scandal.exposure), "High", "Low")][
+    # calculate means
+      , .(
+        N = .N,
+        `$CompetitorSize \\times 10^2$` = mean(CS, na.rm = TRUE) * 10^2,
+        `TNA (100m \\$)` = mean(tna, na.rm = TRUE) / 100,
+        `$R^{FF3}$` = mean(ra.gross.ff3, na.rm = TRUE),
+        `Fund age` = mean(fund.age, na.rm = TRUE),
+        `Expense ratio` = mean(f, na.rm = TRUE),
+        `$AS$` = mean(AS, na.rm = TRUE),
+        `$T$` = mean(T, na.rm = TRUE),
+        `$L$` = mean(L, na.rm = TRUE),
+        `$ln(TL^{-1/2})$` = mean(ln.TL, na.rm = TRUE))
+      , by = high.exp]
+
+# reshape the table to convenient format
+untainted.snapshot.dt <- dcast(melt(
+  untainted.snapshot.dt, id.vars = "high.exp"), variable ~ high.exp)
+setcolorder(untainted.snapshot.dt, c("variable", "Low", "High"))
+setnames(untainted.snapshot.dt,
+  c("$ScandalExposure$:", "Below median", "Above median"))
+# format numbers for display
+untainted.snapshot.dt <- untainted.snapshot.dt[, `:=` (
+  `Below median` = round(`Below median`, 2),
+  `Above median` = round(`Above median`, 2))]
+
+# label table
+untainted.snapshot = list(
+  results = untainted.snapshot.dt,
+  title = "Untainted Fund Characteristics by $ScandalExposure$ as of August 2003",
+  caption = "Means of various characteristics as of Aug 2003 for untainted funds, depending on whether the fund's $ScandalExposure$ is above the cross-sectional median.")
+
+
+
+# Snapshot of Untainted Funds By ScandalOutFlow, Aug 2003 --------------------
+
+untainted.snapshot.dt.sof <- scandal.dt[
+  # untainted funds
+  scandal.fund == 0][
+  # mean scandal outflow by fund
+  , scandal.outflow.m := mean(scandal.outflow), by = wficn][
+  # split by median scandal outflow
+  , high.exp :=
+    ifelse(scandal.outflow.m > median(scandal.outflow.m), "High", "Low")][
+  # as of Aug 2003
+  date == "Aug 2003"][
+  # calculate means
+  , .(
+    N = .N,
+    `$CompetitorSize \\times 10^2$` = mean(CS, na.rm = TRUE) * 10^2,
+    `TNA (100m \\$)` = mean(tna, na.rm = TRUE) / 100,
+    `$R^{FF3}$` = mean(ra.gross.ff3, na.rm = TRUE),
+    `Fund age` = mean(fund.age, na.rm = TRUE),
+    `Expense ratio` = mean(f, na.rm = TRUE),
+    `$AS$` = mean(AS, na.rm = TRUE),
+    `$T$` = mean(T, na.rm = TRUE),
+    `$L$` = mean(L, na.rm = TRUE),
+    `$ln(TL^{-1/2})$` = mean(ln.TL, na.rm = TRUE))
+    , by = high.exp]
+
+# reshape the table to convenient format
+untainted.snapshot.dt.sof <- dcast(melt(
+  untainted.snapshot.dt.sof, id.vars = "high.exp"),
+  variable ~ high.exp)
+setcolorder(untainted.snapshot.dt.sof, c("variable", "Low", "High"))
+setnames(untainted.snapshot.dt.sof,
+  c("$\\overline{ScandalOutFlow}$:", "Below median", "Above median"))
+# format numbers for display
+untainted.snapshot.dt.sof <- untainted.snapshot.dt.sof[, `:=`(
+  `Below median` = round(`Below median`, 2),
+  `Above median` = round(`Above median`, 2))]
+
+# label table
+untainted.snapshot.sof = list(
+  results = untainted.snapshot.dt.sof,
+  title = "Untainted Fund Characteristics by $ScandalOutFlow$ as of August 2003",
+  caption = "Means of various characteristics as of Aug 2003 for untainted funds, depending on whether the fund's mean $ScandalOutFlow$ is above the median.")
+
 
 # Save Output Tables -----------------------------------------------------------
 
 # collect results and save
-scandal.tables = list(by.scandal = scandal.snapshot, by.exposure = untainted.snapshot)
+scandal.tables = list(
+  by.scandal  = scandal.snapshot,
+  by.exposure = untainted.snapshot,
+  by.outflow  = untainted.snapshot.sof)
 saveRDS(scandal.tables, "tab/summary_stats_scandal.Rds")
