@@ -9,6 +9,7 @@ clean.dir <- "data/clean"
 
 # load packages
 library(lubridate)
+library(laszlor)
 
 # convenience function for speeding up date conversions
 as.Date.fast <- function(x) as.Date(fast_strptime(x, "%Y-%m-%d"))
@@ -120,7 +121,7 @@ msf <- foverlaps(
     , c("namedt", "nameenddt", "caldt2", "shrcd") := NULL]
 
 # calculate adjusted price, shrout, and market weights
-msf <- msf[, `:=` 
+msf <- msf[, `:=`
   (p = prc / cfacpr, w.mkt = (prc * shrout) / sum(prc * shrout)), by = date]
 
 # sort and save
@@ -224,9 +225,8 @@ saveRDS(fund.style, file.path(clean.dir, "fund_style.Rds"))
 
 # CRSP Fund Fees ---------------------------------------------------------------
 
-# copy data table
-fund.fees <- copy(crsp.fund.fees)
 # fix missing values (assign -99 to NA)
+fund.fees <- crsp.fund.fees
 fund.fees[fund.fees == -99] <- NA
 # zero expense ratios for active funds tend to indicate
 # missing information (Barber, Odean and Zheng (2005));
@@ -331,7 +331,7 @@ mret <- merge(
   mret, mnav[, .(crsp_fundno, caldt)],
     by = c("crsp_fundno", "caldt"), all = TRUE)[
   , date := as.yearmon(caldt)][
-  , gap  := round((date - shift(date))*12), by = crsp_fundno][
+  , gap  := round((date - shift(date)) * 12), by = crsp_fundno][
   gap == 1 & !is.na(mret)][
   , c("gap", "date") := NULL]
 # save
@@ -374,7 +374,6 @@ saveRDS(fund.inception, file.path(clean.dir, "fund_inception.Rds"))
 # merge returns, TNA
 ret.tna <- merge(mret, mtna, by = c("crsp_fundno", "caldt"), all = TRUE)
 
-# add in expense ratio and turnover ---
 # degenerate interval end date for overlap joins
 ret.tna[, caldt2 := caldt]
 setkey(ret.tna, crsp_fundno, caldt, caldt2)
@@ -395,48 +394,48 @@ saveRDS(ret.tna, file.path(clean.dir, "share_class_crsp_data.Rds"))
 
 # Collapse to Fund Level -------------------------------------------------------
 
-# fill in gaps in mtna
-ret.tna <- ret.tna[
-  # last non-missing mtna
+# fill in gaps in mtna where consecutive mret is available
+ret.tna[
+  # year-month variable
+  , date := as.yearmon(caldt)][
+  # number of months between non-missing mret obs
+  !is.na(mret), gap.mret := round((date - shift(date)) * 12), by = crsp_fundno][
+  # consider gap to be 1 for first non-missing obs of mret
+  !is.na(mret), first.mret := .I[1L], by = crsp_fundno][
+  1:.N == first.mret, gap.mret := 1][
+  # most recent non-missing mtna
   , tna := na.locf(mtna, na.rm = FALSE), by = crsp_fundno][
+  # mret, ignoring observations where there is a break in data availability
+  gap.mret == 1, mret.nogap := mret][
   # compound returns by share class, resetting when missingness of mtna switches
-  , mret.cum := cumprod(1+mret), by = .(crsp_fundno, rleid(!is.na(mtna)))][
+  , mret.cum := cumprod(1 + mret.nogap), by = .(crsp_fundno, rleid(is.na(mtna)))][
   # compound fund last observed size using interim returns
   is.na(mtna), tna := tna * mret.cum]
 
 # lag tna by one month to be used as weights in fund-level aggregation
-ret.tna <- merge(
-  # year-month variable from master data
-  ret.tna[
-    , date := as.yearmon(caldt)],
-  # shift date in using, and merge back to master
-  copy(ret.tna)[
-    , date := date + 1/12][
-    , .(crsp_fundno, date, tna.lag = tna)
-    ]
-  # match on crsp_fundno and date, keeping all obs from master
-  , by = c("crsp_fundno", "date"), all.x = TRUE)[
-  # fill lagged tna with actual value for the first non-missing observation
-  !is.na(tna), first.obs := .I[1L], by = crsp_fundno][
-  1:.N == first.obs, tna.lag := tna]
+ret.tna <- LagDT(ret.tna, "tna", panel.id = "crsp_fundno")
+# fill lagged tna with actual value for the first non-missing observation
+ret.tna <- ret.tna[
+  !is.na(tna), first.tna := .I[1L], by = crsp_fundno][
+  1:.N == first.tna, tna.l1 := tna]
 
 # prepare for aggregation to fund level
 ret.tna <- ret.tna[
   # add fund id (wficn) from MFLINKS (only keep matches)
   mfl.crsp, on = "crsp_fundno", nomatch = 0][
   # drop if lagged tna not available or is not positive
-  !is.na(tna.lag) & tna.lag > 0][
+  !is.na(tna.l1) & tna.l1 > 0][
   # gross returns
   , mret.gross := mret + exp_ratio / 12]
 
 # aggregate to fund level
 # net returns, expense ratio, turnover weighted by lagged tna
 r.net.dt <- ret.tna[
-  !is.na(mret), .(r.net = sum(mret * tna.lag / sum(tna.lag))),
+  !is.na(mret), .(r.net = sum(mret * tna.l1 / sum(tna.l1))),
   keyby = .(wficn, date)]
 # gross returns
 r.gross.dt <- ret.tna[
-  !is.na(mret.gross), .(r.gross = sum(mret.gross * tna.lag / sum(tna.lag))),
+  !is.na(mret.gross), .(r.gross = sum(mret.gross * tna.l1 / sum(tna.l1))),
   keyby = .(wficn, date)]
 # total net assets
 tna.dt <- ret.tna[
@@ -444,11 +443,11 @@ tna.dt <- ret.tna[
   keyby = .(wficn, date)]
 # expense ratio
 exp_ratio.dt <- ret.tna[
-  !is.na(exp_ratio), .(exp_ratio = sum(exp_ratio * tna.lag / sum(tna.lag))),
+  !is.na(exp_ratio), .(exp_ratio = sum(exp_ratio * tna.l1 / sum(tna.l1))),
   keyby = .(wficn, date)]
 # turnover
 turn_ratio.dt <- ret.tna[
-  !is.na(turn_ratio), .(turn_ratio = sum(turn_ratio * tna.lag / sum(tna.lag))),
+  !is.na(turn_ratio), .(turn_ratio = sum(turn_ratio * tna.l1 / sum(tna.l1))),
   keyby = .(wficn, date)]
 
 # merge fund level variables
@@ -473,38 +472,28 @@ ret.tna.fund <- ret.tna.fund[
   # drop cpi
   , cpi := NULL]
 
-ret.tna.fund <- merge(
-  ret.tna.fund,
-  # lagged size: shift date by a month and merge back
-  copy(ret.tna.fund)[
-    , date := date + 1/12][
-    , .(wficn, date, tna.lagged = tna, tna.real2017.lagged = tna.real2017)]
-  # match on wficn and date, keep all from master
-  , by = c("wficn", "date"), all.x = TRUE)[
+# lagged tna, real tna
+ret.tna.fund <- LagDT(ret.tna.fund, c("tna", "tna.real2017"), panel.id="wficn")
 
+# additional sample conditions on tna, expense ratio
+ret.tna.fund <- ret.tna.fund[
   # drop if lagged real tna is less than 15m
-  is.na(tna.real2017.lagged) | tna.real2017.lagged >= 15][
+  is.na(tna.real2017.l1) | tna.real2017.l1 >= 15][
   # if lagged real tna missing, drop if current real tna less than 15m
-  !(is.na(tna.real2017.lagged) & tna.real2017 < 15)][
-
+  !(is.na(tna.real2017.l1) & tna.real2017 < 15)][
   # drop if fund-level expense ratio < .1% (signifies passive fund)
   is.na(exp_ratio) | exp_ratio >= 0.001][
-
   # drop if tna == 0
   tna > 0][
-
   # keep only if the fund is observed for at least a year
   , if (.N >= 12) .SD, by = wficn]
 
-# calculate fund age
-ret.tna.fund <-
-  # add in fund inception date
-  merge(ret.tna.fund, fund.inception, by = "wficn", all.x = TRUE)[
-    , `:=` (
-      # number of years since inception
-      fund.age = date - as.yearmon(fund.inception),
-      # no need to retain actual inception date in this table
-      fund.inception = NULL)]
+# add in fund inception
+ret.tna.fund <- merge(ret.tna.fund, fund.inception, by = "wficn", all.x = TRUE)[
+  # number of years since inception
+  , fund.age := date - as.yearmon(fund.inception)][
+  # no need to retain actual inception date in this table
+  , fund.inception := NULL]
 
 # sort and save
 setkey(ret.tna.fund, wficn, date)
