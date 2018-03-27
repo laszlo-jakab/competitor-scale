@@ -46,6 +46,10 @@ com <- function(nc, txt) {
     mrn, PHead(nc, "Panel A: 1 year window"),
     mrn, PHead(nc, "Panel B: 2 year window"), mr)
 }
+cn <- c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
+    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
+    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$")
+cn.2sls <- c(cn[1], cn[3:length(cn)])
 
 # load tables
 reg.scandal <- readRDS("tab/reg_scandal.Rds")
@@ -105,11 +109,8 @@ px(xtable(tab.scandal$by.exposure$results,
 # DiD Pre-Trend ----------------------------------------------------------------
 
 # label columns
-setnames(reg.scandal$pt$results, 
-  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
-
+setnames(reg.scandal$pt$results, cn)
+  
 # add caption and panel headers
 rb <- nrow(reg.scandal$pt$sub.results$w1yr)
 nc <- ncol(reg.scandal$pt$results)
@@ -131,10 +132,7 @@ px(xtable(reg.scandal$pt$results,
 # DiD, Bm X Date FE ------------------------------------------------------------
 
 # label columns
-setnames(reg.scandal$did.bm$results, 
-  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+setnames(reg.scandal$did.bm$results, cn)
 
 # add caption and panel headers
 rb <- nrow(reg.scandal$did.bm$sub.results$w1yr)
@@ -157,10 +155,7 @@ px(xtable(reg.scandal$did.bm$results,
 # Pre-Trend, Bm X Date FE ------------------------------------------------------
 
 # label columns
-setnames(reg.scandal$pt.bm$results, 
-  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+setnames(reg.scandal$pt.bm$results, cn)
 
 # add caption and panel headers
 rb <- nrow(reg.scandal$pt.bm$sub.results$w1yr)
@@ -179,14 +174,34 @@ px(xtable(reg.scandal$pt.bm$results,
 ```
 
 
+```{r scandalSpilloverPreTrendSof, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+# DiD for ScandalOutFlow, Pre-Trend --------------------------------------------
+
+# label columns
+setnames(reg.scandal$pt.sof$results, cn)
+  
+# add caption and panel headers
+rb <- nrow(reg.scandal$pt.sof$sub.results$w1yr)
+nc <- ncol(reg.scandal$pt.sof$results)
+add.to.row <- list(
+  pos = list(-1, 0, 0, rb, rb, rb), 
+  command = com(nc, reg.scandal$pt.sof$caption))
+
+# print the table
+px(xtable(reg.scandal$pt.sof$results,
+  align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
+  caption = reg.scandal$pt.sof$title,
+  label = "tab:scandalSpilloverPreTrendSof"),
+    size = "\\tiny")
+# ------------------------------------------------------------------------------
+```
+
+
 ```{r scandalSpilloverIVMXBim, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
 # ScandalOutFlow, Bm X Date FE -------------------------------------------------
 
 # label columns
-setnames(reg.scandal$sof.bm$results, 
-  c("Dep. Var.:", "$\\ln(C.S.)$", "$\\ln(AS)$",
-    "$\\ln(TL^{-1/2})$", "$\\ln(L)$", "$\\ln(S)$",
-    "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+setnames(reg.scandal$sof.bm$results, cn)
 
 # add caption and panel headers
 rb <- nrow(reg.scandal$sof.bm$sub.results$w1yr)
@@ -205,13 +220,34 @@ px(xtable(reg.scandal$sof.bm$results,
 ```
 
 
+```{r scandalSpilloverPreTrendSofBm, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+# DiD for ScandalOutFlow, Pre-Trend, Bm X Date FE ------------------------------
+
+# label columns
+setnames(reg.scandal$pt.sof.bm$results, cn)
+  
+# add caption and panel headers
+rb <- nrow(reg.scandal$pt.sof.bm$sub.results$w1yr)
+nc <- ncol(reg.scandal$pt.sof.bm$results)
+add.to.row <- list(
+  pos = list(-1, 0, 0, rb, rb, rb), 
+  command = com(nc, reg.scandal$pt.sof.bm$caption))
+
+# print the table
+px(xtable(reg.scandal$pt.sof.bm$results,
+  align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
+  caption = reg.scandal$pt.sof.bm$title,
+  label = "tab:scandalSpilloverPreTrendSofBm"),
+    size = "\\tiny")
+# ------------------------------------------------------------------------------
+```
+
+
 ```{r scandal2SLS, echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
 # 2SLS -------------------------------------------------------------------------
 
 # label columns
-setnames(reg.scandal$iv$results, 
-  c("Dep. Var.:", "$\\ln(AS)$", "$\\ln(TL^{-1/2})$", "$\\ln(L)$", 
-    "$\\ln(S)$", "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+setnames(reg.scandal$iv$results, cn.2sls)
 
 # add caption and panel headers
 rb <- nrow(reg.scandal$iv$sub.results$w1yr)
@@ -234,9 +270,7 @@ px(xtable(reg.scandal$iv$results,
 # 2SLS, Bm X Date FE -----------------------------------------------------------
 
 # label columns
-setnames(reg.scandal$iv.bm$results, 
-  c("Dep. Var.:", "$\\ln(AS)$", "$\\ln(TL^{-1/2})$", "$\\ln(L)$", 
-    "$\\ln(S)$", "$\\ln(D)$", "$\\ln(C)$", "$\\ln(B)$"))
+setnames(reg.scandal$iv.bm$results, cn.2sls)
 
 # add caption and panel headers
 rb <- nrow(reg.scandal$iv.bm$sub.results$w1yr)
