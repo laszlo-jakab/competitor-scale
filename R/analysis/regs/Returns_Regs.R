@@ -1,5 +1,5 @@
 # Laszlo Jakab
-# Mar, 2018
+# Mar 2018
 
 # Setup ------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ rt.base <- RegTable(r.base, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 # label regression table
 tab.base <- list(
   results = rt.base,
-  title = "Decreasing Returns to Competitor Scale",
+  title = "Fund Performance and Competitor Scale",
   caption = "Observations are at the fund-month level, over the period 1980-2016. The dependent variable is three-factor adjusted gross returns, in annualized percentages. $CompetitorSize$ and $IndustrySize$ are normalized by their respective sample standard deviations. $FundSize$ is normalized by the difference between the 50th and 10th percentile of its distribution. Standard errors are double clustered by fund and year-month $\\times$ portfolio group, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
@@ -61,7 +61,7 @@ rt.base.08 <- RegTable(r.base.08, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 # label regression table
 tab.base.08 <- list(
   results = rt.base.08,
-  title = "Decreasing Returns to Competitor Scale --- Pre-2008 Data",
+  title = "Fund Performance and Competitor Scale --- Pre-2008 Data",
   caption = "Observations are at the fund-month level, over the period 1980-2007. The dependent variable is three-factor adjusted gross returns, in annualized percentages. $CompetitorSize$ and $IndustrySize$ are normalized by their respective sample standard deviations. $FundSize$ is normalized by the difference between the 50th and 10th percentile of its distribution. Standard errors are double clustered by fund and year-month $\\times$ portfolio group, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
