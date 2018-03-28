@@ -101,9 +101,9 @@ combined[, ln.TL := log(To/sqrt(L))]
 
 # returns, expense ratio in yearly % units
 combined[, c("r.net", "r.gross", "exp_ratio")
-  := list(r.net*100*12, r.gross*100*12, exp_ratio*100)]
+  := list(r.net * 100 * 12, r.gross * 100 * 12, exp_ratio * 100)]
 ra.var <- names(combined)[grepl("^ra\\.", names(combined))]
-combined[, (ra.var) := lapply(.SD, function(x) x*100*12), .SDcols = ra.var]
+combined[, (ra.var) := lapply(.SD, function(x) x * 100 * 12), .SDcols = ra.var]
 
 # carry forward most recently observed benchmark
 setkey(combined, wficn, date)
