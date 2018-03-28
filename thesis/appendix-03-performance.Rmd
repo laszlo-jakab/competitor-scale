@@ -1,4 +1,4 @@
-\chapter{Competitor Size and Fund Performance} 
+\chapter{Fund Performance and Competitor Scale} 
 \label{sec:CSandPerformance}
 
 
@@ -39,7 +39,7 @@ px <- function(tab, ...) {
     width="0.99\\textwidth",
     include.rownames = FALSE,
     caption.placement = 'top',
-	table.placement = "t",
+	table.placement = "H",
 	...)
 }
 
@@ -64,8 +64,7 @@ R_{i,t} = \alpha_i + \beta^{RMRF}_i RMRF_t + \beta^{SMB}_i SMB_t + \beta^{HML}_i
 \end{equation}
 Therefore, $R^{FF3}_{i,t} = \hat{\alpha}_i + \hat{\varepsilon}_{i,t}$, i.e. each period's benchmark adjusted returns are equal to the sum of the fund's estimated gross alpha and the given month's residual from the Fama-French time series regressions.
 
-Benchmarking with a factor model has some shortcomings and advantages. 
-The long-short SMB and HML portfolios are not tradeable for mutual funds. @bvb15 argue that at each point in time the performance of active funds ought to be measured against the returns of the lowest cost passive funds readily available to retail investors. This is an eminently sensible suggestion for studying funds' value added for retail investors, but not an obviously superior method for testing whether fund alpha is decreasing in competitor scale. @cpz12 note that Fama-French benchmarks imply nonzero alphas for a number of mainstream passive benchmarks. My results are robust to following their suggestion of benchmarking with index-based factors. Unlike self-designated benchmarks, Fama-French factors are not gameable by funds. They are also widely available.^[As argued by @pst15, Morningstar benchmarks share the feature of non-gameability, but are proprietary.] Unlike characteristic based benchmarks, factor based benchmarks are not subject to errors in holdings  data, are available monthly, and account for the unobserved actions of funds. Lastly, regardless of whether size and value correspond to risk, Fama-French factors capture a large fraction of variance in cross-sectional returns. 
+Benchmarking with a factor model has some shortcomings and advantages. The long-short SMB and HML portfolios are not tradeable for mutual funds. @bvb15 argue that at each point in time the performance of active funds ought to be measured against the returns of the lowest cost passive funds readily available to retail investors. This is an eminently sensible suggestion for studying funds' value added for retail investors, but not an obviously superior method for testing whether fund alpha is decreasing in competitor scale. @cpz12 note that Fama-French benchmarks imply nonzero alphas for a number of mainstream passive benchmarks. My results are robust to following their suggestion of benchmarking with index-based factors. Unlike self-designated benchmarks, Fama-French factors are not gameable by funds. They are also widely available.^[As argued by @pst15, Morningstar benchmarks share the feature of non-gameability, but are proprietary.] Unlike characteristic based benchmarks, factor based benchmarks are not subject to errors in holdings  data, are available monthly, and account for the unobserved actions of funds. Lastly, regardless of whether size and value correspond to risk, Fama-French factors capture a large fraction of variance in cross-sectional returns. 
 
 
 # Regression Setup
@@ -171,7 +170,11 @@ R^{FF3}_{i,t+1} = \alpha_i + \alpha_t &+ \gamma_1 CompetitorSize_{i,t} + \gamma_
 \end{align}
 Panel B of Table \@ref(tab:roleOfLiquidity) presents results from the regressions. With the exception of stock liquidity, the interaction terms are all positive and statistically significant, suggesting that increased portfolio liquidity shelters the fund from decreasing returns to scale. Note that the main effect of portfolio liquidity is negative, suggesting that funds make more when they hold more concentrated portfolios. This is consistent with funds responding to time-varying investment opportunities by decreasing portfolio liquidity when expected returns are high.
 
+
 # Results Using Pre-2008 Data
+
+@zhu17 finds that Thomson's coverage of new funds deteriorates after 2008, leading to potential bias. To make sure this data quality issue is not responsible for my findings, I re-do the analysis using only data up to 2008 below. The results remain substantively similar.
+
 
 ```{r mainResults08, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'}
 # Decreasing Returns to Competitor Size ----------------------------------------
