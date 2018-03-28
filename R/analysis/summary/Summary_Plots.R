@@ -17,6 +17,9 @@ mfl.crsp        <- readRDS("data/clean/mfl_crsp_nodup.Rds")
 funds.in.sample <- readRDS("data/funds_included/funds_in_sample.Rds")
 wficn.rdate     <- readRDS("data/clean/wficn_rdate.Rds")
 
+# set ggplot theme
+th <- theme_bw()
+
 
 # CompetitorSize Distribution --------------------------------------------------
 
@@ -78,7 +81,7 @@ p.rdate <-
     ggplot(aes(date, N)) +
     ylab("Number of funds reporting") +
     xlab("Report date") +
-    theme_bw() +
+    th +
     geom_bar(stat = "identity", aes(fill = mid.qtr)) +
     theme(
       legend.position = c(.01, .99),
@@ -110,7 +113,7 @@ p.isize <- melt(isize, id.vars = "date") %>%
     ylab("Size relative to market") +
     scale_colour_manual("", values = c(azure, orangebrown)) +
     scale_linetype_manual("", values = c("solid", "longdash")) +
-    theme_bw() +
+    th +
     theme(legend.position = "bottom")
 
 # annotate plot
