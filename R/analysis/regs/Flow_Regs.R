@@ -13,7 +13,7 @@ mapfn <- function(a, b) felm(a, eval(parse(text = b)))
 # load data
 funds.in.sample <- readRDS("data/funds_included/funds_in_sample.Rds")
 flc      <- readRDS("data/clean/fund_level_crsp.Rds")[
-  , .(wficn, date, r.net, tna, tna.lagged)]
+  , .(wficn, date, r.net, tna, tna.l1)]
 tmc      <- readRDS("data/clean/total_mktcap.Rds")[, .(date, totcap)]
 ra       <- readRDS("data/benchmarked_returns/risk_adj_ret.Rds")
 combined <- readRDS("data/combined/combined.Rds")
@@ -22,7 +22,6 @@ scandal  <- readRDS("data/scandal/scandal_dt.Rds")
 
 # Data Prep ---------------------------------------------------
 
-setnames(flc, "tna.lagged", "tna.l1")
 flc <- flc[
   # keep only fudns that pass sample filters
   funds.in.sample, on = "wficn", nomatch = 0][
@@ -62,6 +61,7 @@ scandal[, flow := flow * 100]
 
 coef.lab.dt <- data.table(
   old.name = c(
+    "post.newsTRUE",
     "post.scandal:scandal.fund",
     "postXscan",
     "scandal.outflow",
@@ -70,6 +70,7 @@ coef.lab.dt <- data.table(
     paste0("rcapm.l", 1:12),
     paste0("rff3.l", 1:12)),
   new.name = c(
+    "PostNews",
     "$\\mathbb{I} \\times$ Scandal",
     "$\\mathbb{I} \\times ScanEx$",
     "$ScandalOutFlow$",
@@ -138,13 +139,15 @@ rt.cs.ff3 <- RegTable(r.cs.ff3, fe.list = fe.list, coef.lab.dt = coef.lab.dt)
 
 # add in past returns
 scandal <- merge(scandal, ra.dt, by = c("wficn", "date"), all.x = TRUE)
+scandal[, post.news := date >= as.yearmon(news.date)][
+  is.na(post.news), post.news := FALSE]
 
 # specifications
 dt.t <- c(rep("scandal['Sep 2002' <= date & date < 'Nov 2005']", each = 2),
           rep("scandal", each = 2))
 x.t <- rep(c(
-  "post.scandal:scandal.fund",
-  paste("post.scandal:scandal.fund",
+  "post.news",
+  paste("post.news",
          paste0("rff3.l", 1:12, collapse = " + "), sep = " + ")), 2)
 fe.t <- "wficn + date"
 cl.t <- "wficn + date.port.grp"
@@ -238,7 +241,7 @@ tab.flow <- list(
   scandal.cs = list(
     results = rt.scandal,
 	sub.results = list(raw = rt.s, ret.controls = rt.sr),
-    title = "Flows to Untainted Funds",
+    title = "Investor Flows and the Scandal",
     caption = "The dependent variable is net flows in monthly percent units. Observations are at the fund-month level, including only funds untainted by the scandal, over the period $\\{[2003m9-W, 2004m10+W] \\}$. $\\mathbb{I}$ is an indicator for the post scandal period. $ScandalExposure$ ($ScanEx$) and $ScandalOutFlow$ are normalized by interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. Standard errors are double clustered by fund and portfolio group $\\times$ month in the month FE specifications, and by fund and benchmark $\\times$ month in the benchmark $\\times$ month specifications, reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1."
   )
 )
