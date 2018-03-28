@@ -1,0 +1,183 @@
+\chapter{Data Construction}
+\label{sec:data-construction}
+
+Code for reproducing the paper in full is available at <https://github.com/laszlo-jakab/competitor-scale>.^[Programs built under `R 3.4.3`, using packages `data.table 1.10.4-3`, and `zoo 1.8-1`. Fixed effects and instrumental variable regressions estimated using the `lfe 2.6-2291` package [@g13].] For a standalone toolbox to calculate the $CompetitorSize$ variable using portfolio weights and fund sizes, see the `R` package `compsizer`, available at https://github.com/laszlo-jakab/compsizer.
+
+
+# CRSP Survivor-Bias-Free US Mutual Fund Database
+
+
+## Source Datasets
+
+I download the following datasets from WRDS: `MONTHLY_TNA`, `MONTHLY_RETURNS`, `MONTHLY_NAV`, `FUND_HDR`, `FUND_HDR_HIST`, `FUND_FEES`, `FUND_STYLE`. The following is a summary of the steps I took for cleaning the data.
+
+
+## Data Cleaning
+
+- `MONTHLY_TNA`
+    - Set `mtna = -99` to missing.
+	- Keep observations with positive, non-missing `mtna`.
+	- Align `caldt` across share classes each month by taking the min (in a few cases, `caldt` is beyond the last trading day).
+- `MONTHLY_RETURNS`
+    - keep observations with non-missing `mret`.
+	- align `caldt` across share classes each month as above.
+	- keep returns only if they apply for a single month, as evidenced by non-missing `mnav` or `mret` in the previous month.
+- `FUND_FEES`
+    - Set `-99` to missing for all variables.
+	- Set `exp_ratio <= 0` to missing.
+	- Make sure `begdt` and `enddt` do not overlap (in a handful of cases, the next `begdt` is the same as the current `enddt`; if so, I decrement `enndt` by one day).
+	- Break out `turn_ratio`, as `begdt` and `enddt` are not appropriate for this variable.
+	- `turn_ratio` is valid for 12 months ending on fiscal_yearend when it is present, otherwise, for the 12 months ending on `begdt`; construct custom beginning and end dates for `turn_ratio` based on this fact.
+- `FUND_HDR`, `FUND_HDR_HIST`
+    - Append datasets.
+	- Clean beginning and end dates.
+
+
+## Generating Fund-Level Dataset
+
+1. Combine returns, TNA, expense ratio, turnover
+    - Match returns and TNA on `crsp_fundno` and `caldt`.
+	- Overlap match combined returns and TNA to `exp_ratio` on `crsp_fundno`, and `begdt <= caldt <= enddt`.
+	- Perform similar overlap match for turnover, on user-defined beginning and end dates.
+2. Fill in gaps in `mtna` by carrying forward the last non-missing observation, compounded by net returns.
+3. Generate one-month lag TNA to be used as weights in the fund-level aggregation; fill in first observation for each fund by current TNA to retain as many observations as possible (this is used only for the fund-level aggregation). Keep only if lagged TNA is positive and non-missing.
+4. Merge in the fund identifier `wficn` from `MFLINKS`.
+5. Generate gross returns as `mret.gross = mret + exp_ratio / 12`.
+6. Aggregate to fund level.
+    - For each of net returns, gross returns, expense ratio, and turnover, calculate lagged-TNA-weighted means at the fund-month level, using only non-missing observations for each.
+	- Sum TNA by fund-month.
+	- Merge fund-month level variables into single dataset.
+7. Clean fund-month level dataset.
+    - Keep only if lagged TNA in 2017 dollars is in excess of 15 million.
+	- If lagged TNA missing, drop if current TNA is below 15 million in 2017 dollars.
+	- Drop if current TNA is zero.
+	- Drop if expense ratio is below 0.1%.
+	- Keep only if a fund has twelve months of available observations.
+
+
+# CRSP US Stock Database
+
+I download the following datasets from WRDS: `MSF`, `STOCKNAMES`. The following is a summary of the steps I took for cleaning the data.
+    - Set `prc = -99` to missing, and replace the variable with its absolute value.
+	- Keep if `prc` and `shrout` are non-missing.
+	- Overlap match to `STOCKNAMES` on `crsp_fundno` and `namedt <= caldt <= nameendt|`. 
+	- Keep only common stock (`shrcd` 10 or 11).
+
+
+# Thomson Reuters Holdings Database
+\label{sec:Thomson}
+
+## Data 
+
+I download from WRDS data on fund share holdings from the Thomson Reuters Mutual Fund and Investment Company Common Stock Holdings Database (henceforth referred to as Thomson). The first holdings are reported as of 1979m12, but there is a jump in the number of reporting funds in 1980m3, which I consider the first complete report date.
+
+While Thomson collects holdings quarterly (on `fdate` "file dates"; these represent "vintages" of Thomson's data feed), funds do not consistently report holdings at that frequency. The Thomson dataset notes the date on which funds reported their holdings, and hence the date for which the holdings are valid, as `rdate` at each data vintage. Share holdings are adjusted for splits at the vintage date. A recent WRDS investigation suggests that Thomson occasionally applies the split adjustment inappropriately, causing inconsistencies in holdings around stock splits. Part of this problem occurs while Thomson carries forward stale holdings data across different vintages. To the extent that the problematic split adjustments are linked to stale data, I avoid the issue by excluding stale reports as follows.
+
+At each vintage date, Thomson provides the most recently reported holdings of each fund, even if the fund has not furnished an updated holdings report since the last vintage date. I handle this "stale data problem" by keeping only the first Thomson vintage for each holdings report. In the absence of an intervening fresh holdings report, I consider each report to represent the fund's buy-and-hold portfolio for the six months following the report. Reports can be filed on any day of the month. Since I am constructing a fund-month-level dataset, I assign each report to the month during which it was filed, regardless of the exact report day. This amounts to treating each report as if it was made at the end of month. 
+
+WRDS delivers the Thomson holdings data in two parts. The S12 Type 1 table includes fund report dates, data vintage dates, as well as investment objective codes. The S12 Type 3 table includes share holdings for each data vintage, including stale data. The Type 3 table identifies shares by `cusip`. After selecting the first vintage for each report date in the Type 1 table and discarding all subsequent vintages, I link the Type 1 and Type 3 tables on fund identifiers and vintage date (`fundno-fdate`).
+
+ 
+# MFLINKS
+
+MFLINKS, originally developed by Wermers (2000), links CRSP share classes with fund level portfolio holdings in Thomson. The database was updated by Cao and Xue (2015), and currently it runs until the end of 2016.
+
+The database links share classes in the CRSP mutual fund database, identified uniquely by `crsp_fundno`, to unique fund identifiers `wficn`. (There are six instances where a `crsp_fundno` is not uniquely matched to a `wficn`; I drop these observations.) On the Thomson side, it maps each `fundno-fdate` pair to the appropriate `wficn`. 
+
+
+# Calculating Fund Portfolio Weights
+
+## Linking CUSIP and `permno`
+
+I use the `STOCKNAMES` file to produce a linking table between CUSIP and `permno` in order to combine share Thomson share holding data with CRSP stock data. I take `ncusip` as the relevant identifier in this file; when it is missing, I fill it in with the appropriate `cusip`. I then generate all unique pairs between the (filled-in) `ncusip` and `permno`. This algorithm produces a one to many mapping between (filled-in) `ncusip` and `permno`. 
+
+
+## Applying share adjustment
+
+Holdings in Thomson are adjusted for splits as of the vintage date. I therefore match holdings to CRSP cumulative share adjustment factors (`cfacshr`) by vintage date as `shares=shares*cfacshr`. I retain only share holdings which can be matched to records in CRSP classified as US common equity.
+
+## Prices
+
+After adjusting shares, I forward fill portfolio holdings for up to 6 months between report dates, simulating a buy-and-hold strategy. I then match holdings with prices and cumulative price adjustment factors (`cfacpr`) on the (forward-filled) report dates, and calculate holding values as `shares*prc/cfacpr` at each date, and use these to calculate portfolio weights.
+
+
+# Identifying actively managed domestic equity funds
+\label{sec:sampleFilters}
+
+The following steps describe the algorithm for identifying actively managed US equity funds.
+
+1. Exclude funds without a `wficn` fund identifier from MFLINKS.
+2. Exclude funds that do not meet the data availability, size, or expense ratio requirements in the CRSP mutual fund dataset.
+3. Exclude funds with investment objective codes (`ioc`) in the Thomson Reuters S12 Type 1 database of the following type:
+	- `ioc = 1` International
+	- `ioc = 5` Municipal Bond 
+	- `ioc = 6` Bond & Preferred 
+	- `ioc = 7` Balanced
+	- `ioc = 8` Metals
+    Remaining funds either have a missing investment objective code, or are categorized as `ioc = 2` Aggressive Growth, `ioc==3` Growth, `ioc = 4` Growth & Income, `ioc = 9` Unclassified.
+4. Drop if any share class of the fund is ever classified as an index fund by CRSP (`index_fund_flag != ""`), or if the name of any of the fund's share classes ever contains "index" in the CRSP database.
+5. Exclude if any of the fund's share classes is ever assigned any of the following policy code (`policy`) in CRSP:
+	- `Bal` Balanced fund
+	- `B & P` Bonds and preferred stock (mainly convertible funds)
+	- `Bonds` Bonds
+	- `C & I` Canadian and international
+	- `Hedge` Leverage and/or short selling
+	- `Leases` Holds equity in lease contracts
+	- `GS` Government securities
+	- `MM` Money market
+	- `Pfd` Preferred stock
+	- `Spec`  Sector or highly speculative fund
+	- `TF` Tax free fund
+	- `TFE` Tax-free exchange fund
+	- `TFM` Tax free money market fund
+6. Use CRSP objective codes (`crsp_obj_cd`) to exclude target date funds and sector funds, as follows.
+	- Target date funds: exclude fund if any share class ever has `crsp_obj_cd` equal to `MT`
+	- Sector funds: exclude fund if any share class is ever has `crsp_obj_cd` beginning with `EDS`
+7. Exclude funds with any share class whose lower case name ever includes any of the following geographical and allocation-related strings
+	- `internat`
+	- `euro`
+	- `japan`
+	- `emerging market`
+	- `balanced`
+	- `bond fund`
+8. To further ensure the exclusion of target date funds, drop funds with any share classes whose lower case name ever includes any of the following strings
+	- `20[0-9][0-9]`
+	- `retire`
+	- `target`
+9. Exclude Tax-managed funds with any share classes whose lower case name ever includes `tax-` or `tax `, followed by any of `manage`, `efficien`, `exempt`, `smart`, `advantage`, `aware`, or `sensitive`.
+10. After the above filters are applied, I define domestic equity funds constructively through the following procedure. Consider a share class domestic equity if
+	i. Lipper class indicates domestic equity. I consider this to be the case if `lipper_class` is any of 
+		- `EIEI` Equity income
+		- `G` Growth
+		- `LCCE` Large cap core
+		- `LCGE` Large cap growth
+		- `LCVE` Large cap value
+		- `MCCE` Mid cap core
+		- `MCGE` Mid cap growth
+		- `MCVE` Mid cap value
+		- `MLCE` Multi cap core
+		- `MLGE` Multi cap growth
+		- `MLVE` Multi cap value
+		- `SCCE` Small cap core
+		- `SCGE` Small cap growth
+		- `SCVE` Small cap value
+	ii. If Lipper class is unavailable, rely on Strategic Insights Objective Codes to identify equity funds. I flag funds as domestic equity if `si_obj_cd` is any of
+		- `AGG` Equity US aggressive growth
+		- `GMC` Equity US midcaps
+		- `GRI` Equity US growth \& income
+		- `GRO` Equity US growth
+		- `ING` Equity US income \& growth	
+		- `SCG` Equity US small companies
+	iii. If neither Lipper class nor Strategic Insights Objective Code is available, I use Wiesenberger Fund Type codes. I flag funds as domestic equity if `wbrger_obj_cd` is any of 
+		- `G` Growth
+		- `G-I` Growth-income
+		- `GCI` Growth and current income
+		- `LTG` Long term growth
+		- `MCG` Maximum capital gains
+		- `SCG` Small cap growth
+
+I include a fund if any of its share classes is flagged as domestic equity by the above procedure at some point.
+
+11. Drop if any share classes ever classified as fixed income, i.e. with `crsp_obj_cd` beginning with `I` 
+12. Drop funds if it is classified as a foreign fund (`crsp_obj_cd` beginning with `EF`) over 25% of the time.
+
