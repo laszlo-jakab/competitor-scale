@@ -13,8 +13,7 @@ pkgs <- c(
   "knitr",
   "xtable",
   "ggplot2",
-  "gridExtra"
-)
+  "gridExtra")
 lapply(pkgs, library, character.only = TRUE)
 options(knitr.kable.NA = '')
 
