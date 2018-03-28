@@ -15,6 +15,10 @@ scandal.outflow.dt <- readRDS("data/scandal/scandal_outflow.Rds")
 # load plotting function
 source("R/functions/Plot_Fn.R")
 
+# set ggplot themes
+theme.type <- "bw"
+th <- theme_bw()
+
 
 # Data: Flows ------------------------------------------------------------------
 
@@ -129,7 +133,7 @@ p.scandal.flows <- scandal.flows %>%
   geom_line(aes(linetype = scandal.fund, colour = scandal.fund)) +
   scale_linetype_manual("", values = c("solid", "longdash")) +
   scale_colour_manual("", values = c(azure, orangebrown)) +
-  theme_bw() +
+  th +
   theme(
     legend.position = "bottom",
     legend.key.width = unit(1, "strwidth", "Involved"))
@@ -144,7 +148,7 @@ p.scandal.size <- scandal.size.date %>%
   scale_x_date(date_labels= "%b %y", breaks = break.vec) +
   coord_cartesian(ylim = c(0, .15)) +
   geom_col(col = azure, fill = azure, alpha = .3) +
-  theme_bw() +
+  th +
   theme(
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
@@ -153,13 +157,11 @@ p.scandal.size <- scandal.size.date %>%
 # label plots
 scandal.flow.plots <- list(
   results = list(flows = p.scandal.flows, size = p.scandal.size),
-  title = "Flows and size by scandal involvement.",
+  title = "Flows and assets by scandal involvement.",
   caption = "The left panel plots mean monthly net flows. The vertical line corresponds to August 2003, the month before the announcement of the first investigations. The right panel shows the total net assets of funds coming under investigation in a given month, relative to the total size of funds in my sample.")
 
 
 # Plot: DiD --------------------------------------------------------------------
-
-theme.type <- "bw"
 
 # log(CompetitorSize)
 p.ln.CS <- DidPlot(high.low.dt, "fln.CS", "high.exposure",
@@ -196,7 +198,7 @@ p.ln.L <- DidPlot(high.low.dt, "fln.L", "high.exposure",
 did.plots <- list(
   results = list(ln.CS = p.ln.CS, ln.AS = p.ln.AS, ff3 = p.ff3,
                  ln.TL =  p.ln.TL, ln.T = p.ln.T, ln.L = p.ln.L),
-  title = "Untainted fund outcomes by exposure to competition from scandal funds.",
+  title = "Untainted fund outcomes by $ScandalExposure$.",
   caption = "Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across groups. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
 
 
@@ -250,7 +252,7 @@ p.betas <- mean.betas %>%
   aes(Date, mean.beta) +
   ylab(expression(beta[j^{(d)}][t])) +
   geom_line(col = azure) +
-  theme_bw()
+  th
 
 # ScandalOutFlow percentiles by date
 p.sof <- sof.pctiles %>%
@@ -260,7 +262,7 @@ p.sof <- sof.pctiles %>%
   geom_line(aes(linetype = variable, colour = variable)) +
   scale_linetype_manual("", values = 1:3) +
   scale_colour_manual("", values = c(azure, orangebrown, lgreen)) +
-  theme_bw() +
+  th +
   theme(
     legend.position = c(.01, .99),
     legend.justification = c(0, 1),
