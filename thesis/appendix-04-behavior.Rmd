@@ -44,30 +44,6 @@ reg.behavior <- readRDS("tab/reg_behavior.Rds")
 ```
 
 
-```{r fundResponseMXBim, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'} 
-# Capital Allocation, Benchmark X Time FE -----------------------------------------
-
-# label columns
-setnames(reg.behavior$bm$results, 
-  c("Dep. Var.:", "$\\Delta\\ln(AS)$", "$\\Delta\\ln(TL^{-1/2})$",
-    "$\\Delta\\ln(L)$", "$\\Delta\\ln(S)$", "$\\Delta\\ln(D)$", 
-    "$\\Delta\\ln(C)$", "$\\Delta\\ln(B)$"))
-
-# add caption to top of table
-nc <- ncol(reg.behavior$bm$results)
-add.to.row <- list(
-  pos = list(-1), 
-  command = TCap(nc, reg.behavior$bm$caption))
-
-# print the table
-px(xtable(reg.behavior$bm$results,
-  align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
-  caption = reg.behavior$bm$title,
-  label = "tab:fundResponseMXBim"))
-# --------------------------------------------------------------------------------
-```
-
-
 ```{r fundResponse08, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'} 
 # Capital Allocation, Pre-2008 ---------------------------------------------------
 
@@ -88,6 +64,30 @@ px(xtable(reg.behavior$baseline.08$results,
   align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
   caption = reg.behavior$baseline.08$title,
   label = "tab:fundResponse08"))
+# --------------------------------------------------------------------------------
+```
+
+
+```{r fundResponseMXBim, echo = FALSE, message = FALSE, warning = FALSE, results = 'asis'} 
+# Capital Allocation, Benchmark X Time FE -----------------------------------------
+
+# label columns
+setnames(reg.behavior$bm$results, 
+  c("Dep. Var.:", "$\\Delta\\ln(AS)$", "$\\Delta\\ln(TL^{-1/2})$",
+    "$\\Delta\\ln(L)$", "$\\Delta\\ln(S)$", "$\\Delta\\ln(D)$", 
+    "$\\Delta\\ln(C)$", "$\\Delta\\ln(B)$"))
+
+# add caption to top of table
+nc <- ncol(reg.behavior$bm$results)
+add.to.row <- list(
+  pos = list(-1), 
+  command = TCap(nc, reg.behavior$bm$caption))
+
+# print the table
+px(xtable(reg.behavior$bm$results,
+  align = paste(c("ll", rep("Y", (nc - 1))), collapse = ""),
+  caption = reg.behavior$bm$title,
+  label = "tab:fundResponseMXBim"))
 # --------------------------------------------------------------------------------
 ```
 
