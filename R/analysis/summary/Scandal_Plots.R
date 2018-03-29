@@ -165,33 +165,33 @@ scandal.flow.plots <- list(
 
 # log(CompetitorSize)
 p.ln.CS <- DidPlot(high.low.dt, "fln.CS", "high.exposure",
-  expression(ln(C.S)), expression(ln(CompetitorSize)),
+  expression(bar(ln(C.S))), expression(ln(CompetitorSize)),
   theme.type = theme.type)
 
 # log(Active Share)
 p.ln.AS <- DidPlot(high.low.dt[month(date) %in% c(3, 6, 9, 12)], "fln.AS",
   "high.exposure",
-  expression(ln(AS)), expression(ln(AS)),
+  expression(bar(ln(AS))), expression(ln(AS)),
   theme.type = theme.type)
 
 # 3-factor adjusted returns
 p.ff3 <- DidBarPlot(high.low.dret, "dra.gross.ff3",
-  expression(R[high]^{FF3} - R[low]^{FF3}), expression(paste(R^{FF3})),
+  expression(bar(R[high]^{FF3}) - bar(R[low]^{FF3})), expression(paste(R^{FF3})),
   theme.type = theme.type)
 
 # log(TL)
 p.ln.TL <- DidPlot(high.low.dt, "fln.TL", "high.exposure",
-  expression(ln(T/sqrt(L))), expression(ln(TL^-frac(1,2))),
+  expression(bar(ln(T/sqrt(L)))), expression(ln(TL^-frac(1,2))),
   theme.type = theme.type)
 
 # log(T)
 p.ln.T <- DidPlot(high.low.dt, "fln.T", "high.exposure",
-  expression(ln(T)), expression(ln(T)),
+  expression(bar(ln(T))), expression(ln(T)),
   theme.type = theme.type)
 
 # log(L)
 p.ln.L <- DidPlot(high.low.dt, "fln.L", "high.exposure",
-  expression(ln(L)), expression(ln(L)),
+  expression(bar(ln(L))), expression(ln(L)),
   theme.type = theme.type)
 
 # label plots
@@ -199,49 +199,49 @@ did.plots <- list(
   results = list(ln.CS = p.ln.CS, ln.AS = p.ln.AS, ff3 = p.ff3,
                  ln.TL =  p.ln.TL, ln.T = p.ln.T, ln.L = p.ln.L),
   title = "Untainted fund outcomes by $ScandalExposure$.",
-  caption = "Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across groups. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
+  caption = "Funds are sorted into high and low exposure groups depending on whether their $ScandalExposure$ is above or below the cross-sectional median. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across high and low exposure groups. Other panels plot the cross-sectional groupwise means of respective variables' deviations from within-fund means. The $ln(AS)$ panel plots only quarter-end months as the variable is seldom reported within quarter. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
 
 
 # Plot: DiD for ScandalOutFlow -------------------------------------------------
 
 # log(CompetitorSize)
 p.sof.ln.CS <- DidPlot(high.low.sof.dt, "fln.CS", "high.outflow",
-                       expression(ln(C.S)), expression(ln(CompetitorSize)),
-                       theme.type = theme.type)
+  expression(bar(ln(C.S))), expression(ln(CompetitorSize)),
+  theme.type = theme.type)
 
 # log(Active Share)
 p.sof.ln.AS <- DidPlot(high.low.sof.dt[month(date) %in% c(3, 6, 9, 12)],
-                       "fln.AS", "high.outflow",
-                       expression(ln(AS)), expression(ln(AS)),
-                       theme.type = theme.type)
+  "fln.AS", "high.outflow",
+  expression(bar(ln(AS))), expression(ln(AS)),
+  theme.type = theme.type)
 
 # 3-factor adjusted returns
 p.sof.ff3 <- DidBarPlot(high.low.sof.dret, "dra.gross.ff3",
-                        expression(R[high]^{FF3} - R[low]^{FF3}), expression(paste(R^{FF3})),
-                        theme.type = theme.type)
+  expression(bar(R[high]^{FF3}) - bar(R[low]^{FF3})), expression(paste(R^{FF3})),
+  theme.type = theme.type)
 
 # log(TL)
 p.sof.ln.TL <- DidPlot(high.low.sof.dt, "fln.TL",
-                       "high.outflow",
-                       expression(ln(T/sqrt(L))), expression(ln(TL^-frac(1,2))),
-                       theme.type = theme.type)
+  "high.outflow",
+  expression(bar(ln(T/sqrt(L)))), expression(ln(TL^-frac(1,2))),
+  theme.type = theme.type)
 
 # log(T)
 p.sof.ln.T <- DidPlot(high.low.sof.dt, "fln.T", "high.outflow",
-                      expression(ln(T)), expression(ln(T)),
-                      theme.type = theme.type)
+  expression(bar(ln(T))), expression(ln(T)),
+  theme.type = theme.type)
 
 # log(L)
 p.sof.ln.L <- DidPlot(high.low.sof.dt, "fln.L", "high.outflow",
-                      expression(ln(L)), expression(ln(L)),
-                      theme.type = theme.type)
+  expression(bar(ln(L))), expression(ln(L)),
+  theme.type = theme.type)
 
 # label plots
 did.sof.plots <- list(
   results = list(ln.CS = p.sof.ln.CS, ln.AS = p.sof.ln.AS, ff3 = p.sof.ff3,
                  ln.TL =  p.sof.ln.TL, ln.T = p.sof.ln.T, ln.L = p.sof.ln.L),
   title = "Untainted fund outcomes by mean $ScandalOutFlow$.",
-  caption = "Funds are sorted into high and low groups depending on whether their mean $ScandalOutflow$ is above or below the cross-sectional median. The $\\ln(CompetitorSize)$, $\\ln(AS)$, and $\\ln(TL^{-1/2})$ panels plot cross-sectional means of the variables' deviations from their respective within fund means across groups. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across the two groups. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
+  caption = "Funds are sorted into high and low groups depending on whether their mean $ScandalOutflow$ is above or below the cross-sectional median. The $R^{FF3}$ panel plots the difference between the cross-sectional means of the within fund deviations of three factor adjusted gross returns across high and low exposure groups. Other panels plot the cross-sectional groupwise means of respective variables' deviations from within-fund means. The $ln(AS)$ panel plots only quarter-end months as the variable is seldom reported within quarter. The shaded area corresponds to the scandal period Sep 2003-Oct 2004.")
 
 
 # Plot: ScandalOutFlow ---------------------------------------------------------
@@ -273,7 +273,7 @@ p.sof <- sof.pctiles %>%
 sof.plots <- list(
   results = list(betas = p.betas, pctiles = p.sof),
   title = "Estimated abnormal outflows from scandal funds.",
-  caption = "The left panel shows the cross-sectional mean coefficient on post-scandal cohort $\\times$ time fixed effects from Equation \\@ref(eq:cohortReg). The right panel shows the time series of cross-sectional percentiles of $ScandalOutFlow$ across untainted funds.")
+  caption = "The left panel shows the cross-sectional mean coefficient on post-scandal cohort $\\times$ time fixed effects from equation~\\eqref{eq:cohortReg}. The right panel shows the time series of cross-sectional percentiles of $ScandalOutFlow$ across untainted funds.")
 
 
 # Combine and Save -------------------------------------------------------------
