@@ -32,6 +32,10 @@ AbsPC <- function(coef) {
   formatC(abs(as.numeric(gsub("\\*", "", coef))) * 100, 
     digits = 1, format = "f")
 }
+AbsC <- function(coef) {
+  formatC(abs(as.numeric(gsub("\\*", "", coef))), 
+    digits = 1, format = "f")
+}
 
 # utilities for labeling tables
 mr <- "\\midrule"
@@ -353,15 +357,15 @@ As an additional robustness check to ensure my results are not an artifact of co
 # Fund Performance
 
 The analysis presented so far is consistent with competitors of funds tainted by scandal reacting to improved investment opportunities by increasing capital allocated to active strategies. According to this line of reasoning we would expect the same funds to experience relatively improved performance. To investigate, in Table \@ref(tab:scandalPerformance) I perform analyses similar to those presented above, but with risk adjusted gross returns as the outcome variable of interest. The results demonstrate that close competitors of tainted funds indeed saw an increase in relative performance following the scandal, even after controlling for benchmark $\times$ month fixed effects. The inter-quartile difference in $ScandalExposure$ is associated with an increase in annualized three-factor benchmarked returns at the one (two) year horizon of
-`r min(AbsPC(tab.scandal$perf$sub.results$w1yr[1, 2:3]), AbsPC(tab.scandal$perf$sub.results$w1yr[1, 2:3]))`% to
-`r max(AbsPC(tab.scandal$perf$sub.results$w1yr[1, 2:3]), AbsPC(tab.scandal$perf$sub.results$w1yr[1, 2:3]))`% 
-(`r min(AbsPC(tab.scandal$perf$sub.results$w2yr[1, 2:3]), AbsPC(tab.scandal$perf$sub.results$w2yr[1, 2:3]))`% to
-`r max(AbsPC(tab.scandal$perf$sub.results$w2yr[1, 2:3]), AbsPC(tab.scandal$perf$sub.results$w2yr[1, 2:3]))`%),
+`r min(AbsC(tab.scandal$perf$sub.results$w1yr[1, 2:3]), AbsC(tab.scandal$perf$sub.results$w1yr[1, 2:3]))`% to
+`r max(AbsC(tab.scandal$perf$sub.results$w1yr[1, 2:3]), AbsC(tab.scandal$perf$sub.results$w1yr[1, 2:3]))`% 
+(`r min(AbsC(tab.scandal$perf$sub.results$w2yr[1, 2:3]), AbsC(tab.scandal$perf$sub.results$w2yr[1, 2:3]))`% to
+`r max(AbsC(tab.scandal$perf$sub.results$w2yr[1, 2:3]), AbsC(tab.scandal$perf$sub.results$w2yr[1, 2:3]))`%),
 depending on specification. The corresponding difference in $ScandalOutFlow$ is associated with increases of
-`r min(AbsPC(tab.scandal$perf$sub.results$w1yr[1, 4:5]), AbsPC(tab.scandal$perf$sub.results$w1yr[1, 4:5]))`% to
-`r max(AbsPC(tab.scandal$perf$sub.results$w1yr[1, 4:5]), AbsPC(tab.scandal$perf$sub.results$w1yr[1, 4:5]))`% 
-(`r min(AbsPC(tab.scandal$perf$sub.results$w2yr[1, 4:5]), AbsPC(tab.scandal$perf$sub.results$w2yr[1, 4:5]))`% to
-`r max(AbsPC(tab.scandal$perf$sub.results$w2yr[1, 4:5]), AbsPC(tab.scandal$perf$sub.results$w2yr[1, 4:5]))`%).
+`r min(AbsC(tab.scandal$perf$sub.results$w1yr[3, 4:5]), AbsC(tab.scandal$perf$sub.results$w1yr[3, 4:5]))`% to
+`r max(AbsC(tab.scandal$perf$sub.results$w1yr[3, 4:5]), AbsC(tab.scandal$perf$sub.results$w1yr[3, 4:5]))`% 
+(`r min(AbsC(tab.scandal$perf$sub.results$w2yr[3, 4:5]), AbsC(tab.scandal$perf$sub.results$w2yr[3, 4:5]))`% to
+`r max(AbsC(tab.scandal$perf$sub.results$w2yr[3, 4:5]), AbsC(tab.scandal$perf$sub.results$w2yr[3, 4:5]))`%).
 2SLS specifications that instrument for $\ln(CompetitorSize)$ with $ScandalOutFlow$ indicate that the variation in competitor scale due purely to abnormal outflows at scandal-afflicted funds is negatively related to fund performance. 
 
 

@@ -126,7 +126,7 @@ print(
 # --------------------------------------------------------------------------------
 ```
 
-@pst17L argue that unit trading costs might vary by fund segment, implying a model with segment $\times$ time fixed effects. To accommodate segment level variation in trading costs, I repeat the analysis with benchmark $\times$ quarter fixed effects in Table \@ref(tab:fundResponseMXBim). The results remain similar. 
+@pst17L argue that unit trading costs might vary by fund segment, implying a model with segment $\times$ time fixed effects. To accommodate segment level variation in trading costs, I repeat the analysis with benchmark $\times$ quarter fixed effects in Table \@ref(tab:fundResponseMXBim). The results remain similar. The results are also similar if, following @zhu17, I restrict the estimation data to pre-2008 observations (Tables \@ref(tab:fundResponse08), \@ref(tab:fundResponseMXBim08)).
 
 <!--
 Overall, my findings are consistent with fund managers reacting optimally to short-term changes in investment opportunities that are not immediately apparent to outside investors. This interpretation fits in with a growing literature on the adjustments managers make in response to time variations in the investment opportunity set. @knv16 show that managers are better at timing factors during recessions when the covariance between asset returns is high. @pst17 provide evidence that funds increase trading when faced with more favorable opportunities.

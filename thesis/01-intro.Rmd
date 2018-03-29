@@ -59,4 +59,3 @@ Chapter \@ref(sec:Data) describes the data and the construction of competitor si
 Chapter \@ref(sec:portfolio) presents an empirical analysis of capital allocation and competitor scale.
 Chapter \@ref(sec:scandal) presents evidence from the natural experiment created by the 2003 mutual fund scandal.
 Chapter \@ref(sec:conclusion) concludes.
-The [Data Appendix](https://www.dropbox.com/s/qugvhb8b0wqp0cg/LJ_JMP_Data_Appendix.pdf?dl=0) describes in detail the steps in the construction of the dataset.
