@@ -148,7 +148,7 @@ tab.pt <- list(
 # Pre-Trend: Bm X Time ---------------------------------------------------------
 
 # regression models
-m.pt.bm <- FormFELM(y, paste(x.pt, x2, sep = " + "), fe.bm, iv, cl)
+m.pt.bm <- FormFELM(y, paste(x.pt, x2, sep = " + "), fe.bm, iv, cl.bm)
 
 # run regressions
 r.pt.1yr.bm <- lapply(m.pt.bm, felm, scandal[
@@ -263,7 +263,7 @@ tab.pt.sof <- list(
 # Pre-Trend for ScandalOutFlow: Bm X Time --------------------------------------
 
 # regression models
-m.pt.sof.bm <- FormFELM(y, paste(x.pt.sof, x2, sep = " + "), fe.bm, iv, cl)
+m.pt.sof.bm <- FormFELM(y, paste(x.pt.sof, x2, sep = " + "), fe.bm, iv, cl.bm)
 
 # mean scandal outflow, 1 year window
 scandal[, scandal.outflow.m:= NULL]
