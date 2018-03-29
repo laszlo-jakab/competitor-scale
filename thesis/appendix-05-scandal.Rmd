@@ -8,8 +8,7 @@ pkgs <- c(
   "data.table",
   "zoo",
   "knitr",
-  "xtable"
-)
+  "xtable")
 lapply(pkgs, library, character.only = TRUE)
 
 # package options
@@ -42,7 +41,7 @@ px <- function(tab, ...) {
 	...)
 }
 com <- function(nc, txt) {
-  c(TCap(nc, reg.scandal$did.bm$caption),
+  c(TCap(nc, txt),
     mrn, PHead(nc, "Panel A: 1 year window"),
     mrn, PHead(nc, "Panel B: 2 year window"), mr)
 }
@@ -296,10 +295,11 @@ px(xtable(reg.scandal$iv.bm$results,
 rb <- nrow(reg.flow$scandal.cs$sub.results$raw)
 nc <- ncol(reg.flow$scandal.cs$results)
 add.to.row <- list(
-  pos = list(-1, 0, 0, rb, rb, rb), 
+  pos = list(-1, 0, 0, 0, 0, rb, rb, rb), 
   command = c(
     TCap(nc, reg.flow$scandal.cs$caption),
-	mrn, PHead(nc, "Panel A: Ignoring Past Performance"),
+	mr, "& \\multicolumn{4}{c}{\\textbf{1 year window}} & \\multicolumn{4}{c}{\\textbf{2 year window}} \\\\\n",
+	"\\cmidrule(lr){2-5} \\cmidrule(lr){6-9} \\\\\n", PHead(nc, "Panel A: Ignoring Past Performance"),
 	mrn, PHead(nc, "Panel B: Controlling for Past Performance"), mr))
 
 # print the table

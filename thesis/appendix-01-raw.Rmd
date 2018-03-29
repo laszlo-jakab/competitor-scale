@@ -17,7 +17,7 @@ pkgs <- c(
 lapply(pkgs, library, character.only = TRUE)
 options(knitr.kable.NA = '')
 
-# set figures at top of page
+# set figures Here
 knitr::opts_chunk$set(fig.pos = 'H')
 
 # quiet xtable

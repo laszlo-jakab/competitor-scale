@@ -8,8 +8,7 @@ pkgs <- c(
   "data.table",
   "zoo",
   "knitr",
-  "xtable"
-)
+  "xtable")
 lapply(pkgs, library, character.only = TRUE)
 options(knitr.kable.NA = '')
 

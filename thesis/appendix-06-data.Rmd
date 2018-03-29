@@ -67,7 +67,6 @@ I download the following datasets from WRDS: `MSF`, `STOCKNAMES`. The following 
 # Thomson Reuters Holdings Database
 \label{sec:Thomson}
 
-## Data 
 
 I download from WRDS data on fund share holdings from the Thomson Reuters Mutual Fund and Investment Company Common Stock Holdings Database (henceforth referred to as Thomson). The first holdings are reported as of 1979m12, but there is a jump in the number of reporting funds in 1980m3, which I consider the first complete report date.
 
