@@ -88,7 +88,7 @@ tab.did <- list(
   results = rt.did,
   sub.results = list(w1yr = rt.did.1yr, w2yr = rt.did.2yr),
   title = "Capital Allocation and the Scandal: Before and After Analysis",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. I normalize $ScandalExposure$ by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Standard errors are double clustered by fund and portfolio group $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified in the panel headers. $\\mathbb{I} \\times ScanEx$ is the interaction of $ScandalExposure$ (normalized by its interquartile range) and an indicator for the post-scandal period. Standard errors are double clustered by fund and portfolio group $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # DiD: Bm X Time ---------------------------------------------------------------
@@ -116,7 +116,7 @@ tab.did.bm <- list(
   results = rt.did.bm,
   sub.results = list(w1yr = rt.did.1yr.bm, w2yr = rt.did.2yr.bm),
   title = "Capital Allocation and the Scandal: Before and After Analysis --- Benchmark $\\times$ Time FE",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated to $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. $\\mathbb{I}$ is an indicator for the post scandal period. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{(2003m8-W, 2003m8], [2004m11, 2004m11 + W) \\}$, where $W$ corresponds to the number of years specified in the panel headers. $\\mathbb{I} \\times ScanEx$ is the interaction of $ScandalExposure$ (normalized by its interquartile range) and an indicator for the post-scandal period. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ date, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Pre-Trend --------------------------------------------------------------------
@@ -142,7 +142,7 @@ tab.pt <- list(
   results = rt.pt,
   sub.results = list(w1yr = rt.pt.1yr, w2yr = rt.pt.2yr),
   title = "Capital Allocation and $ScandalExposure$: Testing for Pre-Trends",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $[2003m8-W, 2003m8]$, where $W$ denotes the number of years specified. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $[2003m8-W, 2003m8]$, where $W$ corresponds to the number of years specified in the panel headers. $t \\times ScanEx$ is the interaction of a linear time trend with $ScandalExposure$ (normalized by its interquartile range). Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # Pre-Trend: Bm X Time ---------------------------------------------------------
@@ -167,8 +167,8 @@ rt.pt.bm <- rbind(rt.pt.1yr.bm, rt.pt.2yr.bm)
 tab.pt.bm <- list(
   results = rt.pt.bm,
   sub.results = list(w1yr = rt.pt.1yr.bm, w2yr = rt.pt.2yr.bm),
-  title = "Capital Allocation and the Scandal: Testing for Pre-Trends --- Benchmark $\\times$ Time FE",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $[2003m8-W, 2003m8]$, where $W$ corresponds to the number of years specified. $ScandalExposure$ (abbreviated $ScanEx$) is the fraction of untainted funds' $CompetitorSize$ due to portfolio similarity with future scandal funds in August 2003. $ScandalExposure$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  title = "Capital Allocation and $ScandalExposure$: Testing for Pre-Trends --- Benchmark $\\times$ Time FE",
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $[2003m8-W, 2003m8]$, where $W$ corresponds to the number of years specified in the panel headers. $t \\times ScanEx$ is the interaction a linear time trend with $ScandalExposure$ (normalized by its interquartile range). Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # ScandalOutFlow ---------------------------------------------------------------
@@ -192,7 +192,7 @@ tab.sof <- list(
   results = rt.sof,
   sub.results = list(w1yr = rt.sof.1yr, w2yr = rt.sof.2yr),
   title = "Capital Allocation and the Scandal: Using Abnormal Flows",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. $ScandalOutFlow$ is normalized by its interquartile range. Standard errors are double clustered by fund and portfolio group $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 # ScandalOutFlow: Bm X Time ---------------------------------------------------
@@ -217,8 +217,8 @@ rt.sof.bm <- rbind(rt.sof.1yr.bm, rt.sof.2yr.bm)
 tab.sof.bm <- list(
   results = rt.sof.bm,
   sub.results = list(w1yr = rt.sof.1yr.bm, w2yr = rt.sof.2yr.bm),
-  title = "Capital Allocation and the Scandal: Using Abnormal Flows --- Benchmark $\\times$ Time FE",
-  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. $ScandalOutFlow$ is the similarity-weighted cumulative abnormal outflows attributable to the scandal among involved funds. $ScandalOutFlow$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
+  title = "Capital Allocation and $ScandalOutFlow$ --- Benchmark $\\times$ Time FE",
+  caption = "Dependent variables are identified in the column headers. $\\ln(C.S.)$ is an abbreviation for $\\ln(CompetitorSize)$. Observations are at the fund-report date level, including only funds not directly involved in the scandal over the period $\\{[2003m9-W, 2004m10+W] \\}$, where $W$ corresponds to the number of years specified. $ScandalOutFlow$ is normalized by its interquartile range. Benchmarks are the indexes which yield the lowest active share, taken from \\citet{petajisto13}. I use the most recently available benchmark when one is missing. Standard errors are double clustered by fund and benchmark $\\times$ time, and reported in parentheses. Asterisks denote statistical significance: *** $p<$0.01, ** $p<$0.05, * $p<$0.1.")
 
 
 
