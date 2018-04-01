@@ -1,5 +1,7 @@
 Materials for reproducing Jakab (2018), *Competitor Scale and Mutual Fund Behavior*. If you have questions, contact the [author](laszlo.jakab@chicagobooth.edu). 
 
+[https://www.dropbox.com/s/bkompv9ttoakxjw/word-cloud.svg?dl=0]
+
 ## Setup
 
 Built under `R 3.4.3`. The following packages are used.
