@@ -1,7 +1,13 @@
 # Laszlo Jakab
-# Feb 2018
+# Apr 2018
 
 # Setup ------------------------------------------------------------------------
+
+# load packages and set options
+library(rJava)
+.jinit(parameters="-Xmx8g")
+library(RJDBC)
+library(laszlor)
 
 # relative path where I want output to go
 data.dir <- "data/raw"
@@ -9,76 +15,15 @@ data.dir <- "data/raw"
 
 # Connecting to WRDS -----------------------------------------------------------
 
-# necessary packages and options
-# load packages and set options
-library(rJava)
-.jinit(parameters="-Xmx8g")
-library(RJDBC)
-
 # WRDS username and pw, stored in my .Renviron
 user <- Sys.getenv("WRDS_USR")
 pass <- Sys.getenv("WRDS_PWD")
 
-# start WRDS session
-wrdsconnect <- function(user=user, pass=pass){
-  drv <- JDBC("com.sas.net.sharenet.ShareNetDriver",
-              "C:/Users/Laszlo/Documents/WRDS_Drivers/sas.intrnet.javatools.jar",
-              identifier.quote="`")
-  wrds <- dbConnect(drv, "jdbc:sharenet://wrds-cloud.wharton.upenn.edu:8551/",
-                    user, pass)
-  return(wrds)
-}
+# path to the WRDS driver (needs to be stored in CLASSPATH in .Renviron)
+jar.path <- strsplit(Sys.getenv("CLASSPATH"), ";")[[1]][2]
 
-wrds <- wrdsconnect(user = user, pass = pass)
-
-
-# Function for performing queries ----------------------------------------------
-
-# eats:
-#  (1) three strings:
-#        i.   name of dataset
-#        ii.  query for data to be pulled
-#        iii. query for variable names or supplied variable names
-#  (2) number of records to pull (default is all)
-#  (3) database connection (default wrds)
-#  (4) output (relative) directory
-#
-# outputs:
-# data.table of the resulting dataset
-#
-# clean-up:
-# (1) save each object as rds
-# (2) clear objects from workspace
-
-query.fn <- function(qstr, nobs = -1, con = wrds, out.dir = data.dir) {
-
-  # retrieve data
-  db.query <- dbSendQuery(con, qstr[2])                  # send query
-  dt <- setDT(dbFetch(db.query, n = nobs))               # pull data
-  dbClearResult(db.query)                                # clear query
-  # is the query for all variables in the dataset?
-  q.all.vars <- grepl("select \\*", qstr[2])
-
-  # if yes, then grab variable names from database and assign to dataset
-  if(q.all.vars == TRUE) {
-    nm.query <- dbSendQuery(con, qstr[3])                # send query
-    dt.names <- dbFetch(nm.query, n = -1)                # pull variable names
-    dbClearResult(nm.query)                              # clear query
-    dt.names <- gsub("\\s+", "", dt.names$`Column Name`) # clean whitespace
-  } else {
-    # otherwise, use user-specified list of variable names
-    dt.names <- unlist(strsplit(qstr[3], ","))           # user specified
-    dt.names <- gsub("\\s+", "", dt.names)               # clean whitespace
-  }
-
-  # set clean variable names
-  setnames(dt, dt.names)
-
-  # save data
-  saveRDS(dt, file.path(data.dir, paste0(qstr[1],".Rds")))
-  # clean workspace
-  rm(list = c("db.query", "dt", "q.all.vars", "dt.names"))
-}
+# establish connection to WRDS server
+wrds <- WRDSConnect(user, pass, jar.path)
 
 
 # Specification of queries -----------------------------------------------------
@@ -181,11 +126,8 @@ query.list <- list(
 # Loop over queries ------------------------------------------------------------
 
 for(q in query.list){
-  print(q)
-  query.fn(q)
-  print("done")
+  WRDSDownload(q, out.dir = data.dir)
 }
 
 # close WRDS connection
 dbDisconnect(wrds)
-
