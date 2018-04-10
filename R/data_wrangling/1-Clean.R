@@ -141,7 +141,7 @@ saveRDS(total.mktcap, file.path(clean.dir, "total_mktcap.Rds"))
 tfn.s12type1.fvint <- tfn.s12type1[
   # standardize dates
   , c("fdate", "rdate")
-  := lapply(.SD, as.Date.fast), .SDcols = c("fdate", "rdate")][
+    := lapply(.SD, as.Date.fast), .SDcols = c("fdate", "rdate")][
   # identify last report date by report month
   , max.rdate := max(rdate), by = .(fundno, year(rdate), month(rdate))][
   # keep only last report
